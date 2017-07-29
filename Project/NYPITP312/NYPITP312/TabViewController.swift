@@ -1,5 +1,5 @@
 //
-//  LoginViewController.swift
+//  TabViewController.swift
 //  NYPITP312
 //
 //  Created by Alex Ooi on 5/7/17.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-class LoginViewController: UIViewController {
+class TabViewController: UITabBarController {
 
     override func viewDidLoad() {
         super.viewDidLoad()

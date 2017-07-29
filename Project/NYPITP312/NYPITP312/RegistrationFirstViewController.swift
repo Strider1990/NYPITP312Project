@@ -1,14 +1,14 @@
 //
-//  LoginViewController.swift
+//  RegistrationFirstViewController.swift
 //  NYPITP312
 //
-//  Created by Alex Ooi on 5/7/17.
+//  Created by Alex Ooi on 3/7/17.
 //  Copyright © 2017 NYP. All rights reserved.
 //
 
 import UIKit
 
-class LoginViewController: UIViewController {
+class RegistrationFirstViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()

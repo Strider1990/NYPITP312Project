@@ -1,0 +1,24 @@
+{
+  "images" : [
+    {
+      "idiom" : "universal",
+      "filename" : "c89b541c9c7a7a9426df220c8df2b85e.png",
+      "scale" : "1x"
+    },
+    {
+      "idiom" : "universal",
+      "scale" : "2x"
+    },
+    {
+      "idiom" : "universal",
+      "scale" : "3x"
+    }
+  ],
+  "info" : {
+    "version" : 1,
+    "author" : "xcode"
+  },
+  "properties" : {
+    "template-rendering-intent" : "template"
+  }
+}

@@ -1,14 +1,14 @@
 //
-//  LoginViewController.swift
+//  CategoryViewController.swift
 //  NYPITP312
 //
-//  Created by Alex Ooi on 5/7/17.
+//  Created by Alex Ooi on 29/7/17.
 //  Copyright © 2017 NYP. All rights reserved.
 //
 
 import UIKit
 
-class LoginViewController: UIViewController {
+class CategoryViewController: ViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
