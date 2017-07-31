@@ -9,5 +9,7 @@
 import UIKit
 
 class Category: NSObject {
-
+    var catId: String?
+    var heading: String?
+    var name: String?
 }

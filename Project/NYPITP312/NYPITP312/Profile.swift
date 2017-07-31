@@ -9,5 +9,11 @@
 import UIKit
 
 class Profile: NSObject {
-
+    var profileImg: String?
+    var email: String?
+    var name: String?
+    var password: String?
+    var mobile: String?
+    var contactEmail: Bool?
+    var contactMobile: Bool?
 }

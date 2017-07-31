@@ -3,24 +3,38 @@
 
 target 'NYPITP312' do
   # Comment the next line if you're not using Swift and don't want to use dynamic frameworks
+  source 'https://github.com/CocoaPods/Specs.git'
+  platform :ios, '8.0'
   use_frameworks!
 
   # Pods for NYPITP312
+  pod 'Material', '~> 2.0'
   pod 'Firebase/Core'
   pod 'Firebase/Auth'
+  pod 'FacebookCore'
+  pod 'FacebookLogin'
+  pod 'FacebookShare'
   
   target 'NYPITP312Tests' do
     inherit! :search_paths
     # Pods for testing
+    pod 'Material', '~> 2.0'
     pod 'Firebase/Core'
     pod 'Firebase/Auth'
+    pod 'FacebookCore'
+    pod 'FacebookLogin'
+    pod 'FacebookShare'
   end
 
   target 'NYPITP312UITests' do
     inherit! :search_paths
     # Pods for testing
+    pod 'Material', '~> 2.0'
     pod 'Firebase/Core'
     pod 'Firebase/Auth'
+    pod 'FacebookCore'
+    pod 'FacebookLogin'
+    pod 'FacebookShare'
   end
 
 end

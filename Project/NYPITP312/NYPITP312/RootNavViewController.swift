@@ -9,7 +9,9 @@
 import UIKit
 
 class RootNavViewController: UINavigationController {
-
+    var login = Login()
+    var categoryList: [Category] = []
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         

@@ -3,3 +3,4 @@
 //
 
 #import "MicrosoftAzureMobile/MicrosoftAzureMobile.h"
+#import <CommonCrypto/CommonCrypto.h>

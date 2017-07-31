@@ -10,6 +10,7 @@ import UIKit
 
 class TabViewController: UITabBarController {
 
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -21,7 +22,13 @@ class TabViewController: UITabBarController {
         // Dispose of any resources that can be recreated.
     }
     
-
+    override func tabBar(_ tabBar: UITabBar, didSelect item: UITabBarItem) {
+        let par: RootNavViewController = parent as! RootNavViewController
+        if item.title! == "Profile" && par.login.token == nil {
+            performSegue(withIdentifier: "loginSegue", sender: self)
+        }
+    }
+    
     /*
     // MARK: - Navigation
 

@@ -9,5 +9,7 @@
 import UIKit
 
 class BrowseCollectionViewCell: UICollectionViewCell {
+    @IBOutlet weak var categoryImg: UIImageView!
+    @IBOutlet weak var categoryLabel: UILabel!
     
 }

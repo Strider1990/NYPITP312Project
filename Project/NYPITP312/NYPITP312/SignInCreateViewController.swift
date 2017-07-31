@@ -16,10 +16,10 @@ class SignInCreateViewController: UIViewController {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
-        let navigationBar = navigationController!.navigationBar
-        navigationBar.setBackgroundImage(UIImage(),
-                                         for: .default)
-        navigationBar.shadowImage = UIImage()
+        //let navigationBar = navigationController!.navigationBar
+        //navigationBar.setBackgroundImage(UIImage(),
+        //                                 for: .default)
+        //navigationBar.shadowImage = UIImage()
         
         signInButton.layer.cornerRadius = signInButton.frame.size.height / 2
         createAccountButton.layer.cornerRadius = createAccountButton.frame.size.height / 2
