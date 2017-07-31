@@ -202,6 +202,7 @@
 		0476FE051EADDB8A00CEF7EF /* NYPITP312 */ = {
 			isa = PBXGroup;
 			children = (
+				2E10FF821F2FF4FD00330A78 /* ViewControllers */,
 				040734601F0C43F300BB6FF7 /* Wrappers */,
 				041889EF1F0BDA0600E6ED16 /* Entities */,
 				04DD3E9E1EAE348E00D3D559 /* MicrosoftAzureMobile.framework */,
@@ -257,6 +258,13 @@
 				5D46F7C116642D5749F84479 /* Pods_NYPITP312UITests.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		2E10FF821F2FF4FD00330A78 /* ViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = ViewControllers;
 			sourceTree = "<group>";
 		};
 		B3A9958B64775CDA92F5878A /* Pods */ = {
