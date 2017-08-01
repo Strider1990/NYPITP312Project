@@ -1,10 +1,13 @@
 PODS:
+  - Alamofire (4.5.0)
   - Bolts (1.8.4):
     - Bolts/AppLinks (= 1.8.4)
     - Bolts/Tasks (= 1.8.4)
   - Bolts/AppLinks (1.8.4):
     - Bolts/Tasks
   - Bolts/Tasks (1.8.4)
+  - DZNEmptyDataSet (1.8.1)
+  - Eureka (3.0.0)
   - FacebookCore (0.2.0):
     - Bolts (~> 1.8)
     - FBSDKCoreKit (~> 4.15)
@@ -58,20 +61,30 @@ PODS:
     - GoogleToolboxForMac/NSString+URLArguments (= 2.1.1)
   - GoogleToolboxForMac/NSString+URLArguments (2.1.1)
   - GTMSessionFetcher/Core (1.1.8)
+  - iCarousel (1.8.3)
   - Material (2.6.3):
     - Material/Core (= 2.6.3)
   - Material/Core (2.6.3)
+  - SCLAlertView (0.7.0)
 
 DEPENDENCIES:
+  - Alamofire (~> 4.4)
+  - DZNEmptyDataSet
+  - Eureka
   - FacebookCore
   - FacebookLogin
   - FacebookShare
   - Firebase/Auth
   - Firebase/Core
+  - iCarousel (~> 1.8)
   - Material (~> 2.0)
+  - SCLAlertView
 
 SPEC CHECKSUMS:
+  Alamofire: f28cdffd29de33a7bfa022cbd63ae95a27fae140
   Bolts: 8a7995239dbe724f9cba2248b766d48b7ebdd322
+  DZNEmptyDataSet: 9525833b9e68ac21c30253e1d3d7076cc828eaa7
+  Eureka: f36fd440c3ebb7bfea0a4fbe6f16a05f1cb35906
   FacebookCore: 2cb3f0fbff218e9d3119cec84bae983b232412de
   FacebookLogin: c9d606504735780a9e3002465a615512e0a691a5
   FacebookShare: 8e9ee8ea06505e6a1d3d719b0cc63e840fb8aaeb
@@ -87,8 +100,10 @@ SPEC CHECKSUMS:
   GoogleSymbolUtilities: 631ee17048aa5e9ab133470d768ea997a5ef9b96
   GoogleToolboxForMac: 8e329f1b599f2512c6b10676d45736bcc2cbbeb0
   GTMSessionFetcher: 6f8d8b28b7e345549ac471071608170b31cb4977
+  iCarousel: d782f635afac190c49bb8ee455882284cff8b85f
   Material: af607a7ec0e9978ef85cf189a3d8ceeeb650400f
+  SCLAlertView: 8a14ffc40590c619e183eed2298b854385f30be1
 
-PODFILE CHECKSUM: 7ee30d60b6043ff73a0e0e46ef640d1789125299
+PODFILE CHECKSUM: bc6749272e35623c0182f1d4ee9b57c532169ece
 
 COCOAPODS: 1.2.1

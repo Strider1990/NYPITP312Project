@@ -14,6 +14,11 @@ target 'NYPITP312' do
   pod 'FacebookCore'
   pod 'FacebookLogin'
   pod 'FacebookShare'
+  pod 'DZNEmptyDataSet'
+  pod 'Eureka'
+  pod 'SCLAlertView'
+  pod 'iCarousel', '~> 1.8'
+  pod 'Alamofire', '~> 4.4'
   
   target 'NYPITP312Tests' do
     inherit! :search_paths
