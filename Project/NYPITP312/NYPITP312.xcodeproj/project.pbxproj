@@ -55,6 +55,7 @@
 		2EEB68681F314438008BE8A1 /* LevelTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EEB68671F314438008BE8A1 /* LevelTableViewController.swift */; };
 		2EEB686A1F3144EF008BE8A1 /* BookInfoAddViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EEB68691F3144EF008BE8A1 /* BookInfoAddViewController.swift */; };
 		2EEB686C1F314888008BE8A1 /* CategoryDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EEB686B1F314888008BE8A1 /* CategoryDataManager.swift */; };
+		2EEB68701F314B29008BE8A1 /* CustomButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EEB686F1F314B29008BE8A1 /* CustomButton.swift */; };
 		4015E7B8543FBE161609E384 /* Pods_NYPITP312.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DA04224FB43BD25438257DAB /* Pods_NYPITP312.framework */; };
 		5092329FDCD30B8AA0EB5CC3 /* Pods_NYPITP312UITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5D46F7C116642D5749F84479 /* Pods_NYPITP312UITests.framework */; };
 /* End PBXBuildFile section */
@@ -129,6 +130,7 @@
 		2EEB68671F314438008BE8A1 /* LevelTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LevelTableViewController.swift; sourceTree = "<group>"; };
 		2EEB68691F3144EF008BE8A1 /* BookInfoAddViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BookInfoAddViewController.swift; sourceTree = "<group>"; };
 		2EEB686B1F314888008BE8A1 /* CategoryDataManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CategoryDataManager.swift; sourceTree = "<group>"; };
+		2EEB686F1F314B29008BE8A1 /* CustomButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomButton.swift; sourceTree = "<group>"; };
 		45428F8D26CD40CF0371BD68 /* Pods-NYPITP312Tests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NYPITP312Tests.release.xcconfig"; path = "Pods/Target Support Files/Pods-NYPITP312Tests/Pods-NYPITP312Tests.release.xcconfig"; sourceTree = "<group>"; };
 		47E2CDB3923086D95346E7C7 /* Pods-NYPITP312.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NYPITP312.release.xcconfig"; path = "Pods/Target Support Files/Pods-NYPITP312/Pods-NYPITP312.release.xcconfig"; sourceTree = "<group>"; };
 		5D46F7C116642D5749F84479 /* Pods_NYPITP312UITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_NYPITP312UITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -224,6 +226,7 @@
 		0476FE051EADDB8A00CEF7EF /* NYPITP312 */ = {
 			isa = PBXGroup;
 			children = (
+				2EEB686E1F314AC8008BE8A1 /* CustomViews */,
 				2E10FF851F2FF6B200330A78 /* DataManagers */,
 				2E10FF821F2FF4FD00330A78 /* ViewControllers */,
 				040734601F0C43F300BB6FF7 /* Wrappers */,
@@ -303,6 +306,14 @@
 				2EEB686B1F314888008BE8A1 /* CategoryDataManager.swift */,
 			);
 			name = DataManagers;
+			sourceTree = "<group>";
+		};
+		2EEB686E1F314AC8008BE8A1 /* CustomViews */ = {
+			isa = PBXGroup;
+			children = (
+				2EEB686F1F314B29008BE8A1 /* CustomButton.swift */,
+			);
+			name = CustomViews;
 			sourceTree = "<group>";
 		};
 		B3A9958B64775CDA92F5878A /* Pods */ = {
@@ -635,6 +646,7 @@
 				04822B7E1ED2681000723903 /* RootNavViewController.swift in Sources */,
 				041889EE1F0A8D4500E6ED16 /* FieldValidators.swift in Sources */,
 				2EEB68601F314041008BE8A1 /* Posting.swift in Sources */,
+				2EEB68701F314B29008BE8A1 /* CustomButton.swift in Sources */,
 				041889F31F0BDCFD00E6ED16 /* String+Encryption.swift in Sources */,
 				041889F71F0BE14D00E6ED16 /* SwiftJSON.swift in Sources */,
 				042293B01F2CE9CC00BE2CCD /* Category.swift in Sources */,
