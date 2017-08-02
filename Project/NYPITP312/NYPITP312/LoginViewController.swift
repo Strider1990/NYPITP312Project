@@ -7,21 +7,28 @@
 //
 
 import UIKit
+import FBSDKLoginKit
 
-class LoginViewController: UIViewController {
+class LoginViewController: UIViewController, GIDSignInUIDelegate {
     @IBOutlet weak var emailTextField: DesignableUITextField!
     @IBOutlet weak var passwordTextField: DesignableUITextField!
     @IBOutlet weak var signInButton: UIButton!
+    @IBOutlet weak var facebookLogin: FBSDKLoginButton!
+    @IBOutlet weak var stackView: UIStackView!
     
     var nonce: String?
     var login: Login?
-    
+
     let validator = FieldValidators()
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
+        GIDSignIn.sharedInstance().uiDelegate = self
+        
         signInButton.layer.cornerRadius = signInButton.frame.size.height / 2
+        
+        facebookLogin.titleLabel?.font = UIFont.boldSystemFont(ofSize: 20)
         // Do any additional setup after loading the view.
     }
 
@@ -78,6 +85,7 @@ class LoginViewController: UIViewController {
                         self.login?.photo = json!["photo"].string!
                         self.login?.token = json!["token"].string!
                         self.login?.userId = json!["userid"].string!
+                        self.login?.type = json!["type"].string!
                         
                         let par: RootNavViewController = self.parent as! RootNavViewController
                         par.login = self.login!
@@ -90,6 +98,72 @@ class LoginViewController: UIViewController {
                 })
             }
         }
+    }
+    
+    @IBAction func loginButtonClicked() {
+        let loginManager = FBSDKLoginManager()
+        loginManager.logIn(withReadPermissions: ["public_profile", "email"], from: self, handler: {
+            loginResult, err in
+            if err == nil {
+                print(loginResult?.token)
+            }
+        })
+            /*switch loginResult {
+            case .failed(let error):
+                print(error)
+            case .cancelled:
+                print("User cancelled login.")
+            case .success(let grantedPermissions, let declinedPermissions, let accessToken):
+                print(accessToken)
+                
+                DispatchQueue.global(qos: .background).async {
+                    HTTP.postJSON(url: "http://13.228.39.122/FP01_654265348176237/1.0/user/login", json: JSON.init(parseJSON: "{ \"type\": \"F\", \"token\": \(accessToken) }"), onComplete: {
+                        json, response, error in
+                        
+                        print(response!)
+                        
+                        if json == nil {
+                            return
+                        }
+                        
+                        print(json!)
+                        
+                        DispatchQueue.main.async {
+                            self.navigationController?.popToRootViewController(animated: true)
+                        }
+                    })
+                }
+                print("Logged in!")
+            })
+        loginManager.logIn([ .publicProfile, .email ], viewController: self, completion: { loginResult in
+            switch loginResult {
+            case .failed(let error):
+                print(error)
+            case .cancelled:
+                print("User cancelled login.")
+            case .success(let grantedPermissions, let declinedPermissions, let accessToken):
+                print(accessToken)
+                
+                DispatchQueue.global(qos: .background).async {
+                    HTTP.postJSON(url: "http://13.228.39.122/FP01_654265348176237/1.0/user/login", json: JSON.init(parseJSON: "{ \"type\": \"F\", \"token\": \(accessToken) }"), onComplete: {
+                        json, response, error in
+                        
+                        print(response!)
+                        
+                        if json == nil {
+                            return
+                        }
+                        
+                        print(json!)
+                        
+                        DispatchQueue.main.async {
+                            self.navigationController?.popToRootViewController(animated: true)
+                        }
+                    })
+                }
+                print("Logged in!")
+            }
+        })*/
     }
     /*
     // MARK: - Navigation

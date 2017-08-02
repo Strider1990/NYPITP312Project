@@ -8,27 +8,44 @@
 
 import UIKit
 
-class TabViewController: UITabBarController {
-
+class TabViewController: UITabBarController, UITabBarControllerDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        self.delegate = self
         // Do any additional setup after loading the view.
     }
-
+    
+    func tabBarController(_ tabBarController: UITabBarController, shouldSelect viewController: UIViewController) -> Bool {
+        let par: RootNavViewController = parent as! RootNavViewController
+        if viewController is ProfileViewController && par.login.token == nil {
+            performSegue(withIdentifier: "loginSegue", sender: self)
+            return false
+        }
+        return true
+    }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
     
-    override func tabBar(_ tabBar: UITabBar, didSelect item: UITabBarItem) {
+    /*override func tabBar(_ tabBar: UITabBar, didSelect item: UITabBarItem) {
         let par: RootNavViewController = parent as! RootNavViewController
+        
         if item.title! == "Profile" && par.login.token == nil {
             performSegue(withIdentifier: "loginSegue", sender: self)
         }
     }
     
+    override func shouldPerformSegue(withIdentifier identifier: String, sender: Any?) -> Bool {
+        let par: RootNavViewController = parent as! RootNavViewController
+        //if item.title! == "Profile" && par.login.token == nil {
+            //performSegue(withIdentifier: "loginSegue", sender: self)
+        //}
+        return true
+    }*/
     /*
     // MARK: - Navigation
 

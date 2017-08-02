@@ -8,7 +8,7 @@
 
 import UIKit
 
-class RegistrationSecondViewController: UIViewController, UIImagePickerControllerDelegate {
+class RegistrationSecondViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
 
     @IBOutlet weak var profileButton: UIButton!
     @IBOutlet weak var emailSwitch: UISwitch!
@@ -16,6 +16,9 @@ class RegistrationSecondViewController: UIViewController, UIImagePickerControlle
     @IBOutlet weak var signUpButton: UIButton!
     
     var profile: Profile?
+    
+    var imagePicked: Bool = false
+    var base64Image: String?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -46,13 +49,29 @@ class RegistrationSecondViewController: UIViewController, UIImagePickerControlle
         
         let takePhoto = UIAlertAction(title: "Take Photo", style: .default) { (alert : UIAlertAction!) in
             //TODO: Get Camera
+            if UIImagePickerController.isSourceTypeAvailable(UIImagePickerControllerSourceType.camera) {
+                let imagePicker = UIImagePickerController()
+                imagePicker.delegate = self
+                imagePicker.sourceType = UIImagePickerControllerSourceType.camera;
+                imagePicker.allowsEditing = false
+                self.present(imagePicker, animated: true, completion: nil)
+            }
         }
         let sharePhoto = UIAlertAction(title: "Open Gallery", style: .default) { (alert : UIAlertAction!) in
             //TODO: Get Photo Library
+            if UIImagePickerController.isSourceTypeAvailable(UIImagePickerControllerSourceType.photoLibrary) {
+                let imagePicker = UIImagePickerController()
+                imagePicker.delegate = self
+                imagePicker.sourceType = UIImagePickerControllerSourceType.photoLibrary
+                imagePicker.allowsEditing = false
+                self.present(imagePicker, animated: true, completion: nil)
+            }
         }
         let cancelAction = UIAlertAction(title: "Cancel", style: .cancel) { (alert : UIAlertAction!) in
             //TODO: Destroy optionMenu
+            
         }
+        
         optionMenu.addAction(takePhoto)
         optionMenu.addAction(sharePhoto)
         optionMenu.addAction(cancelAction)
@@ -60,15 +79,9 @@ class RegistrationSecondViewController: UIViewController, UIImagePickerControlle
     }
     
     @IBAction func validateSignUp(_ sender: UIButton) {
-        if emailSwitch.isOn || smsSwitch.isOn {
+        if (emailSwitch.isOn || smsSwitch.isOn) && imagePicked {
             // Validate photo has been uploaded
             self.profile?.profileImg = "filepath"
-            
-            /*let testFrame: CGRect = CGRect(x: 0, y: 200, width: 320, height: 200)
-            var testView: UIView = UIView(frame: testFrame)
-            testView.backgroundColor = UIColor(red: 0.5, green: 0.5, blue: 0.5, alpha: 1.0)
-            testView.alpha = 0.5
-            self.view.addSubview(testView)*/
             
             let spinner: UIActivityIndicatorView = UIActivityIndicatorView(activityIndicatorStyle: UIActivityIndicatorViewStyle.whiteLarge)
             spinner.frame = self.view.frame
@@ -88,24 +101,80 @@ class RegistrationSecondViewController: UIViewController, UIImagePickerControlle
                         return
                     }
                     
+                    let par: RootNavViewController = self.parent as! RootNavViewController
+                    let newLogin = Login()
+                    
                     if json!["success"].exists() {
-                        let par: RootNavViewController = self.parent as! RootNavViewController
-                        let newLogin = Login()
                         newLogin.name = self.profile!.name!
                         newLogin.photo = self.profile!.profileImg!
                         newLogin.token = json!["token"].string!
                         newLogin.userId = json!["userid"].string!
+                        newLogin.type = json!["type"].string!
                         
                         par.login = newLogin
                     }
                  
-                    DispatchQueue.main.async {
-                        spinner.stopAnimating()
-                        self.navigationController?.popToRootViewController(animated: true)
-                    }
+                    //Post to add photo
+                    HTTP.postJSON(url: "http://13.228.39.122/FP01_654265348176237/1.0/photos/addu", json: JSON.init(parseJSON: "\"token\": \"\(par.login.token!)\", \"file\": \"\(self.base64Image!)\""), onComplete: {
+                        json, response, error in
+                        
+                        if json == nil
+                        {
+                            return
+                        }
+                        
+                        print(json!)
+                        
+                        DispatchQueue.main.async {
+                            spinner.stopAnimating()
+                            self.navigationController?.popToRootViewController(animated: true)
+                        }
+                    })
                 })
             }
         }
+    }
+    
+    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+        // User cancelled
+    }
+    
+    internal func imagePickerController(
+        _ picker: UIImagePickerController,
+        didFinishPickingMediaWithInfo info:
+        [String : Any])
+    {
+        imagePicked = true
+        if let editedImage = info[UIImagePickerControllerEditedImage] as? UIImage {
+            let resized = self.resizeImage(image: editedImage, newWidth: 300.0)
+            self.profileButton.setBackgroundImage(resized, for: .normal)
+            self.profileButton.setTitle("", for: .normal)
+            picker.dismiss(animated: true)
+            let imageData: Data = UIImagePNGRepresentation(resized!)!
+            base64Image = imageData.base64EncodedString(options: .lineLength64Characters)
+        } else if let origImage = info[UIImagePickerControllerOriginalImage] as? UIImage {
+            let resized = self.resizeImage(image: origImage, newWidth: 300.0)
+            self.profileButton.setBackgroundImage(resized, for: .normal)
+            self.profileButton.setTitle("", for: .normal)
+            picker.dismiss(animated: true)
+            let imageData: Data = UIImagePNGRepresentation(resized!)!
+            base64Image = imageData.base64EncodedString(options: .lineLength64Characters)
+        } else {
+            print("Error in getting image")
+        }
+    }
+    
+    func resizeImage(image: UIImage, newWidth: CGFloat) -> UIImage? {
+        
+        let scale = newWidth / image.size.width
+        let newHeight = image.size.height * scale
+        UIGraphicsBeginImageContext(CGSize(width: newWidth, height: newHeight))
+        image.draw(in: CGRect(x: 0, y: 0, width: newWidth, height: newHeight))
+        
+        let newImage = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+        
+        return newImage
     }
     
     /*

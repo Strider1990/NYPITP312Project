@@ -11,9 +11,14 @@ target 'NYPITP312' do
   pod 'Material', '~> 2.0'
   pod 'Firebase/Core'
   pod 'Firebase/Auth'
+  pod 'Google/SignIn'
   pod 'FacebookCore'
   pod 'FacebookLogin'
   pod 'FacebookShare'
+  pod 'FBSDKCoreKit'
+  pod 'FBSDKLoginKit'
+  pod 'FBSDKShareKit'
+  pod 'OAuthSwift', '~> 1.1.0'
   
   target 'NYPITP312Tests' do
     inherit! :search_paths
@@ -21,9 +26,13 @@ target 'NYPITP312' do
     pod 'Material', '~> 2.0'
     pod 'Firebase/Core'
     pod 'Firebase/Auth'
+    pod 'Google/SignIn'
     pod 'FacebookCore'
     pod 'FacebookLogin'
     pod 'FacebookShare'
+    pod 'FBSDKCoreKit'
+    pod 'FBSDKLoginKit'
+    pod 'FBSDKShareKit'
   end
 
   target 'NYPITP312UITests' do
@@ -32,9 +41,13 @@ target 'NYPITP312' do
     pod 'Material', '~> 2.0'
     pod 'Firebase/Core'
     pod 'Firebase/Auth'
+    pod 'Google/SignIn'
     pod 'FacebookCore'
     pod 'FacebookLogin'
     pod 'FacebookShare'
+    pod 'FBSDKCoreKit'
+    pod 'FBSDKLoginKit'
+    pod 'FBSDKShareKit'
   end
 
 end

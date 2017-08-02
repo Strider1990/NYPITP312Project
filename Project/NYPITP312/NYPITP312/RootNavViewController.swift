@@ -15,7 +15,7 @@ class RootNavViewController: UINavigationController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        navigationBar.tintColor = UIColor.white;
+        navigationBar.tintColor = UIColor.white
         // Do any additional setup after loading the view.
     }
 
@@ -34,12 +34,4 @@ class RootNavViewController: UINavigationController {
         // Pass the selected object to the new view controller.
     }
     */
-
-    func uicolorFromHex(_ rgbValue:UInt32)->UIColor{
-        let red = CGFloat((rgbValue & 0xFF0000) >> 16)/256.0
-        let green = CGFloat((rgbValue & 0xFF00) >> 8)/256.0
-        let blue = CGFloat(rgbValue & 0xFF)/256.0
-        
-        return UIColor(red:red, green:green, blue:blue, alpha:1.0)
-    }
 }

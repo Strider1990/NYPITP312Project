@@ -24,6 +24,7 @@
 		042293AE1F2CE7CD00BE2CCD /* Book.swift in Sources */ = {isa = PBXBuildFile; fileRef = 042293AD1F2CE7CD00BE2CCD /* Book.swift */; };
 		042293B01F2CE9CC00BE2CCD /* Category.swift in Sources */ = {isa = PBXBuildFile; fileRef = 042293AF1F2CE9CC00BE2CCD /* Category.swift */; };
 		0457943E1F2B8706003B853C /* BookCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0457943D1F2B8706003B853C /* BookCollectionViewCell.swift */; };
+		046890641F30660C00104A80 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 046890631F30660C00104A80 /* ProfileViewController.swift */; };
 		0476FE071EADDB8A00CEF7EF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0476FE061EADDB8A00CEF7EF /* AppDelegate.swift */; };
 		0476FE091EADDB8A00CEF7EF /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0476FE081EADDB8A00CEF7EF /* ViewController.swift */; };
 		0476FE0C1EADDB8A00CEF7EF /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0476FE0A1EADDB8A00CEF7EF /* Main.storyboard */; };
@@ -84,6 +85,8 @@
 		042293AD1F2CE7CD00BE2CCD /* Book.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Book.swift; sourceTree = "<group>"; };
 		042293AF1F2CE9CC00BE2CCD /* Category.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Category.swift; sourceTree = "<group>"; };
 		0457943D1F2B8706003B853C /* BookCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BookCollectionViewCell.swift; sourceTree = "<group>"; };
+		046890621F3032BD00104A80 /* NYPITP312.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = NYPITP312.entitlements; sourceTree = "<group>"; };
+		046890631F30660C00104A80 /* ProfileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		0476FE031EADDB8A00CEF7EF /* NYPITP312.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NYPITP312.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0476FE061EADDB8A00CEF7EF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		0476FE081EADDB8A00CEF7EF /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -202,6 +205,7 @@
 		0476FE051EADDB8A00CEF7EF /* NYPITP312 */ = {
 			isa = PBXGroup;
 			children = (
+				046890621F3032BD00104A80 /* NYPITP312.entitlements */,
 				040734601F0C43F300BB6FF7 /* Wrappers */,
 				041889EF1F0BDA0600E6ED16 /* Entities */,
 				04DD3E9E1EAE348E00D3D559 /* MicrosoftAzureMobile.framework */,
@@ -224,6 +228,7 @@
 				040734671F0C860700BB6FF7 /* BrowseViewController.swift */,
 				040734691F0C8E0000BB6FF7 /* TabViewController.swift */,
 				042293AB1F2CE54D00BE2CCD /* CategoryViewController.swift */,
+				046890631F30660C00104A80 /* ProfileViewController.swift */,
 			);
 			path = NYPITP312;
 			sourceTree = "<group>";
@@ -352,6 +357,11 @@
 						DevelopmentTeam = MP7WY8W5VT;
 						LastSwiftMigration = 0830;
 						ProvisioningStyle = Automatic;
+						SystemCapabilities = {
+							com.apple.Keychain = {
+								enabled = 1;
+							};
+						};
 					};
 					0476FE161EADDB8A00CEF7EF = {
 						CreatedOnToolsVersion = 8.3.2;
@@ -575,6 +585,7 @@
 				041889F61F0BE14D00E6ED16 /* HTTP.swift in Sources */,
 				0476FE071EADDB8A00CEF7EF /* AppDelegate.swift in Sources */,
 				041889F11F0BDA2400E6ED16 /* Profile.swift in Sources */,
+				046890641F30660C00104A80 /* ProfileViewController.swift in Sources */,
 				0407346C1F0C8FE200BB6FF7 /* BrowseCollectionViewCell.swift in Sources */,
 				0407346A1F0C8E0000BB6FF7 /* TabViewController.swift in Sources */,
 				04822B7E1ED2681000723903 /* RootNavViewController.swift in Sources */,
@@ -739,6 +750,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_ENTITLEMENTS = NYPITP312/NYPITP312.entitlements;
 				DEVELOPMENT_TEAM = MP7WY8W5VT;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -762,6 +774,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_ENTITLEMENTS = NYPITP312/NYPITP312.entitlements;
 				DEVELOPMENT_TEAM = MP7WY8W5VT;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",

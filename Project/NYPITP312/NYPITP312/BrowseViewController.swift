@@ -17,9 +17,16 @@ class BrowseViewController: UIViewController, UICollectionViewDataSource, UIColl
     var categoryList: [Category] = []
     var bookCatList: [String: [Category]] = [:]
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        self.parent?.navigationItem.title = "Browse"
+        self.parent?.navigationItem.leftBarButtonItem = nil
+        self.parent?.navigationItem.rightBarButtonItem = nil
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.parent?.navigationItem.title = "Browse"
         
         DispatchQueue.global(qos: .background).async {
             HTTP.postJSON(url: "http://13.228.39.122/FP01_654265348176237/1.0/category/list", json: JSON.init(parseJSON: "{\"heading\": \"Category\"}"), onComplete:
