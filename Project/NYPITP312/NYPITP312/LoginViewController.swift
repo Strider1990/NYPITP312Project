@@ -111,21 +111,7 @@ class LoginViewController: UIViewController, GIDSignInUIDelegate {
             let socialToken = result?.token.tokenString
             print(socialToken)
             
-            LoginDataManager.socialLogin(socialToken: socialToken!, onComplete: {
-                (token, userId, isLogin) -> Void in
-                
-                LoginGlobalVar.token = token
-                LoginGlobalVar.userId = userId
-                
-                if (isLogin) {
-                    DispatchQueue.main.async() {
-                        [unowned self] in
-                        self.performSegue(withIdentifier: "login", sender: self)
-                    }
-                }
-                
-            })
-            
+                        
             
         }
     }

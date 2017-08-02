@@ -50,6 +50,7 @@ class ManualAddViewController: UIViewController, SendCategoryDelegate, SendBookD
     var filePath = [String]()
     var tempCateid : String!
     var tempLevelid : String!
+    var tempOverallCateid : String!
     
     var postItem : Posting?
     
@@ -161,15 +162,23 @@ class ManualAddViewController: UIViewController, SendCategoryDelegate, SendBookD
     func sendData(text: String) {
         categoryLbl.text = text
         print("yolo")
+        var overallCate : String!
         CategoryDataManager.getCateid(name: text, limit: "1", onComplete: {
             (data : Category) in
             self.tempCateid = data.id
+            overallCate = data.heading
             print(self.tempCateid)
             if self.tempCateid.characters.count > 0 {
                 PostingDataManager.userCategoryDataExist = true
             }
-            
+            CategoryDataManager.getCateid(name: overallCate, limit: "1", onComplete: {
+                (data2 : Category) in
+                self.tempOverallCateid = data2.id
+                print("overall catid \(self.tempOverallCateid)")
+                
+            })
         })
+        
     }
     func populateData(firstTime: Bool) {
         firstTimee = firstTime
@@ -485,6 +494,7 @@ class ManualAddViewController: UIViewController, SendCategoryDelegate, SendBookD
                 print("success")
                 print("level id nyaaan \(self.tempLevelid)")
                 print(" cate id nyannnn \(self.tempCateid)")
+                print(" overallcate id nyannnn \(self.tempOverallCateid)")
                 print("FILEPATH ARR COUNT ^~^ : \(self.filePath.count)")
                 counter = counter + 1
                 
@@ -499,7 +509,9 @@ class ManualAddViewController: UIViewController, SendCategoryDelegate, SendBookD
                         print("huealien")
                     }
                     print("kitty cat")
-                    var catid : [String] = [self.tempCateid!,self.tempLevelid!]
+                    var catid : [String] = [self.tempCateid!,self.tempLevelid!, self.tempOverallCateid!]
+                    
+
                     
                     print("CATEGORY ID \(catid)")
                     print("kitty cat")
