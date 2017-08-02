@@ -15,10 +15,18 @@ target 'NYPITP312' do
   pod 'FacebookCore'
   pod 'FacebookLogin'
   pod 'FacebookShare'
+<<<<<<< HEAD
   pod 'FBSDKCoreKit'
   pod 'FBSDKLoginKit'
   pod 'FBSDKShareKit'
   pod 'OAuthSwift', '~> 1.1.0'
+=======
+  pod 'DZNEmptyDataSet'
+  pod 'Eureka'
+  pod 'SCLAlertView'
+  pod 'iCarousel', '~> 1.8'
+  pod 'Alamofire', '~> 4.4'
+>>>>>>> refs/remotes/origin/master
   
   target 'NYPITP312Tests' do
     inherit! :search_paths

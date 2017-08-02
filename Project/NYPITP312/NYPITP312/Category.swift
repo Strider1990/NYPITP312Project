@@ -9,7 +9,10 @@
 import UIKit
 
 class Category: NSObject {
-    var catId: String?
-    var heading: String?
-    var name: String?
+    var id : String?
+    //changed catId to id
+    var displayOrder : String?
+    //included displayOrder
+    var heading : String?
+    var name : String?
 }
