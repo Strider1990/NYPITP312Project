@@ -28,19 +28,20 @@ class ProfileViewController: UIViewController {
         self.parent?.navigationItem.rightBarButtonItem = edit
         let logout = UIBarButtonItem(title: "Logout", style: .plain, target: self, action: #selector(ProfileViewController.btnLogout))
         self.parent?.navigationItem.leftBarButtonItem = logout
+        
+        do {
+            let data = try Data(contentsOf: URL(string: "http://13.228.39.122/fpsatimgdev/loadimage.aspx?q=users/\(par.login.photo!)_c150")!)
+            print("http://13.228.39.122/fpsatimgdev/loadimage.aspx?q=users/\(par.login.photo!)_c150")
+            self.profilePhoto.image = UIImage(data: data)
+        } catch {
+            print("Error in data \(par.login.photo!)")
+        }
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         par = self.parent?.parent as! RootNavViewController
-        
-        do {
-            let data = try Data(contentsOf: URL(string: "http://13.228.39.122/fpsatimgdev/loadimage.aspx?q=users/\(par.login.photo!)_c150")!)
-            self.profilePhoto.image = UIImage(data: data)
-        } catch {
-            print("Error in data \(par.login.photo!)")
-        }
         
         self.profilePhoto.layer.cornerRadius = self.profilePhoto.frame.width / 2
     }
