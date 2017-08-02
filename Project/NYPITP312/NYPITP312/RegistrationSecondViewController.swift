@@ -150,14 +150,14 @@ class RegistrationSecondViewController: UIViewController, UIImagePickerControlle
             self.profileButton.setBackgroundImage(resized, for: .normal)
             self.profileButton.setTitle("", for: .normal)
             picker.dismiss(animated: true)
-            let imageData: Data = UIImagePNGRepresentation(resized!)!
+            let imageData: Data = UIImageJPEGRepresentation(resized!, 0.5)!
             base64Image = imageData.base64EncodedString(options: .lineLength64Characters)
         } else if let origImage = info[UIImagePickerControllerOriginalImage] as? UIImage {
             let resized = self.resizeImage(image: origImage, newWidth: 300.0)
             self.profileButton.setBackgroundImage(resized, for: .normal)
             self.profileButton.setTitle("", for: .normal)
             picker.dismiss(animated: true)
-            let imageData: Data = UIImagePNGRepresentation(resized!)!
+            let imageData: Data = UIImageJPEGRepresentation(resized!, 0.5)!
             base64Image = imageData.base64EncodedString(options: .lineLength64Characters)
         } else {
             print("Error in getting image")

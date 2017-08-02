@@ -34,7 +34,7 @@ class CategoryViewController: UICollectionViewController {
         
         DispatchQueue.global(qos: .background).async {
             var catIds: [String] = []
-            catIds.append((self.category?.catId)!)
+            catIds.append((self.category?.id)!)
             
             //let cats: [Category] = self.categories[key]!
             

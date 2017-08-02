@@ -44,7 +44,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate {
             }
         }) */
         
-<<<<<<< HEAD
         return FBSDKApplicationDelegate.sharedInstance().application(application, didFinishLaunchingWithOptions: launchOptions)
     }
     
@@ -143,7 +142,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate {
                                                      sourceApplication: options[UIApplicationOpenURLOptionsKey.sourceApplication] as? String,
                                                      annotation: options[UIApplicationOpenURLOptionsKey.annotation])
         }*/
-=======
         
         //Setting default color for the navigation bar 
         UINavigationBar.appearance().setBackgroundImage(UIImage(), for: UIBarPosition.any, barMetrics: UIBarMetrics.default)
@@ -160,7 +158,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate {
 
         
         return true
->>>>>>> refs/remotes/origin/master
     }
 
     func applicationWillResignActive(_ application: UIApplication) {

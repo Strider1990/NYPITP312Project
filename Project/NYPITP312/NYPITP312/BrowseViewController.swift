@@ -39,7 +39,7 @@ class BrowseViewController: UIViewController, UICollectionViewDataSource, UIColl
                     
                     for (_, v) in json! {
                         let cat: Category = Category()
-                        cat.catId = v["id"].string!
+                        cat.id = v["id"].string!
                         cat.heading = v["heading"].string!
                         cat.name = v["name"].string!
                         self.categoryList.append(cat)
@@ -61,7 +61,7 @@ class BrowseViewController: UIViewController, UICollectionViewDataSource, UIColl
                                 var tempCatList: [Category] = []
                                 for (_, v) in json! {
                                     let bookCat: Category = Category()
-                                    bookCat.catId = v["id"].string!
+                                    bookCat.id = v["id"].string!
                                     bookCat.heading = v["heading"].string!
                                     bookCat.name = v["name"].string!
                                     tempCatList.append(bookCat)

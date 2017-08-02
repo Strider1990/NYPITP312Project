@@ -233,13 +233,10 @@
 		0476FE051EADDB8A00CEF7EF /* NYPITP312 */ = {
 			isa = PBXGroup;
 			children = (
-<<<<<<< HEAD
 				046890621F3032BD00104A80 /* NYPITP312.entitlements */,
-=======
 				2EEB686E1F314AC8008BE8A1 /* CustomViews */,
 				2E10FF851F2FF6B200330A78 /* DataManagers */,
 				2E10FF821F2FF4FD00330A78 /* ViewControllers */,
->>>>>>> refs/remotes/origin/master
 				040734601F0C43F300BB6FF7 /* Wrappers */,
 				041889EF1F0BDA0600E6ED16 /* Entities */,
 				04DD3E9E1EAE348E00D3D559 /* MicrosoftAzureMobile.framework */,
