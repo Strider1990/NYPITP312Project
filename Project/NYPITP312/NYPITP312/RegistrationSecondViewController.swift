@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Alamofire
 
 class RegistrationSecondViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
 
@@ -115,6 +116,57 @@ class RegistrationSecondViewController: UIViewController, UIImagePickerControlle
                     }
                  
                     //Post to add photo
+                    /*
+                     Alamofire.upload(multipartFormData: { (multipartFormData) in
+                     multipartFormData.append(UIImageJPEGRepresentation(image, 0.5)!, withName: "file", fileName: "file.png", mimeType: "image/png")
+                     for (key, value) in parameters {
+                     multipartFormData.append(value.data(using: String.Encoding.utf8)!, withName: key)
+                     }
+                     }, to:"http://13.228.39.122/FP01_654265348176237/1.0/photos/addp")
+                     { (result) in
+                     switch result {
+                     case .success(let upload, _, _):
+                     
+                     upload.uploadProgress(closure: { (Progress) in
+                     print("Upload Progress: \(Progress.fractionCompleted)")
+                     })
+                     
+                     upload.responseJSON { response in
+                     //self.delegate?.showSuccessAlert()
+                     print(response.request)  // original URL request
+                     print(response.response) // URL response
+                     print(response.data)     // server data
+                     print(response.result)   // result of response serialization
+                     //                        self.showSuccesAlert()
+                     //self.removeImage("frame", fileExtension: "txt")
+                     if let JSON = response.result.value {
+                     print("JSON: \(JSON)")
+                     
+                     }
+                     if let data = response.result.value as? [String: Any]{
+                     print("File PATH : ")
+                     print(data["filepath"]!)
+                     self.filePath.append(data["filepath"] as! String)
+                     print("alien")
+                     if onComplete != nil
+                     {
+                     onComplete!()
+                     
+                     
+                     }
+                     }
+                     
+                     
+                     }
+                     
+                     case .failure(let encodingError):
+                     //self.delegate?.showFailAlert()
+                     print(encodingError)
+                     }
+                     
+                     }
+                    */
+                    
                     HTTP.postJSON(url: "http://13.228.39.122/FP01_654265348176237/1.0/photos/addu", json: JSON.init(parseJSON: "\"token\": \"\(par.login.token!)\", \"file\": \"\(self.base64Image!)\""), onComplete: {
                         json, response, error in
                         
@@ -150,15 +202,15 @@ class RegistrationSecondViewController: UIViewController, UIImagePickerControlle
             self.profileButton.setBackgroundImage(resized, for: .normal)
             self.profileButton.setTitle("", for: .normal)
             picker.dismiss(animated: true)
-            let imageData: Data = UIImageJPEGRepresentation(resized!, 0.5)!
-            base64Image = imageData.base64EncodedString(options: .lineLength64Characters)
+            let imageData: Data = UIImageJPEGRepresentation(resized!, 1.0)!
+            base64Image = imageData.base64EncodedString()
         } else if let origImage = info[UIImagePickerControllerOriginalImage] as? UIImage {
             let resized = self.resizeImage(image: origImage, newWidth: 300.0)
             self.profileButton.setBackgroundImage(resized, for: .normal)
             self.profileButton.setTitle("", for: .normal)
             picker.dismiss(animated: true)
-            let imageData: Data = UIImageJPEGRepresentation(resized!, 0.5)!
-            base64Image = imageData.base64EncodedString(options: .lineLength64Characters)
+            let imageData: Data = UIImageJPEGRepresentation(resized!, 1.0)!
+            base64Image = imageData.base64EncodedString()
         } else {
             print("Error in getting image")
         }

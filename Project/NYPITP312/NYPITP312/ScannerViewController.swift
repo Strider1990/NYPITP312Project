@@ -98,12 +98,13 @@ class ScannerViewController: UIViewController,AVCaptureMetadataOutputObjectsDele
         qrCodeFrameView?.frame = CGRect.zero
         detectLabel.text = "Try Manual Add if no barcode found."
         
-        if donateSegment.selectedSegmentIndex == 0 {
+        self.parent?.navigationItem.title = "Donate"
+        /*if donateSegment.selectedSegmentIndex == 0 {
             
-            doneNavBtn.isEnabled = false
-            doneNavBtn.tintColor = UIColor.clear
+            //doneNavBtn.isEnabled = false
+            //doneNavBtn.tintColor = UIColor.clear
             
-        }
+        }*/
     }
     
     
@@ -297,8 +298,8 @@ class ScannerViewController: UIViewController,AVCaptureMetadataOutputObjectsDele
             view2.isHidden = false
             view.bringSubview(toFront: view2)
             view.bringSubview(toFront: navView)
-            doneNavBtn.isEnabled = true
-            doneNavBtn.tintColor = UIColor.white
+            //doneNavBtn.isEnabled = true
+            //doneNavBtn.tintColor = UIColor.white
             
             /*
              let manualVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "manualVC") as! ManualAddViewController
@@ -307,8 +308,8 @@ class ScannerViewController: UIViewController,AVCaptureMetadataOutputObjectsDele
         }else if donateSegment.selectedSegmentIndex == 0 {
             videoPreviewLayer?.isHidden = false
             view2.isHidden = true
-            doneNavBtn.isEnabled = false
-            doneNavBtn.tintColor = UIColor.clear
+            //doneNavBtn.isEnabled = false
+            //doneNavBtn.tintColor = UIColor.clear
             
         }
         
