@@ -19,6 +19,7 @@ class RegistrationSecondViewController: UIViewController, UIImagePickerControlle
     var profile: Profile?
     
     var imagePicked: Bool = false
+    var profileImage: UIImage?
     var base64Image: String?
     
     override func viewDidLoad() {
@@ -118,9 +119,9 @@ class RegistrationSecondViewController: UIViewController, UIImagePickerControlle
                     //Post to add photo
                     /*
                      Alamofire.upload(multipartFormData: { (multipartFormData) in
-                     multipartFormData.append(UIImageJPEGRepresentation(image, 0.5)!, withName: "file", fileName: "file.png", mimeType: "image/png")
+                        multipartFormData.append(UIImageJPEGRepresentation(image, 0.5)!, withName: "file", fileName: "file.png", mimeType: "image/png")
                      for (key, value) in parameters {
-                     multipartFormData.append(value.data(using: String.Encoding.utf8)!, withName: key)
+                        multipartFormData.append(value.data(using: String.Encoding.utf8)!, withName: key)
                      }
                      }, to:"http://13.228.39.122/FP01_654265348176237/1.0/photos/addp")
                      { (result) in

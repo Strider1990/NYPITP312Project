@@ -14,10 +14,7 @@ target 'NYPITP312' do
   pod 'Google/SignIn'
   pod 'FacebookCore'
   pod 'FacebookLogin'
-  pod 'FacebookShare'
-  pod 'FBSDKCoreKit'
-  pod 'FBSDKLoginKit'
-  pod 'FBSDKShareKit'
+  pod 'FacebookShare', :git => 'https://github.com/1amageek/facebook-sdk-swift'
   pod 'OAuthSwift', '~> 1.1.0'
   pod 'DZNEmptyDataSet'
   pod 'Eureka'
@@ -34,10 +31,7 @@ target 'NYPITP312' do
     pod 'Google/SignIn'
     pod 'FacebookCore'
     pod 'FacebookLogin'
-    pod 'FacebookShare'
-    pod 'FBSDKCoreKit'
-    pod 'FBSDKLoginKit'
-    pod 'FBSDKShareKit'
+    pod 'FacebookShare', :git => 'https://github.com/1amageek/facebook-sdk-swift'
   end
 
   target 'NYPITP312UITests' do
@@ -49,10 +43,7 @@ target 'NYPITP312' do
     pod 'Google/SignIn'
     pod 'FacebookCore'
     pod 'FacebookLogin'
-    pod 'FacebookShare'
-    pod 'FBSDKCoreKit'
-    pod 'FBSDKLoginKit'
-    pod 'FBSDKShareKit'
+    pod 'FacebookShare', :git => 'https://github.com/1amageek/facebook-sdk-swift'
   end
 
 end

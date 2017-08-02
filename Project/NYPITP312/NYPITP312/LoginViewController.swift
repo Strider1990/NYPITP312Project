@@ -101,69 +101,33 @@ class LoginViewController: UIViewController, GIDSignInUIDelegate {
     }
     
     @IBAction func loginButtonClicked() {
-        let loginManager = FBSDKLoginManager()
-        loginManager.logIn(withReadPermissions: ["public_profile", "email"], from: self, handler: {
-            loginResult, err in
-            if err == nil {
-                print(loginResult?.token)
+        FBSDKLoginManager().logIn(withReadPermissions: ["email", "public_profile"], from: self)
+        { (result, error) in
+            if error != nil {
+                print("FB Login failed:", error!)
+                return
             }
-        })
-            /*switch loginResult {
-            case .failed(let error):
-                print(error)
-            case .cancelled:
-                print("User cancelled login.")
-            case .success(let grantedPermissions, let declinedPermissions, let accessToken):
-                print(accessToken)
+            
+            let socialToken = result?.token.tokenString
+            print(socialToken)
+            
+            LoginDataManager.socialLogin(socialToken: socialToken!, onComplete: {
+                (token, userId, isLogin) -> Void in
                 
-                DispatchQueue.global(qos: .background).async {
-                    HTTP.postJSON(url: "http://13.228.39.122/FP01_654265348176237/1.0/user/login", json: JSON.init(parseJSON: "{ \"type\": \"F\", \"token\": \(accessToken) }"), onComplete: {
-                        json, response, error in
-                        
-                        print(response!)
-                        
-                        if json == nil {
-                            return
-                        }
-                        
-                        print(json!)
-                        
-                        DispatchQueue.main.async {
-                            self.navigationController?.popToRootViewController(animated: true)
-                        }
-                    })
+                LoginGlobalVar.token = token
+                LoginGlobalVar.userId = userId
+                
+                if (isLogin) {
+                    DispatchQueue.main.async() {
+                        [unowned self] in
+                        self.performSegue(withIdentifier: "login", sender: self)
+                    }
                 }
-                print("Logged in!")
+                
             })
-        loginManager.logIn([ .publicProfile, .email ], viewController: self, completion: { loginResult in
-            switch loginResult {
-            case .failed(let error):
-                print(error)
-            case .cancelled:
-                print("User cancelled login.")
-            case .success(let grantedPermissions, let declinedPermissions, let accessToken):
-                print(accessToken)
-                
-                DispatchQueue.global(qos: .background).async {
-                    HTTP.postJSON(url: "http://13.228.39.122/FP01_654265348176237/1.0/user/login", json: JSON.init(parseJSON: "{ \"type\": \"F\", \"token\": \(accessToken) }"), onComplete: {
-                        json, response, error in
-                        
-                        print(response!)
-                        
-                        if json == nil {
-                            return
-                        }
-                        
-                        print(json!)
-                        
-                        DispatchQueue.main.async {
-                            self.navigationController?.popToRootViewController(animated: true)
-                        }
-                    })
-                }
-                print("Logged in!")
-            }
-        })*/
+            
+            
+        }
     }
     /*
     // MARK: - Navigation

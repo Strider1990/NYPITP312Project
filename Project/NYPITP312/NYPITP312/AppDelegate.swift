@@ -30,21 +30,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate {
         assert(configureError == nil, "Error configuring Google services: \(configureError)")
         
         GIDSignIn.sharedInstance().delegate = self
+        FBSDKApplicationDelegate.sharedInstance().application(application, didFinishLaunchingWithOptions: launchOptions)
         
-        
-        /* let delegate = UIApplication.shared.delegate as! AppDelegate
-        let client = delegate.client!
-        let item = ["text":"Awesome item"]
-        let itemTable = client.table(withName: "TodoItem")
-        itemTable.insert(item, completion: {
-            (insertedItem, error) in
-            if error != nil
-            {
-                print("Error \((error! as NSError).description)")
-            }
-        }) */
-        
-        return FBSDKApplicationDelegate.sharedInstance().application(application, didFinishLaunchingWithOptions: launchOptions)
+        return true
     }
     
     func sign(_ signIn: GIDSignIn!, didSignInFor user: GIDGoogleUser!,

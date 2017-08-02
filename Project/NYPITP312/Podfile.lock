@@ -19,8 +19,8 @@ PODS:
   - FacebookShare (0.2.0):
     - Bolts (~> 1.8)
     - FacebookCore (~> 0.2)
-    - FBSDKCoreKit (~> 4.15)
-    - FBSDKShareKit (~> 4.15)
+    - FBSDKCoreKit (~> 4.21)
+    - FBSDKShareKit (~> 4.21)
   - FBSDKCoreKit (4.25.0):
     - Bolts (~> 1.7)
   - FBSDKLoginKit (4.25.0):
@@ -85,10 +85,7 @@ DEPENDENCIES:
   - Eureka
   - FacebookCore
   - FacebookLogin
-  - FacebookShare
-  - FBSDKCoreKit
-  - FBSDKLoginKit
-  - FBSDKShareKit
+  - FacebookShare (from `https://github.com/1amageek/facebook-sdk-swift`)
   - Firebase/Auth
   - Firebase/Core
   - Google/SignIn
@@ -97,6 +94,15 @@ DEPENDENCIES:
   - OAuthSwift (~> 1.1.0)
   - SCLAlertView
 
+EXTERNAL SOURCES:
+  FacebookShare:
+    :git: https://github.com/1amageek/facebook-sdk-swift
+
+CHECKOUT OPTIONS:
+  FacebookShare:
+    :commit: 3ac76c770e9849285c380f380309d866911d2e93
+    :git: https://github.com/1amageek/facebook-sdk-swift
+
 SPEC CHECKSUMS:
   Alamofire: f28cdffd29de33a7bfa022cbd63ae95a27fae140
   Bolts: 8a7995239dbe724f9cba2248b766d48b7ebdd322
@@ -104,7 +110,7 @@ SPEC CHECKSUMS:
   Eureka: d6725c38d0dcdceaa331d1468f75e76315715ae0
   FacebookCore: 2cb3f0fbff218e9d3119cec84bae983b232412de
   FacebookLogin: c9d606504735780a9e3002465a615512e0a691a5
-  FacebookShare: 8e9ee8ea06505e6a1d3d719b0cc63e840fb8aaeb
+  FacebookShare: d086f7a4610bbbca9cec5e774de450a9b3e1a20b
   FBSDKCoreKit: 53e3f4bfb64e80c5f229dd30ae33ff57fbbbd2d1
   FBSDKLoginKit: f628c09684dae9c17f071cf90b014e886f5093ea
   FBSDKShareKit: aea699d3cac749af08e360f4e949b82ffa8813f5
@@ -123,6 +129,6 @@ SPEC CHECKSUMS:
   OAuthSwift: 5aa5659984d3ca3206ba636a9e7a9c6626b2e8bd
   SCLAlertView: 8a14ffc40590c619e183eed2298b854385f30be1
 
-PODFILE CHECKSUM: 57e3301a2530881b3dd8af4aa951da259faf8698
+PODFILE CHECKSUM: 835711668e29c1a4834bfbfedad698e00d3c76bd
 
 COCOAPODS: 1.2.1
