@@ -18,13 +18,14 @@ class ProfileViewController: UIViewController {
     @IBOutlet weak var chatTable: UITableView!
     
     var par: RootNavViewController!
+    var edit: UIBarButtonItem!
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
         self.parent?.navigationItem.title = par.login.name
         
-        let edit = UIBarButtonItem(barButtonSystemItem: .edit, target: self, action: #selector(ProfileViewController.btnEdit))
+        edit = UIBarButtonItem(barButtonSystemItem: .edit, target: self, action: #selector(ProfileViewController.btnEdit))
         self.parent?.navigationItem.rightBarButtonItem = edit
         let logout = UIBarButtonItem(title: "Logout", style: .plain, target: self, action: #selector(ProfileViewController.btnLogout))
         self.parent?.navigationItem.leftBarButtonItem = logout
@@ -53,6 +54,7 @@ class ProfileViewController: UIViewController {
     
     func btnEdit() {
         // Perform segue to profile editing
+        performSegue(withIdentifier: "profileEditSegue", sender: edit)
     }
     
     func btnLogout() {
@@ -87,6 +89,8 @@ class ProfileViewController: UIViewController {
         }
         
     }
+    
+    
     
     /*
     // MARK: - Navigation

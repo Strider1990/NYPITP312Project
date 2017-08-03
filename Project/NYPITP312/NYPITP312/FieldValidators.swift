@@ -8,7 +8,7 @@
 
 import UIKit
 
-class FieldValidators: NSObject {
+struct FieldValidators {
     func emailValidate(_ field: DesignableUITextField) -> Bool {
         if let text = field.text {
             let emailFormat = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,64}"
@@ -23,6 +23,21 @@ class FieldValidators: NSObject {
         var valid = true
         
         if let text = field.text, !text.isEmpty {
+            // Validate password security
+            let passwordFormat = "(?=.*[A-Za-z])(?=.*\\d)[A-Za-z\\d!$%@#£€*?&]{8,}"
+            let passwordPredicate = NSPredicate(format: "SELF MATCHES %@", passwordFormat)
+            return passwordPredicate.evaluate(with: text)
+        } else {
+            valid = false
+        }
+        
+        return valid
+    }
+    
+    func passwordValidate(_ text: String) -> Bool {
+        var valid = true
+        
+        if !text.isEmpty {
             // Validate password security
             let passwordFormat = "(?=.*[A-Za-z])(?=.*\\d)[A-Za-z\\d!$%@#£€*?&]{8,}"
             let passwordPredicate = NSPredicate(format: "SELF MATCHES %@", passwordFormat)

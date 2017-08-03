@@ -20,7 +20,6 @@ class RegistrationSecondViewController: UIViewController, UIImagePickerControlle
     
     var imagePicked: Bool = false
     var profileImage: UIImage?
-    var base64Image: String?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -112,77 +111,59 @@ class RegistrationSecondViewController: UIViewController, UIImagePickerControlle
                         newLogin.token = json!["token"].string!
                         newLogin.userId = json!["userid"].string!
                         newLogin.type = json!["type"].string!
+                        newLogin.email = self.profile?.email
                         
                         par.login = newLogin
                     }
                  
+                    let parameters = [
+                        "token": par.login.token!
+                    ]
                     //Post to add photo
-                    /*
-                     Alamofire.upload(multipartFormData: { (multipartFormData) in
-                        multipartFormData.append(UIImageJPEGRepresentation(image, 0.5)!, withName: "file", fileName: "file.png", mimeType: "image/png")
-                     for (key, value) in parameters {
-                        multipartFormData.append(value.data(using: String.Encoding.utf8)!, withName: key)
-                     }
-                     }, to:"http://13.228.39.122/FP01_654265348176237/1.0/photos/addp")
-                     { (result) in
-                     switch result {
-                     case .success(let upload, _, _):
-                     
-                     upload.uploadProgress(closure: { (Progress) in
-                     print("Upload Progress: \(Progress.fractionCompleted)")
-                     })
-                     
-                     upload.responseJSON { response in
-                     //self.delegate?.showSuccessAlert()
-                     print(response.request)  // original URL request
-                     print(response.response) // URL response
-                     print(response.data)     // server data
-                     print(response.result)   // result of response serialization
-                     //                        self.showSuccesAlert()
-                     //self.removeImage("frame", fileExtension: "txt")
-                     if let JSON = response.result.value {
-                     print("JSON: \(JSON)")
-                     
-                     }
-                     if let data = response.result.value as? [String: Any]{
-                     print("File PATH : ")
-                     print(data["filepath"]!)
-                     self.filePath.append(data["filepath"] as! String)
-                     print("alien")
-                     if onComplete != nil
-                     {
-                     onComplete!()
-                     
-                     
-                     }
-                     }
-                     
-                     
-                     }
-                     
-                     case .failure(let encodingError):
-                     //self.delegate?.showFailAlert()
-                     print(encodingError)
-                     }
-                     
-                     }
-                    */
                     
-                    HTTP.postJSON(url: "http://13.228.39.122/FP01_654265348176237/1.0/photos/addu", json: JSON.init(parseJSON: "\"token\": \"\(par.login.token!)\", \"file\": \"\(self.base64Image!)\""), onComplete: {
-                        json, response, error in
-                        
-                        if json == nil
-                        {
-                            return
+                    Alamofire.upload(multipartFormData: { (multipartFormData) in
+                        multipartFormData.append(UIImageJPEGRepresentation(self.profileImage!, 1)!, withName: "file", fileName: "file.png", mimeType: "image/png")
+                        for (key, value) in parameters {
+                            multipartFormData.append(value.data(using: String.Encoding.utf8)!, withName: key)
                         }
-                        
-                        print(json!)
-                        
-                        DispatchQueue.main.async {
-                            spinner.stopAnimating()
-                            self.navigationController?.popToRootViewController(animated: true)
+                    }, to:"http://13.228.39.122/FP01_654265348176237/1.0/photos/addu")
+                    { (result) in
+                        switch result {
+                        case .success(let upload, _, _):
+                            upload.uploadProgress(closure: { (Progress) in
+                                print("Upload Progress: \(Progress.fractionCompleted)")
+                            })
+                     
+                    upload.responseJSON {
+                        response in
+                    //self.delegate?.showSuccessAlert()
+                        print(response.request)  // original URL request
+                        print(response.response) // URL response
+                        print(response.data)     // server data
+                        print(response.result)   // result of response serialization
+                    //                        self.showSuccesAlert()
+                    //self.removeImage("frame", fileExtension: "txt")
+                        if let JSON = response.result.value {
+                            print("JSON: \(JSON)")
+                     
                         }
-                    })
+                        if let data = response.result.value as? [String: Any]{
+                            print("File PATH : ")
+                            print(data["filepath"]!)
+                            par.login.photo = data["filepath"] as! String
+                            DispatchQueue.main.async {
+                                spinner.stopAnimating()
+                                self.navigationController?.popToRootViewController(animated: true)
+                            }
+                        }
+                    }
+                     
+                    case .failure(let encodingError):
+                     //self.delegate?.showFailAlert()
+                        print(encodingError)
+                    }
+                    
+                    }
                 })
             }
         }
@@ -199,35 +180,18 @@ class RegistrationSecondViewController: UIViewController, UIImagePickerControlle
     {
         imagePicked = true
         if let editedImage = info[UIImagePickerControllerEditedImage] as? UIImage {
-            let resized = self.resizeImage(image: editedImage, newWidth: 300.0)
-            self.profileButton.setBackgroundImage(resized, for: .normal)
+            self.profileButton.setBackgroundImage(editedImage, for: .normal)
             self.profileButton.setTitle("", for: .normal)
             picker.dismiss(animated: true)
-            let imageData: Data = UIImageJPEGRepresentation(resized!, 1.0)!
-            base64Image = imageData.base64EncodedString()
+            self.profileImage = editedImage
         } else if let origImage = info[UIImagePickerControllerOriginalImage] as? UIImage {
-            let resized = self.resizeImage(image: origImage, newWidth: 300.0)
-            self.profileButton.setBackgroundImage(resized, for: .normal)
+            self.profileButton.setBackgroundImage(origImage, for: .normal)
             self.profileButton.setTitle("", for: .normal)
             picker.dismiss(animated: true)
-            let imageData: Data = UIImageJPEGRepresentation(resized!, 1.0)!
-            base64Image = imageData.base64EncodedString()
+            self.profileImage = origImage
         } else {
             print("Error in getting image")
         }
-    }
-    
-    func resizeImage(image: UIImage, newWidth: CGFloat) -> UIImage? {
-        
-        let scale = newWidth / image.size.width
-        let newHeight = image.size.height * scale
-        UIGraphicsBeginImageContext(CGSize(width: newWidth, height: newHeight))
-        image.draw(in: CGRect(x: 0, y: 0, width: newWidth, height: newHeight))
-        
-        let newImage = UIGraphicsGetImageFromCurrentImageContext()
-        UIGraphicsEndImageContext()
-        
-        return newImage
     }
     
     /*

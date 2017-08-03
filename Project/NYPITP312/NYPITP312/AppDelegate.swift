@@ -9,7 +9,7 @@
 import UIKit
 import Firebase
 import OAuthSwift
-import FBSDKLoginKit
+import FBSDKCoreKit
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate {
@@ -64,6 +64,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate {
                     DispatchQueue.main.async {
                         let nav: RootNavViewController = self.window?.rootViewController as! RootNavViewController
                         let login = Login()
+                        login.email = email
                         login.name = json!["name"].string!
                         login.photo = json!["photo"].string!
                         login.token = json!["token"].string!
