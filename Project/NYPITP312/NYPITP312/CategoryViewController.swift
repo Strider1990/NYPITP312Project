@@ -114,6 +114,15 @@ class CategoryViewController: UICollectionViewController {
         return cell
     }
 
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "bookSegue" {
+            let bookView = segue.destination as! BookViewController
+            let cell = sender as! BookCollectionViewCell
+            let indexPath = self.bookCollectionView.indexPath(for: cell)
+            bookView.book = self.bookList[(indexPath?.row)!]
+            
+        }
+    }
     /*
     // MARK: - Navigation
 
