@@ -15,7 +15,7 @@
         <scene sceneID="z7J-3N-YNX">
             <objects>
                 <navigationController id="oik-TQ-i0q" customClass="RootNavViewController" customModule="NYPITP312" customModuleProvider="target" sceneMemberID="viewController">
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" barStyle="black" translucent="NO" id="HYe-Lz-LxD">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" barStyle="black" translucent="NO" id="HYe-Lz-LxD">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="barTintColor" red="0.32192569970000001" green="0.24054300789999999" blue="0.59684139489999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -100,7 +100,7 @@
                                                         <rect key="frame" x="0.0" y="0.0" width="374" height="72.999999999999972"/>
                                                         <subviews>
                                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="n79-TL-3eB">
-                                                                <rect key="frame" x="0.0" y="13" width="374" height="40"/>
+                                                                <rect key="frame" x="0.0" y="16.666666666666657" width="374" height="40"/>
                                                                 <color key="backgroundColor" red="0.32192569970000001" green="0.24054300789999999" blue="0.59684139489999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="height" constant="40" id="bqa-eh-cDP"/>
@@ -246,13 +246,13 @@
                                                 <rect key="frame" x="0.0" y="0.0" width="414" height="201.66666666666669"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Not a user yet?" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9e5-S9-goP">
-                                                        <rect key="frame" x="158.33333333333337" y="67.666666666666686" width="97.666666666666629" height="17"/>
+                                                        <rect key="frame" x="158.33333333333337" y="68.000000000000057" width="97.666666666666629" height="17"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                         <color key="textColor" red="0.40392156862745099" green="0.27843137254901962" blue="0.80392156862745101" alpha="1" colorSpace="calibratedRGB"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7mp-vw-264">
-                                                        <rect key="frame" x="107" y="77" width="200" height="32"/>
+                                                        <rect key="frame" x="107" y="85.000000000000057" width="200" height="32"/>
                                                         <color key="backgroundColor" red="0.25098039220000001" green="0.16078431369999999" blue="0.52549019610000003" alpha="1" colorSpace="calibratedRGB"/>
                                                         <constraints>
                                                             <constraint firstAttribute="width" constant="200" id="znj-EE-EuI"/>
@@ -436,7 +436,7 @@
         <scene sceneID="d5a-h6-0b2">
             <objects>
                 <collectionViewController id="lDv-sm-asB" customClass="CategoryViewController" customModule="NYPITP312" customModuleProvider="target" sceneMemberID="viewController">
-                    <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" id="L6c-eA-9Xt">
+                    <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" misplaced="YES" dataMode="prototypes" id="L6c-eA-9Xt">
                         <rect key="frame" x="0.0" y="64" width="414" height="672"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -943,7 +943,7 @@
                 </collectionViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="qHM-fq-DBI" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="95.652173913043484" y="1350.8152173913045"/>
+            <point key="canvasLocation" x="-2359" y="1439"/>
         </scene>
         <!--Bookmarks-->
         <scene sceneID="OUU-1H-t1h">
@@ -1366,7 +1366,7 @@
                                         <rect key="frame" x="0.0" y="0.0" width="374" height="336.33333333333331"/>
                                         <subviews>
                                             <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yW3-Ir-KkN">
-                                                <rect key="frame" x="87" y="55.666666666666657" width="200" height="200"/>
+                                                <rect key="frame" x="87" y="68.333333333333314" width="200" height="200"/>
                                                 <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="200" id="AZC-sD-lrw"/>
@@ -2463,7 +2463,7 @@
                                                 </connections>
                                             </button>
                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="ne5-UL-cAE">
-                                                <rect key="frame" x="8" y="150" width="398" height="29"/>
+                                                <rect key="frame" x="8" y="155" width="398" height="24"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Name" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="93O-cl-XRo">
                                                         <rect key="frame" x="0.0" y="0.0" width="398" height="24"/>
@@ -2491,7 +2491,7 @@
                                                 <rect key="frame" x="0.0" y="28" width="414" height="44"/>
                                                 <autoresizingMask key="autoresizingMask"/>
                                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="UNB-Bd-Nvr" id="Dx1-Vc-OvQ">
-                                                    <rect key="frame" x="0.0" y="0.0" width="414" height="43.666666666666664"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                 </tableViewCellContentView>
                                             </tableViewCell>
@@ -2499,9 +2499,6 @@
                                     </tableView>
                                 </subviews>
                                 <constraints>
-                                    <constraint firstItem="dA8-6I-IlZ" firstAttribute="top" secondItem="Ha6-LA-yvy" secondAttribute="bottom" id="9es-t8-zHS"/>
-                                    <constraint firstAttribute="trailing" secondItem="dA8-6I-IlZ" secondAttribute="trailing" id="E0d-aV-bsx"/>
-                                    <constraint firstItem="dA8-6I-IlZ" firstAttribute="leading" secondItem="WPI-vv-mJb" secondAttribute="leading" id="KbR-Xf-1Fl"/>
                                     <constraint firstItem="Ha6-LA-yvy" firstAttribute="height" secondItem="WPI-vv-mJb" secondAttribute="height" multiplier="0.3" id="bY1-D7-9IA"/>
                                 </constraints>
                             </stackView>
@@ -2509,9 +2506,9 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="okb-Wf-c9p" firstAttribute="top" secondItem="WPI-vv-mJb" secondAttribute="bottom" id="HRu-kC-dXS"/>
-                            <constraint firstItem="WPI-vv-mJb" firstAttribute="top" secondItem="hp5-Po-9g0" secondAttribute="bottom" id="IdM-85-Dhn"/>
                             <constraint firstAttribute="trailing" secondItem="WPI-vv-mJb" secondAttribute="trailing" id="WeT-uP-cgw"/>
                             <constraint firstItem="WPI-vv-mJb" firstAttribute="leading" secondItem="0fB-qO-ALo" secondAttribute="leading" id="Yjf-CR-3vQ"/>
+                            <constraint firstItem="WPI-vv-mJb" firstAttribute="top" secondItem="hp5-Po-9g0" secondAttribute="bottom" id="eqN-Pe-KdK"/>
                         </constraints>
                     </view>
                     <tabBarItem key="tabBarItem" title="Profile" id="8wt-Tu-Jkl"/>
@@ -2523,7 +2520,6 @@
                     <connections>
                         <outlet property="profileName" destination="93O-cl-XRo" id="b9z-HE-0bE"/>
                         <outlet property="profilePhoto" destination="8Af-GX-AzJ" id="Dba-qt-udC"/>
-                        <outlet property="tableView" destination="dA8-6I-IlZ" id="cLd-z6-fhl"/>
                         <segue destination="EwD-Y5-H9E" kind="showDetail" identifier="changePasswordSegue" id="EPJ-Cq-vrg"/>
                     </connections>
                 </viewController>
@@ -2733,7 +2729,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="X6n-5a-APF" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="60.869565217391312" y="2256.521739130435"/>
+            <point key="canvasLocation" x="96" y="3000"/>
         </scene>
         <!--Chat-->
         <scene sceneID="3sa-mu-tvp">
@@ -3005,7 +3001,7 @@
                     </constraints>
                 </view>
             </objects>
-            <point key="canvasLocation" x="961" y="2367"/>
+            <point key="canvasLocation" x="978" y="3187"/>
         </scene>
     </scenes>
     <resources>
@@ -3027,12 +3023,12 @@
         <image name="phone" width="512" height="512"/>
         <image name="profile" width="512" height="512"/>
         <image name="profile pic " width="100" height="100"/>
+        <image name="profile-tab" width="32" height="32"/>
         <image name="selectCamera" width="32" height="25"/>
         <image name="selectLocation" width="32" height="25"/>
         <image name="selectMessage" width="32" height="25"/>
         <image name="selectPhoto" width="32" height="25"/>
         <image name="send" width="32" height="25"/>
-        <image name="profile-tab" width="32" height="32"/>
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="7s2-yh-B3X"/>
