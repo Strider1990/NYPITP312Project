@@ -25,7 +25,7 @@ class ProfileEditViewController: FormViewController, UIImagePickerControllerDele
         changed = false
         do {
             let data = try Data(contentsOf: URL(string: "http://13.228.39.122/fpsatimgdev/loadimage.aspx?q=users/\(par.login.photo!)_c150")!)
-            print("http://13.228.39.122/fpsatimgdev/loadimage.aspx?q=users/\(par.login.photo!)_c150")
+            print("http://13.228.39.122/fpsatimgdev/loadimage.aspx?q=users/\(par.login.userId!)_c150")
         } catch {
             print("Error in data \(par.login.photo!)")
         }

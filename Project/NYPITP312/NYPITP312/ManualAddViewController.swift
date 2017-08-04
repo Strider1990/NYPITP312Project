@@ -535,7 +535,12 @@ class ManualAddViewController: UIViewController, SendCategoryDelegate, SendBookD
                 
                 
             })
-            
+            DispatchQueue.main.async {
+             //   self.navigationController?.popToRootViewController(animated: true)
+                
+             //   let tabBarController: TabViewController = self.parent as! TabViewController
+             //   tabBarController.selectedIndex = 0
+            }
             
         } else {
             // create the alert

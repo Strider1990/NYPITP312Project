@@ -666,6 +666,9 @@ class ScanConfirmViewController: UIViewController, SendCategoryDelegate, SendBoo
                 }
                 
             })
+            DispatchQueue.main.async {
+                self.navigationController?.popToRootViewController(animated: true)
+            }
         } else {
             // create the alert
             let alert = UIAlertController(title: "Post", message: "Please enter the condition of the book", preferredStyle: UIAlertControllerStyle.alert)

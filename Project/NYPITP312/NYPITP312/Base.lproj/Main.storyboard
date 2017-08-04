@@ -4,7 +4,6 @@
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
-        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12089"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
@@ -15,7 +14,7 @@
         <scene sceneID="z7J-3N-YNX">
             <objects>
                 <navigationController id="oik-TQ-i0q" customClass="RootNavViewController" customModule="NYPITP312" customModuleProvider="target" sceneMemberID="viewController">
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" barStyle="black" translucent="NO" id="HYe-Lz-LxD">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" barStyle="black" translucent="NO" id="HYe-Lz-LxD">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="barTintColor" red="0.32192569970000001" green="0.24054300789999999" blue="0.59684139489999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -436,7 +435,7 @@
         <scene sceneID="d5a-h6-0b2">
             <objects>
                 <collectionViewController id="lDv-sm-asB" customClass="CategoryViewController" customModule="NYPITP312" customModuleProvider="target" sceneMemberID="viewController">
-                    <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" id="L6c-eA-9Xt">
+                    <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" misplaced="YES" dataMode="prototypes" id="L6c-eA-9Xt">
                         <rect key="frame" x="0.0" y="64" width="414" height="672"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -877,7 +876,7 @@
         <scene sceneID="VjH-gP-b8S">
             <objects>
                 <collectionViewController title="My Donations" id="LFU-n9-zEb" customClass="DonationCollectionViewController" customModule="NYPITP312" customModuleProvider="target" sceneMemberID="viewController">
-                    <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" id="q53-cB-SGM">
+                    <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" misplaced="YES" dataMode="prototypes" id="q53-cB-SGM">
                         <rect key="frame" x="0.0" y="64" width="414" height="672"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -2535,6 +2534,14 @@
                                             </button>
                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="ne5-UL-cAE">
                                                 <rect key="frame" x="8" y="150" width="398" height="29"/>
+                                                <subviews>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="el2-Yg-qzh">
+                                                        <rect key="frame" x="0.0" y="0.0" width="398" height="29"/>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                </subviews>
                                             </stackView>
                                         </subviews>
                                         <color key="backgroundColor" red="0.25098039220000001" green="0.16078431369999999" blue="0.52549019610000003" alpha="1" colorSpace="calibratedRGB"/>
@@ -2572,7 +2579,9 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="profileName" destination="el2-Yg-qzh" id="JMe-f8-0AR"/>
                         <outlet property="profilePhoto" destination="8Af-GX-AzJ" id="Dba-qt-udC"/>
+                        <outlet property="tableView" destination="dGy-RI-WzW" id="dyD-y3-xja"/>
                         <segue destination="EwD-Y5-H9E" kind="showDetail" identifier="changePasswordSegue" id="EPJ-Cq-vrg"/>
                     </connections>
                 </viewController>
