@@ -21,6 +21,8 @@ target 'NYPITP312' do
   pod 'SCLAlertView'
   pod 'iCarousel', '~> 1.8'
   pod 'Alamofire', '~> 4.4'
+  pod 'Firebase/Storage'
+  pod 'Firebase/Database'
   pod 'GooglePlacesRow'
   
   target 'NYPITP312Tests' do

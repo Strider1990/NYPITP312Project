@@ -94,7 +94,8 @@ class LoginViewController: UIViewController, GIDSignInUIDelegate {
                     if !json!["error"].exists() {
                         self.login = Login()
                         self.login?.name = json!["name"].string!
-                        self.login?.photo = json!["photo"].string!
+                        // TODO FIX THIS
+                        self.login?.photo = json!["userid"].string!
                         self.login?.token = json!["token"].string!
                         self.login?.userId = json!["userid"].string!
                         self.login?.type = json!["type"].string!
