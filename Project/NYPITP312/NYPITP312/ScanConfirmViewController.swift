@@ -17,11 +17,13 @@
 import UIKit
 import iCarousel
 import SCLAlertView
+import Alamofire
 
 var firstTimeForCateArray : Bool = false
 var firstTimeForLevelArray : Bool = false
 
 class ScanConfirmViewController: UIViewController, SendCategoryDelegate, SendBook2Delegate, SendLevelDelegate, iCarouselDataSource, iCarouselDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+    
     
     
     @IBOutlet weak var courselevelLbl: UILabel!
@@ -41,6 +43,7 @@ class ScanConfirmViewController: UIViewController, SendCategoryDelegate, SendBoo
     var filePath = [String]()
     var tempCateid : String!
     var tempLevelid : String!
+    var tempOverallCateid : String!
     
     
     var pname : String = ""
@@ -52,6 +55,7 @@ class ScanConfirmViewController: UIViewController, SendCategoryDelegate, SendBoo
     
     var success : Bool = false;
     
+    var overallCate : String!
     
     
     
@@ -69,10 +73,17 @@ class ScanConfirmViewController: UIViewController, SendCategoryDelegate, SendBoo
     
     
     override func viewWillAppear(_ animated: Bool) {
-        print(bookName)
         bookLbl.text = bookName
+        pname = bookName
+        pauthor = bookAuthor
+        ppub = bookPublisher
+        pedit = bookEdition
+        pisbn = bookISBN
+        print("before eh yeah")
+        print(pname)
+        print("eh yeah")
         
-        print(bookCateId)
+        
         
         //        var retrieveEachCate = bookCateId[0].components(separatedBy: ",")
         //        var subject = retrieveEachCate[0]
@@ -93,6 +104,22 @@ class ScanConfirmViewController: UIViewController, SendCategoryDelegate, SendBoo
                     cate4.heading = data[i].heading
                     cate4.displayOrder = data[i].displayOrder
                     allLevelObjectArr.append(cate4)
+                    if (bookCateId[0] == data[i].id!) {
+                        DispatchQueue.main.async {
+                            print("try")
+                            self.courselevelLbl.text = data[i].name
+                        }
+                        
+                        //  self.courselevelLbl.text = data[i].name
+                        
+                        self.tempLevelid =  data[i].id
+                        print(self.tempLevelid)
+                        print("testing")
+                    }
+                    
+                    print("nyan done")
+                    
+                    
                 }
                 
             })
@@ -104,7 +131,12 @@ class ScanConfirmViewController: UIViewController, SendCategoryDelegate, SendBoo
                 print(allLevelObjectArr[i].id!)
                 if (bookCateId[0] == allLevelObjectArr[i].id!){
                     print("nyan back")
-                    self.courselevelLbl.text = allLevelObjectArr[i].name
+                    DispatchQueue.main.async {
+                        self.courselevelLbl.text = allLevelObjectArr[i].name
+                    }
+                    self.tempLevelid = allCateObjectArr[i].id
+                    print(self.tempLevelid)
+                    print("testing 2")
                 }
                 
                 print("nyan done")
@@ -128,6 +160,7 @@ class ScanConfirmViewController: UIViewController, SendCategoryDelegate, SendBoo
                     cate.heading = txtbk[i].heading
                     cate.displayOrder = txtbk[i].displayOrder
                     allCateObjectArr.append(cate)
+                    
                     
                     
                     //   allCateObjectArr.append(txtbk)
@@ -177,12 +210,28 @@ class ScanConfirmViewController: UIViewController, SendCategoryDelegate, SendBoo
                     print(bookCateId[1])
                     if (bookCateId[1] == allCateObjectArr[i].id!) {
                         print("nyan otw")
-                        self.categoryLbl.text = allCateObjectArr[i].name
+                        DispatchQueue.main.async {
+                            self.categoryLbl.text = allCateObjectArr[i].name
+                        }
+                        self.overallCate = allCateObjectArr[i].heading
+                        self.tempCateid =  allCateObjectArr[i].id
+                        print(self.overallCate)
+                        print("testing")
+                        print(self.tempCateid)
+                        CategoryDataManager.getCateid(name: self.overallCate, limit: "1", onComplete: {
+                            (data2 : Category) in
+                            self.tempOverallCateid = data2.id
+                            print("overall catid \(self.tempOverallCateid)")
+                            
+                        })
+                        
                     }
-                    if (bookCateId[0] == allCateObjectArr[i].id!){
-                        print("nyan back")
-                        self.courselevelLbl.text = allCateObjectArr[i].name
-                    }
+                    //                    if (bookCateId[0] == allCateObjectArr[i].id!){
+                    //                        print("nyan back")
+                    //                        self.courselevelLbl.text = allCateObjectArr[i].name
+                    //                          self.tempLevelid = allCateObjectArr[i].id
+                    //                        print(self.tempLevelid)
+                    //                    }
                     print("nyan done")
                 }
             })
@@ -197,12 +246,28 @@ class ScanConfirmViewController: UIViewController, SendCategoryDelegate, SendBoo
                 print(allCateObjectArr[i].id!)
                 if (bookCateId[1] == allCateObjectArr[i].id!) {
                     print("nyan otw")
-                    self.categoryLbl.text = allCateObjectArr[i].name
+                    DispatchQueue.main.async {
+                        self.categoryLbl.text = allCateObjectArr[i].name
+                    }
+                    self.overallCate = allCateObjectArr[i].heading
+                    tempCateid =  allCateObjectArr[i].id
+                    print(self.overallCate)
+                    print("testing 2")
+                    print(self.tempCateid)
+                    CategoryDataManager.getCateid(name: self.overallCate, limit: "1", onComplete: {
+                        (data2 : Category) in
+                        self.tempOverallCateid = data2.id
+                        print("overall catid \(self.tempOverallCateid)")
+                        
+                    })
+                    
                 }
-                if (bookCateId[0] == allCateObjectArr[i].id!){
-                    print("nyan back")
-                    self.courselevelLbl.text = allCateObjectArr[i].name
-                }
+                //                if (bookCateId[0] == allCateObjectArr[i].id!){
+                //                    print("nyan back")
+                //                    self.courselevelLbl.text = allCateObjectArr[i].name
+                //                    tempLevelid = allCateObjectArr[i].id
+                //                      print(self.tempLevelid)
+                //                }
                 
                 print("nyan done")
             }
@@ -304,7 +369,7 @@ class ScanConfirmViewController: UIViewController, SendCategoryDelegate, SendBoo
     
     func carousel(_ carousel: iCarousel, valueFor option: iCarouselOption, withDefault value: CGFloat) -> CGFloat {
         if (option == .spacing) {
-            return value * 3.1
+            return value * 3.5
         }
         return value
     }
@@ -319,12 +384,6 @@ class ScanConfirmViewController: UIViewController, SendCategoryDelegate, SendBoo
     func handleTap(_ sender: UITapGestureRecognizer) {
         
         
-        //        let alert = UIAlertController(title: "Alert", message: "Message", preferredStyle: UIAlertControllerStyle.alert)
-        //                        alert.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.default, handler: nil))
-        //                        self.present(alert, animated: true, completion: nil)
-        
-        
-        //        SCLAlertView().showInfo("Important info", subTitle: "You are great")
         itemView = sender.view as! UIImageView
         let appearance = SCLAlertView.SCLAppearance(
             showCircularIcon: true)
@@ -340,7 +399,7 @@ class ScanConfirmViewController: UIViewController, SendCategoryDelegate, SendBoo
             picker.delegate = self
             // Setting this to true allows the user to crop and scale // the image to a square after the image is selected.
             //
-            picker.allowsEditing = true
+            picker.allowsEditing = false
             picker.sourceType = UIImagePickerControllerSourceType.photoLibrary
             self.present(
                 picker, animated: true)
@@ -360,8 +419,7 @@ class ScanConfirmViewController: UIViewController, SendCategoryDelegate, SendBoo
             self.view.addSubview(newImageView)
             self.navigationController?.isNavigationBarHidden = true
             self.tabBarController?.tabBar.isHidden = true
-            let scanVC =  self.parent as! ScannerViewController
-            scanVC.setSegmentHidden(isHidden: true)
+            
             
             
             //      newImageView.superview?.bringSubview(toFront: newImageView)
@@ -369,7 +427,7 @@ class ScanConfirmViewController: UIViewController, SendCategoryDelegate, SendBoo
             
         }
         
-        alertView.showInfo("Add Images", subTitle: "Choose an action")
+        alertView.showNotice("Add Images", subTitle: "Choose an action", closeButtonTitle: "Close")
         //, circleIconImage: alertViewIcon)
         
     }
@@ -377,8 +435,7 @@ class ScanConfirmViewController: UIViewController, SendCategoryDelegate, SendBoo
     func dismissFullscreenImage(_ sender: UITapGestureRecognizer) {
         self.navigationController?.isNavigationBarHidden = false
         self.tabBarController?.tabBar.isHidden = false
-        var scanVC =  self.parent as! ScannerViewController
-        scanVC.setSegmentHidden(isHidden: false)
+        
         
         sender.view?.removeFromSuperview()
     }
@@ -389,16 +446,31 @@ class ScanConfirmViewController: UIViewController, SendCategoryDelegate, SendBoo
          let cameraVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "cameraVC") as! OpenCameraViewController
          self.navigationController?.pushViewController(cameraVC, animated: true)
          */
-        let picker = UIImagePickerController()
-        picker.delegate = self
-        // Setting this to true allows the user to crop and scale // the image to a square after the photo is taken.
-        //
-        picker.allowsEditing = true
-        picker.sourceType = UIImagePickerControllerSourceType.camera
-        self.present(
-            picker, animated: true)
-        
+        if !(UIImagePickerController.isSourceTypeAvailable(
+            UIImagePickerControllerSourceType.camera)) {
+            // If not, we will show the alert
+            let alert = UIAlertController(title: "Take Photo", message: "This device does not support camera", preferredStyle: UIAlertControllerStyle.alert)
+            
+            // add an action (button)
+            alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.default, handler: nil))
+            
+            // show the alert
+            self.present(alert, animated: true, completion: nil)
+            
+        }else {
+            let picker = UIImagePickerController()
+            picker.delegate = self
+            // Setting this to true allows the user to crop and scale // the image to a square after the photo is taken.
+            //
+            picker.allowsEditing = false
+            picker.sourceType = UIImagePickerControllerSourceType.camera
+            self.present(
+                picker, animated: true)
+            
+        }
     }
+    
+    
     
     // This function is called after the user took the picture,
     // or selected a picture from the photo library.
@@ -412,8 +484,8 @@ class ScanConfirmViewController: UIViewController, SendCategoryDelegate, SendBoo
         [String : AnyObject])
     {
         let chosenImage : UIImage =
-            info[UIImagePickerControllerEditedImage] as! UIImage
-        itemView.image = chosenImage
+            info[UIImagePickerControllerOriginalImage] as! UIImage
+        self.itemView.image = chosenImage
         
         pictures.remove(at: itemView.tag)
         pictures.insert(chosenImage, at: itemView.tag)
@@ -448,11 +520,23 @@ class ScanConfirmViewController: UIViewController, SendCategoryDelegate, SendBoo
     func sendData(text: String) {
         categoryLbl.text = text
         print("yolo")
+        
         CategoryDataManager.getCateid(name: text, limit: "1", onComplete: {
             (data : Category) in
             self.tempCateid = data.id
+            self.overallCate = data.heading
             print(self.tempCateid)
+            if self.tempCateid.characters.count > 0 {
+                PostingDataManager.userCategoryDataExist = true
+            }
+            CategoryDataManager.getCateid(name: self.overallCate, limit: "1", onComplete: {
+                (data2 : Category) in
+                self.tempOverallCateid = data2.id
+                print("overall catid \(self.tempOverallCateid)")
+                
+            })
         })
+        
     }
     func populateData(firstTime: Bool) {
         firstTimeForCateArray = firstTime
@@ -467,14 +551,16 @@ class ScanConfirmViewController: UIViewController, SendCategoryDelegate, SendBoo
         print("huehuehe")
         //
         
-        if (data != nil) {
-            pname = data.name!
-            pisbn = data.isbn!
-            ppub = data.publisher!
-            pauthor = data.author!
-            pedit = data.edition!
-            pdesc = data.desc!
-        }
+        
+        pname = data.name!
+        pisbn = data.isbn!
+        ppub = data.publisher!
+        pauthor = data.author!
+        pedit = data.edition!
+        pdesc = data.desc!
+        
+        PostingDataManager.userBookDataExist = true;
+        
         print("pname: \(pname)")
         
         
@@ -517,6 +603,11 @@ class ScanConfirmViewController: UIViewController, SendCategoryDelegate, SendBoo
             let vc = segue.destination as! ScanInfoViewController
             //  vc.asd = "Taylor"
             vc.delegate = self
+            if PostingDataManager.userBookDataExist == true {
+                vc.bDesc = pdesc
+                
+            }
+            
         } else if segue.identifier == "scanCategorySegue" {
             let vc = segue.destination as! CategoryTableViewController
             vc.delegate = self
@@ -531,6 +622,131 @@ class ScanConfirmViewController: UIViewController, SendCategoryDelegate, SendBoo
         
         
     }
+    
+    
+    @IBAction func postPressed(_ sender: UIButton) {
+        var counter = 0
+        success = false
+        if PostingDataManager.userBookDataExist == true {
+            callPhotoApi(onComplete: {
+                
+                
+                print("success")
+                print("level id nyaaan \(self.tempLevelid)")
+                print(" cate id nyannnn \(self.tempCateid)")
+                print(" overallcate id nyannnn \(self.tempOverallCateid)")
+                print("FILEPATH ARR COUNT ^~^ : \(self.filePath.count)")
+                
+                print("BOOK INFO : \(bookAuthor)")
+                print("BOOK NAME : \(bookName)")
+                print("BOOK NAME : \(self.pname)")
+                counter = counter + 1
+                
+                if ( counter == self.pictures.count){
+                    self.success = true
+                }
+                if self.success {
+                    
+                    for var i in 0 ..< self.filePath.count {
+                        print("kkkk")
+                        print(self.filePath[i])
+                        print("huealien")
+                    }
+                    print("kitty cat")
+                    var catid : [String] = [self.tempCateid!,self.tempLevelid!, self.tempOverallCateid!]
+                    
+                    
+                    
+                    print("CATEGORY ID \(catid)")
+                    print("kitty cat")
+                    print(PostingDataManager.userToken)
+                    PostingDataManager.createPostingData(token: PostingDataManager.userToken!, cateid: catid, name: self.pname, isbn: self.pisbn, desc: self.pdesc, author: self.pauthor, publisher: self.ppub, edition: self.pedit, photos: self.filePath , loc: "", tags: "", onComplete: {
+                        
+                    })
+                }
+                
+            })
+        } else {
+            // create the alert
+            let alert = UIAlertController(title: "Post", message: "Please enter the condition of the book", preferredStyle: UIAlertControllerStyle.alert)
+            
+            // add an action (button)
+            alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.default, handler: nil))
+            
+            // show the alert
+            self.present(alert, animated: true, completion: nil)
+        }
+        
+    }
+    
+    func callPhotoApi(onComplete:(() -> Void)?){
+        
+        let parameters = [
+            "token": PostingDataManager.userToken!
+        ]
+        
+        //Use image name from bundle to create NSData
+        for var i in 0 ..< self.pictures.count {
+            let image : UIImage = pictures[i]!
+            
+            
+            Alamofire.upload(multipartFormData: { (multipartFormData) in
+                multipartFormData.append(UIImageJPEGRepresentation(image, 0.5)!, withName: "file", fileName: "file.png", mimeType: "image/png")
+                for (key, value) in parameters {
+                    multipartFormData.append(value.data(using: String.Encoding.utf8)!, withName: key)
+                }
+            }, to:"http://13.228.39.122/FP01_654265348176237/1.0/photos/addp")
+            { (result) in
+                switch result {
+                case .success(let upload, _, _):
+                    
+                    upload.uploadProgress(closure: { (Progress) in
+                        print("Upload Progress: \(Progress.fractionCompleted)")
+                    })
+                    
+                    upload.responseJSON { response in
+                        //self.delegate?.showSuccessAlert()
+                        print(response.request)  // original URL request
+                        print(response.response) // URL response
+                        print(response.data)     // server data
+                        print(response.result)   // result of response serialization
+                        //                        self.showSuccesAlert()
+                        //self.removeImage("frame", fileExtension: "txt")
+                        if let JSON = response.result.value {
+                            print("JSON: \(JSON)")
+                            
+                        }
+                        if let data = response.result.value as? [String: Any]{
+                            print("File PATH : ")
+                            print(data["filepath"]!)
+                            self.filePath.append(data["filepath"] as! String)
+                            print("alien")
+                            if onComplete != nil
+                            {
+                                onComplete!()
+                                
+                                
+                            }
+                        }
+                        
+                        
+                    }
+                    
+                case .failure(let encodingError):
+                    //self.delegate?.showFailAlert()
+                    print(encodingError)
+                }
+                
+            }
+        }
+        
+        
+        
+    }
+    
+    
+    
+    
     
     
     

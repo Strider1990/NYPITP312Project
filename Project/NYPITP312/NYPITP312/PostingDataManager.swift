@@ -18,6 +18,8 @@ import UIKit
 
 class PostingDataManager: NSObject {
     
+    static var userToken : String!
+    
     static var userBookDataExist : Bool = false
     static var userCategoryDataExist : Bool = false
     static var userCourselevelDataExist : Bool = false
@@ -36,7 +38,7 @@ class PostingDataManager: NSObject {
         
         HTTP.postJSON(url: url,
                       json: JSON.init([
-                        "token" : "#123456",
+                        "token" : token,
                         "cateid" : cateid,
                         "name" : name,
                         "isbn" : isbn,
@@ -45,7 +47,7 @@ class PostingDataManager: NSObject {
                         "publisher" : publisher,
                         "edition" : edition,
                         "photos": photos,
-                        "preferredloc" : "Yio Chu Kang MRT",
+                        "preferredloc" : "Bedok MRT",
                         "tags" : "English"
                         
                         ]), onComplete: {

@@ -36,6 +36,8 @@ class ScannerViewController: UIViewController,AVCaptureMetadataOutputObjectsDele
      return .lightContent
      }*/
     
+    // var userToken : String = ""
+    
     func setSegmentHidden(isHidden: Bool){
         
         donateSegment.isHidden = isHidden
@@ -92,6 +94,9 @@ class ScannerViewController: UIViewController,AVCaptureMetadataOutputObjectsDele
     
     
     override func viewWillAppear(_ animated: Bool) {
+        
+        print("a")
+        
         first = true;
         
         captureSession?.startRunning()
@@ -100,11 +105,11 @@ class ScannerViewController: UIViewController,AVCaptureMetadataOutputObjectsDele
         
         self.parent?.navigationItem.title = "Donate"
         /*if donateSegment.selectedSegmentIndex == 0 {
-            
-            //doneNavBtn.isEnabled = false
-            //doneNavBtn.tintColor = UIColor.clear
-            
-        }*/
+         
+         //doneNavBtn.isEnabled = false
+         //doneNavBtn.tintColor = UIColor.clear
+         
+         }*/
     }
     
     
@@ -117,7 +122,19 @@ class ScannerViewController: UIViewController,AVCaptureMetadataOutputObjectsDele
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        
+        let par: RootNavViewController = self.parent?.parent as! RootNavViewController
+        PostingDataManager.userToken = par.login.token!
+        print(PostingDataManager.userToken)
+        print("login nyan")
+        
+        
+        
+        print("c")
+        
         view2.isHidden = true;
+        
+        
         
         
         // Do any additional setup after loading the view.
@@ -350,65 +367,15 @@ class ScannerViewController: UIViewController,AVCaptureMetadataOutputObjectsDele
                 
                 // captureSession?.stopRunning()
                 
-                /*
-                 
-                 var success = false;
-                 
-                 let url1 = "http://13.228.39.122/FP01_654265348176237/1.0/isbn/list"
-                 
-                 HTTP.postJSON(url: url1,
-                 json: JSON.init([
-                 "id" : metadataObj.stringValue,
-                 "limit" : "1",
-                 
-                 ]), onComplete: {
-                 json, response, error in
-                 
-                 if json != nil {
-                 print(json!)
-                 
-                 print(json![0]["name"])
-                 print(json![0]["publisher"])
-                 print(json![0]["edition"])
-                 print(json![0]["author"])
-                 print(json![0]["cateid"])
-                 print(json![0]["id"])
-                 
-                 print("size of the array:  \(json!.count)")
-                 bookName = json![0]["name"].string
-                 bookPublisher = json![0]["publisher"].string
-                 bookISBN = json![0]["id"].string
-                 bookEdition = json![0]["edition"].string
-                 
-                 DispatchQueue.main.async {
-                 self.detectLabel.text = "Book Name: \(json![0]["name"]) Book Publisher: \(json![0]["publisher"]) Book Edition: \(json![0]["edition"]) Book ISBN: \(json![0]["id"])"
-                 
-                 success = true;
-                 
-                 /*      let bookConfirmVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "bookConfirmVC") as! BookConfirmViewController
-                 self.navigationController?.pushViewController(bookConfirmVC, animated: true)
-                 */
-                 if success {
-                 
-                 let scanConfirmVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "scanConfirmVC") as! ScanConfirmViewController
-                 self.navigationController?.pushViewController(scanConfirmVC, animated: true)
-                 
-                 
-                 }
-                 
-                 }
-                 } else{
-                 print("failed api request")
-                 return
-                 }
-                 
-                 
-                 })
-                 
-                 
-                 // ==== end of web api call  ====
-                 
-                 */
+                let spinner: UIActivityIndicatorView = UIActivityIndicatorView(activityIndicatorStyle: UIActivityIndicatorViewStyle.whiteLarge)
+                spinner.frame = self.view.frame
+                spinner.backgroundColor = UIColor(red: 0.5, green: 0.5, blue: 0.5, alpha: 0.3)
+                spinner.alpha = 1.0
+                self.view.addSubview(spinner)
+                spinner.center = CGPoint(x: self.view.frame.width / 2, y: self.view.frame.height / 2)
+                spinner.startAnimating()
+                
+                
                 
                 
                 ISBNDataManager.getISBNData(id: metadataObj.stringValue, limit: "1", onComplete: {
@@ -430,24 +397,28 @@ class ScannerViewController: UIViewController,AVCaptureMetadataOutputObjectsDele
                         //      }
                         //  bookCateId.append(ISBN.cateid[1])
                         print("nyaaacan !")
-                        DispatchQueue.main.async {
-                            //            self.detectLabel.text = "Book Name: \(ISBN.name!) Book Publisher: \(ISBN.publisher!) Book Edition: \(ISBN.edition!) Book ISBN: \(ISBN.id!)"
-                            
-                            //  if ISBNDataManager.success{
-                            
-                            
-                            //                    let scanConfirmVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "scanConfirmVC") as! ScanConfirmViewController
-                            //                    self.navigationController?.pushViewController(scanConfirmVC, animated: true)
-                            
-                            /* ==========
-                             CategoryDataManager.getCategory(heading: "Textbook", limit: "50", onComplete: {
-                             (data : [Objects]) in
-                             
-                             
-                             })
-                             */
-                            if (bookName != nil) {
+                        if (bookName != nil) {
+                            DispatchQueue.main.async {
+                                //            self.detectLabel.text = "Book Name: \(ISBN.name!) Book Publisher: \(ISBN.publisher!) Book Edition: \(ISBN.edition!) Book ISBN: \(ISBN.id!)"
+                                
+                                //  if ISBNDataManager.success{
+                                
+                                
+                                //                    let scanConfirmVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "scanConfirmVC") as! ScanConfirmViewController
+                                //                    self.navigationController?.pushViewController(scanConfirmVC, animated: true)
+                                
+                                /* ==========
+                                 CategoryDataManager.getCategory(heading: "Textbook", limit: "50", onComplete: {
+                                 (data : [Objects]) in
+                                 
+                                 
+                                 })
+                                 */
+                                
                                 //     let scanConfirmVC = ScanConfirmViewController()
+                                
+                                spinner.stopAnimating()
+                                
                                 print("yolo")
                                 print(bookCateId.count)
                                 

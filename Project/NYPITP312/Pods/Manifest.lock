@@ -50,6 +50,8 @@ PODS:
   - Google/SignIn (3.1.0):
     - Google/Core
     - GoogleSignIn (~> 4.0)
+  - GooglePlacesRow (2.1.0):
+    - Eureka (~> 3.0)
   - GoogleSignIn (4.0.2):
     - GoogleToolboxForMac/NSDictionary+URLArguments (~> 2.1)
     - GoogleToolboxForMac/NSString+URLArguments (~> 2.1)
@@ -89,6 +91,7 @@ DEPENDENCIES:
   - Firebase/Auth
   - Firebase/Core
   - Google/SignIn
+  - GooglePlacesRow
   - iCarousel (~> 1.8)
   - Material (~> 2.0)
   - OAuthSwift (~> 1.1.0)
@@ -120,6 +123,7 @@ SPEC CHECKSUMS:
   FirebaseCore: 9691ee2ade70c098d7cf92440f4303f16d83ca75
   FirebaseInstanceID: b9eedd6846fb5e1f0f7279e1deaa7a7e4cf8392e
   Google: 98da4b1a60ed0beb80a290387a28333406a1eb90
+  GooglePlacesRow: b746f7213e0436c4e7529fbade8eeb10d22de3eb
   GoogleSignIn: d7ad83f13480e1f30453471d00d19b5293ac46af
   GoogleToolboxForMac: 8e329f1b599f2512c6b10676d45736bcc2cbbeb0
   GTMOAuth2: 7fc9c10f5c745f4d9850419ea88889fe3baa6b7d
@@ -129,6 +133,6 @@ SPEC CHECKSUMS:
   OAuthSwift: 5aa5659984d3ca3206ba636a9e7a9c6626b2e8bd
   SCLAlertView: 8a14ffc40590c619e183eed2298b854385f30be1
 
-PODFILE CHECKSUM: 835711668e29c1a4834bfbfedad698e00d3c76bd
+PODFILE CHECKSUM: 4147decaf97e63fce737f5d8e3e4b502d60f3bf1
 
 COCOAPODS: 1.2.1

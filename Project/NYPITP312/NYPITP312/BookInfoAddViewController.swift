@@ -278,12 +278,20 @@ class BookInfoAddViewController: FormViewController {
             }
             
             +++ Section("Book Condition")
-            <<< PickerInlineRow<String>("condition") {
+            //            <<< PickerInlineRow<String>("condition") {
+            //                $0.title = "Condition"
+            //                $0.add(rule: RuleRequired())
+            //                $0.validationOptions = .validatesOnChangeAfterBlurred
+            //                $0.options = ["1/10", "2/10", "3/10", "4/10", "5/10", "6/10", "7/10", "8/10","9/10", "10/10"]
+            //                $0.value = "10/10"
+            <<< PickerInputRow<String>("condition"){
                 $0.title = "Condition"
-                $0.add(rule: RuleRequired())
-                $0.validationOptions = .validatesOnChangeAfterBlurred
-                $0.options = ["1/10", "2/10", "3/10", "4/10", "5/10", "6/10", "7/10", "8/10","9/10", "10/10"]
-                $0.value = "10/10"
+                var options = ["1/10", "2/10", "3/10", "4/10", "5/10", "6/10", "7/10", "8/10","9/10", "10/10"]
+                $0.options = []
+                for i in options {
+                    $0.options.append(i)
+                }
+                $0.value = $0.options.last
                 if PostingDataManager.userBookDataExist == true {
                     $0.value = bDesc
                 }

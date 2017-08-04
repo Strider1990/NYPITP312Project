@@ -63,6 +63,8 @@ class ManualAddViewController: UIViewController, SendCategoryDelegate, SendBookD
     
     var success : Bool = false;
     
+    var userToken : String = ""
+    
     
     
     //    @IBOutlet var itemView: UIImageView!
@@ -111,6 +113,12 @@ class ManualAddViewController: UIViewController, SendCategoryDelegate, SendBookD
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        //let par: RootNavViewController = self.parent as! RootNavViewController
+        //userToken = par.login.token!
+        //print(userToken)
+        
+        
         
         carousel.dataSource = self
         carousel.delegate = self
@@ -171,8 +179,10 @@ class ManualAddViewController: UIViewController, SendCategoryDelegate, SendBookD
             if self.tempCateid.characters.count > 0 {
                 PostingDataManager.userCategoryDataExist = true
             }
-            CategoryDataManager.getCateid(name: overallCate, limit: "1", onComplete: {
+            CategoryDataManager.getCateid(name: overallCate, limit: "2", onComplete: {
                 (data2 : Category) in
+                print(data2.heading!)
+                print(data2.name!)
                 self.tempOverallCateid = data2.id
                 print("overall catid \(self.tempOverallCateid)")
                 
@@ -346,7 +356,7 @@ class ManualAddViewController: UIViewController, SendCategoryDelegate, SendBookD
             picker.delegate = self
             // Setting this to true allows the user to crop and scale // the image to a square after the image is selected.
             //
-            picker.allowsEditing = true
+            picker.allowsEditing = false
             picker.sourceType = UIImagePickerControllerSourceType.photoLibrary
             self.present(
                 picker, animated: true)
@@ -374,7 +384,7 @@ class ManualAddViewController: UIViewController, SendCategoryDelegate, SendBookD
             
         }
         
-        alertView.showInfo("Add Images", subTitle: "Choose an action", closeButtonTitle: "Close")
+        alertView.showNotice("Add Images", subTitle: "Choose an action", closeButtonTitle: "Close")
         //, circleIconImage: alertViewIcon)
         
     }
@@ -413,7 +423,7 @@ class ManualAddViewController: UIViewController, SendCategoryDelegate, SendBookD
             picker.delegate = self
             // Setting this to true allows the user to crop and scale // the image to a square after the photo is taken.
             //
-            picker.allowsEditing = true
+            picker.allowsEditing = false
             picker.sourceType = UIImagePickerControllerSourceType.camera
             self.present(
                 picker, animated: true)
@@ -468,6 +478,8 @@ class ManualAddViewController: UIViewController, SendCategoryDelegate, SendBookD
     }
     
     @IBAction func postPressed(_ sender: UIButton) {
+        userToken = PostingDataManager.userToken
+        print(userToken)
         var counter = 0
         success = false
         print(PostingDataManager.userCategoryDataExist)
@@ -511,11 +523,11 @@ class ManualAddViewController: UIViewController, SendCategoryDelegate, SendBookD
                     print("kitty cat")
                     var catid : [String] = [self.tempCateid!,self.tempLevelid!, self.tempOverallCateid!]
                     
-
+                    
                     
                     print("CATEGORY ID \(catid)")
                     print("kitty cat")
-                    PostingDataManager.createPostingData(token: "", cateid: catid, name: self.pname, isbn: self.pisbn, desc: self.pdesc, author: self.pauthor, publisher: self.ppub, edition: self.pedit, photos: self.filePath , loc: "", tags: "", onComplete: {
+                    PostingDataManager.createPostingData(token: self.userToken , cateid: catid, name: self.pname, isbn: self.pisbn, desc: self.pdesc, author: self.pauthor, publisher: self.ppub, edition: self.pedit, photos: self.filePath , loc: "", tags: "", onComplete: {
                         
                     })
                     
@@ -543,7 +555,7 @@ class ManualAddViewController: UIViewController, SendCategoryDelegate, SendBookD
     func callPhotoApi(onComplete:(() -> Void)?){
         
         let parameters = [
-            "token": "#123456"
+            "token": userToken
         ]
         
         //Use image name from bundle to create NSData
