@@ -126,7 +126,7 @@ class RegistrationFirstViewController: UIViewController {
         } else {
             confirmPasswordTextField.layer.borderColor = UIColor.green.cgColor
             validConfirm = true
-            profile?.password = passwordTextField.text?.sha512().uppercased()
+            profile?.password = passwordTextField.text
         }
         confirmPasswordTextField.layer.borderWidth = 1.0
         allValid()

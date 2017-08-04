@@ -72,8 +72,20 @@ class LoginViewController: UIViewController, GIDSignInUIDelegate {
             
             let pwd = (passwordTextField.text!.sha512().uppercased() + nonce!).sha512().uppercased()
             DispatchQueue.global(qos: .background).async {
+                
+                User.loginUser(withEmail: self.emailTextField.text!, password: self.passwordTextField.text!) { [weak weakSelf = self](status) in
+                    DispatchQueue.main.async {
+                        if status == true {
+                            //weakSelf?.pushTomainView()
+                            print("Successfully logged into Firebase")
+                        }
+                    }
+                }
+
                 HTTP.postJSON(url: "http://13.228.39.122/FP01_654265348176237/1.0/user/login", json: JSON.init(parseJSON: "{ \"type\": \"E\", \"email\": \"\(self.emailTextField.text!)\", \"password\": \"\(pwd)\" }"), onComplete: {
                     json, response, error in
+                    
+                    print(json!)
                     
                     if json == nil {
                         return

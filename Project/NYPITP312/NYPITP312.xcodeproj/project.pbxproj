@@ -43,6 +43,14 @@
 		04D98FC71F33AEE10022C3D7 /* UserBookCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04D98FC61F33AEE10022C3D7 /* UserBookCollectionViewCell.swift */; };
 		04D98FC91F34041B0022C3D7 /* DonorBookCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04D98FC81F34041B0022C3D7 /* DonorBookCollectionViewCell.swift */; };
 		04D98FCB1F341B1E0022C3D7 /* UserDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04D98FCA1F341B1E0022C3D7 /* UserDetail.swift */; };
+		04D98FCF1F34428C0022C3D7 /* ChatVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04D98FCC1F34428C0022C3D7 /* ChatVC.swift */; };
+		04D98FD01F34428D0022C3D7 /* ConversationsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04D98FCD1F34428C0022C3D7 /* ConversationsVC.swift */; };
+		04D98FD11F34428D0022C3D7 /* VCCells.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04D98FCE1F34428C0022C3D7 /* VCCells.swift */; };
+		04D98FD31F3442A00022C3D7 /* Helper Files.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04D98FD21F3442A00022C3D7 /* Helper Files.swift */; };
+		04D98FD71F3442CD0022C3D7 /* Conversation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04D98FD41F3442CD0022C3D7 /* Conversation.swift */; };
+		04D98FD81F3442CD0022C3D7 /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04D98FD51F3442CD0022C3D7 /* Message.swift */; };
+		04D98FD91F3442CD0022C3D7 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04D98FD61F3442CD0022C3D7 /* User.swift */; };
+		04D98FDB1F34484B0022C3D7 /* newMessage.wav in Resources */ = {isa = PBXBuildFile; fileRef = 04D98FDA1F34484B0022C3D7 /* newMessage.wav */; };
 		04DD3E9F1EAE348E00D3D559 /* MicrosoftAzureMobile.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 04DD3E9E1EAE348E00D3D559 /* MicrosoftAzureMobile.framework */; };
 		04DD3EA01EAE348E00D3D559 /* MicrosoftAzureMobile.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 04DD3E9E1EAE348E00D3D559 /* MicrosoftAzureMobile.framework */; };
 		04DD3EA11EAE348E00D3D559 /* MicrosoftAzureMobile.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 04DD3E9E1EAE348E00D3D559 /* MicrosoftAzureMobile.framework */; };
@@ -134,6 +142,14 @@
 		04D98FC61F33AEE10022C3D7 /* UserBookCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserBookCollectionViewCell.swift; sourceTree = "<group>"; };
 		04D98FC81F34041B0022C3D7 /* DonorBookCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DonorBookCollectionViewCell.swift; sourceTree = "<group>"; };
 		04D98FCA1F341B1E0022C3D7 /* UserDetail.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserDetail.swift; sourceTree = "<group>"; };
+		04D98FCC1F34428C0022C3D7 /* ChatVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatVC.swift; sourceTree = "<group>"; };
+		04D98FCD1F34428C0022C3D7 /* ConversationsVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConversationsVC.swift; sourceTree = "<group>"; };
+		04D98FCE1F34428C0022C3D7 /* VCCells.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VCCells.swift; sourceTree = "<group>"; };
+		04D98FD21F3442A00022C3D7 /* Helper Files.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Helper Files.swift"; sourceTree = "<group>"; };
+		04D98FD41F3442CD0022C3D7 /* Conversation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Conversation.swift; sourceTree = "<group>"; };
+		04D98FD51F3442CD0022C3D7 /* Message.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Message.swift; sourceTree = "<group>"; };
+		04D98FD61F3442CD0022C3D7 /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		04D98FDA1F34484B0022C3D7 /* newMessage.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = newMessage.wav; sourceTree = "<group>"; };
 		04DD3E971EAE28D600D3D559 /* NYPITP312-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NYPITP312-Bridging-Header.h"; sourceTree = "<group>"; };
 		04DD3E981EAE28D600D3D559 /* NYPITP312Tests-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NYPITP312Tests-Bridging-Header.h"; sourceTree = "<group>"; };
 		04DD3E991EAE28D600D3D559 /* NYPITP312UITests-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NYPITP312UITests-Bridging-Header.h"; sourceTree = "<group>"; };
@@ -202,6 +218,7 @@
 		040734601F0C43F300BB6FF7 /* Wrappers */ = {
 			isa = PBXGroup;
 			children = (
+				04D98FD21F3442A00022C3D7 /* Helper Files.swift */,
 				041889F21F0BDCFD00E6ED16 /* String+Encryption.swift */,
 				041889F41F0BE14D00E6ED16 /* HTTP.swift */,
 				041889F51F0BE14D00E6ED16 /* SwiftJSON.swift */,
@@ -218,6 +235,9 @@
 		041889EF1F0BDA0600E6ED16 /* Entities */ = {
 			isa = PBXGroup;
 			children = (
+				04D98FD41F3442CD0022C3D7 /* Conversation.swift */,
+				04D98FD51F3442CD0022C3D7 /* Message.swift */,
+				04D98FD61F3442CD0022C3D7 /* User.swift */,
 				041889F01F0BDA2400E6ED16 /* Profile.swift */,
 				041889ED1F0A8D4500E6ED16 /* FieldValidators.swift */,
 				040734631F0C51C700BB6FF7 /* Login.swift */,
@@ -272,6 +292,7 @@
 				04DD3E971EAE28D600D3D559 /* NYPITP312-Bridging-Header.h */,
 				04DD3E981EAE28D600D3D559 /* NYPITP312Tests-Bridging-Header.h */,
 				04DD3E991EAE28D600D3D559 /* NYPITP312UITests-Bridging-Header.h */,
+				04D98FDA1F34484B0022C3D7 /* newMessage.wav */,
 			);
 			path = NYPITP312;
 			sourceTree = "<group>";
@@ -332,6 +353,9 @@
 				04D98FBE1F3387310022C3D7 /* DonationCollectionViewController.swift */,
 				04D98FC21F338DCC0022C3D7 /* UserViewController.swift */,
 				04D98FC41F339BD20022C3D7 /* BookViewController.swift */,
+				04D98FCC1F34428C0022C3D7 /* ChatVC.swift */,
+				04D98FCD1F34428C0022C3D7 /* ConversationsVC.swift */,
+				04D98FCE1F34428C0022C3D7 /* VCCells.swift */,
 			);
 			name = ViewControllers;
 			sourceTree = "<group>";
@@ -495,6 +519,7 @@
 				0476FE111EADDB8A00CEF7EF /* LaunchScreen.storyboard in Resources */,
 				04DD3EAA1EAF135500D3D559 /* GoogleService-Info.plist in Resources */,
 				0476FE0E1EADDB8A00CEF7EF /* Assets.xcassets in Resources */,
+				04D98FDB1F34484B0022C3D7 /* newMessage.wav in Resources */,
 				0476FE0C1EADDB8A00CEF7EF /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -660,9 +685,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				04D98FD91F3442CD0022C3D7 /* User.swift in Sources */,
 				04D98FC71F33AEE10022C3D7 /* UserBookCollectionViewCell.swift in Sources */,
 				042293AC1F2CE54D00BE2CCD /* CategoryViewController.swift in Sources */,
 				040734621F0C446000BB6FF7 /* LoginViewController.swift in Sources */,
+				04D98FD81F3442CD0022C3D7 /* Message.swift in Sources */,
 				04D98FC31F338DCC0022C3D7 /* UserViewController.swift in Sources */,
 				04D98FC51F339BD20022C3D7 /* BookViewController.swift in Sources */,
 				04D98FBF1F3387310022C3D7 /* DonationCollectionViewController.swift in Sources */,
@@ -680,6 +707,8 @@
 				04DD3EB21EAF25B300D3D559 /* RegistrationDetailViewController.swift in Sources */,
 				04822BBE1ED4292F00723903 /* DesignableUITextField.swift in Sources */,
 				040734681F0C860700BB6FF7 /* BrowseViewController.swift in Sources */,
+				04D98FD11F34428D0022C3D7 /* VCCells.swift in Sources */,
+				04D98FD01F34428D0022C3D7 /* ConversationsVC.swift in Sources */,
 				040734641F0C51C700BB6FF7 /* Login.swift in Sources */,
 				041889EC1F0A7D9100E6ED16 /* RegistrationSecondViewController.swift in Sources */,
 				041889F61F0BE14D00E6ED16 /* HTTP.swift in Sources */,
@@ -694,7 +723,9 @@
 				04D98FC11F3388750022C3D7 /* DonationCollectionViewCell.swift in Sources */,
 				04D98FC91F34041B0022C3D7 /* DonorBookCollectionViewCell.swift in Sources */,
 				2E10FF841F2FF68500330A78 /* ScannerViewController.swift in Sources */,
+				04D98FCF1F34428C0022C3D7 /* ChatVC.swift in Sources */,
 				2E10FF871F2FF70B00330A78 /* ISBNDataManager.swift in Sources */,
+				04D98FD71F3442CD0022C3D7 /* Conversation.swift in Sources */,
 				0407346A1F0C8E0000BB6FF7 /* TabViewController.swift in Sources */,
 				04822B7E1ED2681000723903 /* RootNavViewController.swift in Sources */,
 				041889EE1F0A8D4500E6ED16 /* FieldValidators.swift in Sources */,
@@ -703,6 +734,7 @@
 				041889F31F0BDCFD00E6ED16 /* String+Encryption.swift in Sources */,
 				041889F71F0BE14D00E6ED16 /* SwiftJSON.swift in Sources */,
 				2EEB68741F314DA7008BE8A1 /* ScanInfoViewController.swift in Sources */,
+				04D98FD31F3442A00022C3D7 /* Helper Files.swift in Sources */,
 				04D98FCB1F341B1E0022C3D7 /* UserDetail.swift in Sources */,
 				042293B01F2CE9CC00BE2CCD /* Category.swift in Sources */,
 			);

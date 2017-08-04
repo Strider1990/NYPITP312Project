@@ -91,9 +91,15 @@ class RegistrationSecondViewController: UIViewController, UIImagePickerControlle
             self.view.addSubview(spinner)
             spinner.center = CGPoint(x: self.view.frame.width / 2, y: self.view.frame.height / 2)
             spinner.startAnimating()
-
+            
             DispatchQueue.global(qos: .background).async {
-                HTTP.postJSON(url: "http://13.228.39.122/FP01_654265348176237/1.0/user/add", json: JSON.init(parseJSON: "{ \"type\": \"E\", \"name\": \"\(self.profile!.name!)\", \"photo\": \"\(self.profile!.profileImg!)\", \"email\": \"\(self.profile!.email!)\", \"password\": \"\(self.profile!.password!)\", \"phone\": \"\(self.profile!.mobile!)\", \"showemail\": \"\(self.profile!.contactEmail!.description)\", \"showphone\": \"\(self.profile!.contactMobile!.description)\" }"), onComplete:
+                User.registerUser(withName: self.profile!.name!, email: self.profile!.email!, password: self.profile!.password!, profilePic: self.profileImage!) { [weak weakSelf = self] (status) in
+                    if status == true {
+                        print("Successfully registered to Firebase")
+                    }
+                }
+                
+                HTTP.postJSON(url: "http://13.228.39.122/FP01_654265348176237/1.0/user/add", json: JSON.init(parseJSON: "{ \"type\": \"E\", \"name\": \"\(self.profile!.name!)\", \"photo\": \"\(self.profile!.profileImg!)\", \"email\": \"\(self.profile!.email!)\", \"password\": \"\(self.profile!.password!.sha512().uppercased())\", \"phone\": \"\(self.profile!.mobile!)\", \"showemail\": \"\(self.profile!.contactEmail!.description)\", \"showphone\": \"\(self.profile!.contactMobile!.description)\" }"), onComplete:
                 {
                     json, response, error in
                     
@@ -107,9 +113,9 @@ class RegistrationSecondViewController: UIViewController, UIImagePickerControlle
                     
                     if json!["success"].exists() {
                         newLogin.name = self.profile!.name!
-                        newLogin.photo = self.profile!.profileImg!
                         newLogin.token = json!["token"].string!
                         newLogin.userId = json!["userid"].string!
+                        newLogin.photo = json!["userid"].string!
                         newLogin.type = json!["type"].string!
                         newLogin.email = self.profile?.email
                         
@@ -122,7 +128,7 @@ class RegistrationSecondViewController: UIViewController, UIImagePickerControlle
                     //Post to add photo
                     
                     Alamofire.upload(multipartFormData: { (multipartFormData) in
-                        multipartFormData.append(UIImageJPEGRepresentation(self.profileImage!, 1)!, withName: "file", fileName: "file.png", mimeType: "image/png")
+                        multipartFormData.append(UIImageJPEGRepresentation(self.profileImage!, 1)!, withName: "file", fileName: "file.jpeg", mimeType: "image/jpeg")
                         for (key, value) in parameters {
                             multipartFormData.append(value.data(using: String.Encoding.utf8)!, withName: key)
                         }
@@ -145,8 +151,8 @@ class RegistrationSecondViewController: UIViewController, UIImagePickerControlle
                     //self.removeImage("frame", fileExtension: "txt")
                         if let JSON = response.result.value {
                             print("JSON: \(JSON)")
-                     
                         }
+                        
                         if let data = response.result.value as? [String: Any]{
                             print("File PATH : ")
                             print(data["filepath"]!)
@@ -180,18 +186,46 @@ class RegistrationSecondViewController: UIViewController, UIImagePickerControlle
     {
         imagePicked = true
         if let editedImage = info[UIImagePickerControllerEditedImage] as? UIImage {
-            self.profileButton.setBackgroundImage(editedImage, for: .normal)
+            let resized = resizeImage(image: editedImage, targetSize: CGSize(width: 300.0, height: 300.0))
+            self.profileButton.setBackgroundImage(resized, for: .normal)
             self.profileButton.setTitle("", for: .normal)
+            self.profileImage = resized
             picker.dismiss(animated: true)
-            self.profileImage = editedImage
         } else if let origImage = info[UIImagePickerControllerOriginalImage] as? UIImage {
-            self.profileButton.setBackgroundImage(origImage, for: .normal)
+            let resized = resizeImage(image: origImage, targetSize: CGSize(width: 300.0, height: 300.0))
+            self.profileButton.setBackgroundImage(resized, for: .normal)
             self.profileButton.setTitle("", for: .normal)
+            self.profileImage = resized
             picker.dismiss(animated: true)
-            self.profileImage = origImage
         } else {
             print("Error in getting image")
         }
+    }
+    
+    func resizeImage(image: UIImage, targetSize: CGSize) -> UIImage {
+        let size = image.size
+        
+        let widthRatio  = targetSize.width  / image.size.width
+        let heightRatio = targetSize.height / image.size.height
+        
+        // Figure out what our orientation is, and use that to form the rectangle
+        var newSize: CGSize
+        if(widthRatio > heightRatio) {
+            newSize = CGSize(width: size.width * heightRatio, height: size.height * heightRatio)
+        } else {
+            newSize = CGSize(width: size.width * widthRatio,  height: size.height * widthRatio)
+        }
+        
+        // This is the rect that we've calculated out and this is what is actually used below
+        let rect = CGRect(x: 0, y: 0, width: newSize.width, height: newSize.height)
+        
+        // Actually do the resizing to the rect using the ImageContext stuff
+        UIGraphicsBeginImageContextWithOptions(newSize, false, 1.0)
+        image.draw(in: rect)
+        let newImage = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+        
+        return newImage!
     }
     
     /*
