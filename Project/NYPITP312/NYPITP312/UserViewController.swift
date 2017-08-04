@@ -13,6 +13,7 @@ class UserViewController: UIViewController, UICollectionViewDataSource, UICollec
     let reuseIdentifier = "BookCell"
     var id: String?
     var name: String?
+    var userDetail: UserDetail!
     
     @IBOutlet weak var userPhoto: UIImageView!
     
@@ -27,8 +28,35 @@ class UserViewController: UIViewController, UICollectionViewDataSource, UICollec
         self.userPhoto.layer.cornerRadius = self.userPhoto.frame.width / 2
         self.navigationItem.title = self.name!
         
+        if userDetail == nil {
+            DispatchQueue.global(qos: .background).async {
+                HTTP.postJSON(url: "http://13.228.39.122/FP01_654265348176237/1.0/user/get", json: JSON.init(parseJSON: "{\"id\": \"\(self.id!)\", \"token\": \"\(self.par.login.token!)\"}"), onComplete: {
+                    json, response, error in
+                    
+                    if json == nil
+                    {
+                        return
+                    }
+                    
+                    DispatchQueue.main.async {
+                        self.par?.navigationItem.title = json!["name"].string ?? "No name"
+                        do {
+                            if let photoStr = json!["photo"].string {
+                                let data = try Data(contentsOf: URL(string: "http://13.228.39.122/fpsatimgdev/loadimage.aspx?q=users/\(photoStr)_c150")!)
+                                self.userPhoto.image = UIImage(data: data)
+                            } else {
+                                self.userPhoto.image = UIImage(named: "profile")
+                            }
+                        } catch {
+                            print("Error in data \(json!["photo"].string!)")
+                        }
+                    }
+                })
+            }
+        }
+        
         DispatchQueue.global(qos: .background).async {
-            HTTP.postJSON(url: "http://13.228.39.122/FP01_654265348176237/1.0/user/get", json: JSON.init(parseJSON: "{\"id\": \"\(self.id!)\", \"token\": \"\(self.par.login.token!)\"}"), onComplete: {
+            HTTP.postJSON(url: "http://13.228.39.122/FP01_654265348176237/1.0/posting/list", json: JSON.init(parseJSON: "{\"userid\": \"\(self.id!)\", \"orderbypostdt\": \"asc\"}"), onComplete: {
                 json, response, error in
                 
                 if json == nil
@@ -36,61 +64,36 @@ class UserViewController: UIViewController, UICollectionViewDataSource, UICollec
                     return
                 }
                 
-                DispatchQueue.main.async {
-                    self.par?.navigationItem.title = json!["name"].string ?? "No name"
+                print(json!)
+                
+                for (_, v) in json! {
+                    let book: Book = Book()
+                    book.id = v["id"].string!
+                    book.donor = v["by"].string ?? "No Donor"
+                    book.donor_id = v["byid"].string ?? "No Donor ID"
+                    book.isbn = v["isbn"].string!
+                    book.postdt = v["postdt"].int!
+                    book.postdts = v["postdts"].string!
+                    book.book_name = v["name"].string!
+                    book.author = v["author"].string!
+                    book.publisher = v["publisher"].string!
+                    book.edition = v["edition"].string!
+                    book.photos = v["photos"].arrayValue.map {$0.stringValue}
+                    book.cateid = v["cateid"].arrayValue.map {$0.stringValue}
+                    book.status = v["status"].string ?? "No Status"
+                    book.desc = v["desc"].string!
+                    book.preferredLoc = v["preferredLoc"].string ?? "No Preferred Loc"
                     do {
-                        if let photoStr = json!["photo"].string {
-                            let data = try Data(contentsOf: URL(string: "http://13.228.39.122/fpsatimgdev/loadimage.aspx?q=users/\(photoStr)_c150")!)
-                            self.userPhoto.image = UIImage(data: data)
-                        } else {
-                            self.userPhoto.image = UIImage(named: "profile")
-                        }
+                        try book.data = Data(contentsOf: URL(string: "http://13.228.39.122/fpsatimgdev/loadimage.aspx?q=postings/\(book.photos![0])_r300")!)
                     } catch {
-                        print("Error in data \(json!["photo"].string!)")
+                        print("Error in data \(book.photos![0])")
                     }
+                    self.bookList.append(book)
                 }
                 
-                DispatchQueue.global(qos: .background).async {
-                    HTTP.postJSON(url: "http://13.228.39.122/FP01_654265348176237/1.0/posting/list", json: JSON.init(parseJSON: "{\"userid\": \"\(self.id!)\", \"orderbypostdt\": \"asc\"}"), onComplete: {
-                        json, response, error in
-                        
-                        if json == nil
-                        {
-                            return
-                        }
-                        
-                        print(json!)
-                        
-                        for (_, v) in json! {
-                            let book: Book = Book()
-                            book.id = v["id"].string!
-                            book.donor = v["by"].string ?? "No Donor"
-                            book.donor_id = v["byid"].string ?? "No Donor ID"
-                            book.isbn = v["isbn"].string!
-                            book.postdt = v["postdt"].int!
-                            book.postdts = v["postdts"].string!
-                            book.book_name = v["name"].string!
-                            book.author = v["author"].string!
-                            book.publisher = v["publisher"].string!
-                            book.edition = v["edition"].string!
-                            book.photos = v["photos"].arrayValue.map {$0.stringValue}
-                            book.cateid = v["cateid"].arrayValue.map {$0.stringValue}
-                            book.status = v["status"].string ?? "No Status"
-                            book.desc = v["desc"].string!
-                            book.preferredLoc = v["preferredLoc"].string ?? "No Preferred Loc"
-                            do {
-                                try book.data = Data(contentsOf: URL(string: "http://13.228.39.122/fpsatimgdev/loadimage.aspx?q=postings/\(book.photos![0])_r300")!)
-                            } catch {
-                                print("Error in data \(book.photos![0])")
-                            }
-                            self.bookList.append(book)
-                        }
-                        
-                        DispatchQueue.main.async {
-                            print(self.bookList)
-                            self.donatedCollectionView.reloadData()
-                        }
-                    })
+                DispatchQueue.main.async {
+                    print(self.bookList)
+                    self.donatedCollectionView.reloadData()
                 }
             })
         }

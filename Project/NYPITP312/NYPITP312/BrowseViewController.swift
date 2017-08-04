@@ -108,8 +108,10 @@ class BrowseViewController: UIViewController, UICollectionViewDataSource, UIColl
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell: BrowseCollectionViewCell! = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath) as! BrowseCollectionViewCell
         
-        cell.layer.backgroundColor = UIColor.black.cgColor
+        cell.layer.borderColor = UIColor.black.cgColor
+        cell.layer.borderWidth = 1.0
         cell.categoryLabel.text = categoryList[indexPath.row].name
+        cell.categoryImg.image = UIImage(named: categoryList[indexPath.row].name!)
         cell.categoryLabel.textColor = UIColor.white
         
         

@@ -102,12 +102,12 @@ class DonationCollectionViewController: UICollectionViewController {
     }
 
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell: DonationCollectionViewCell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath) as! DonationCollectionViewCell
+        let cell: DonorBookCollectionViewCell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath) as! DonorBookCollectionViewCell
     
         // Configure the cell
-        cell.bookName.text = self.bookList[indexPath.row].book_name
-        cell.donateDate.text = self.bookList[indexPath.row].postdts
-        cell.donationPhoto.image = UIImage(data: self.bookList[indexPath.row].data!)
+        cell.donorBookName.text = self.bookList[indexPath.row].book_name
+        cell.donorBookDate.text = self.bookList[indexPath.row].postdts
+        cell.donorBookImg.image = UIImage(data: self.bookList[indexPath.row].data!)
         
         return cell
     }

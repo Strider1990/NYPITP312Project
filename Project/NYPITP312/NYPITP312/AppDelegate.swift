@@ -23,13 +23,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate {
             applicationURLString:"https://nypitp312.azurewebsites.net"
         )
         
-        FIRApp.configure()
-        
         var configureError: NSError?
         GGLContext.sharedInstance().configureWithError(&configureError)
         assert(configureError == nil, "Error configuring Google services: \(configureError)")
         
         GIDSignIn.sharedInstance().delegate = self
+        
         FBSDKApplicationDelegate.sharedInstance().application(application, didFinishLaunchingWithOptions: launchOptions)
         
         return true

@@ -41,6 +41,8 @@
 		04D98FC31F338DCC0022C3D7 /* UserViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04D98FC21F338DCC0022C3D7 /* UserViewController.swift */; };
 		04D98FC51F339BD20022C3D7 /* BookViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04D98FC41F339BD20022C3D7 /* BookViewController.swift */; };
 		04D98FC71F33AEE10022C3D7 /* UserBookCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04D98FC61F33AEE10022C3D7 /* UserBookCollectionViewCell.swift */; };
+		04D98FC91F34041B0022C3D7 /* DonorBookCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04D98FC81F34041B0022C3D7 /* DonorBookCollectionViewCell.swift */; };
+		04D98FCB1F341B1E0022C3D7 /* UserDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04D98FCA1F341B1E0022C3D7 /* UserDetail.swift */; };
 		04DD3E9F1EAE348E00D3D559 /* MicrosoftAzureMobile.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 04DD3E9E1EAE348E00D3D559 /* MicrosoftAzureMobile.framework */; };
 		04DD3EA01EAE348E00D3D559 /* MicrosoftAzureMobile.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 04DD3E9E1EAE348E00D3D559 /* MicrosoftAzureMobile.framework */; };
 		04DD3EA11EAE348E00D3D559 /* MicrosoftAzureMobile.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 04DD3E9E1EAE348E00D3D559 /* MicrosoftAzureMobile.framework */; };
@@ -130,6 +132,8 @@
 		04D98FC21F338DCC0022C3D7 /* UserViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserViewController.swift; sourceTree = "<group>"; };
 		04D98FC41F339BD20022C3D7 /* BookViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BookViewController.swift; sourceTree = "<group>"; };
 		04D98FC61F33AEE10022C3D7 /* UserBookCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserBookCollectionViewCell.swift; sourceTree = "<group>"; };
+		04D98FC81F34041B0022C3D7 /* DonorBookCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DonorBookCollectionViewCell.swift; sourceTree = "<group>"; };
+		04D98FCA1F341B1E0022C3D7 /* UserDetail.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserDetail.swift; sourceTree = "<group>"; };
 		04DD3E971EAE28D600D3D559 /* NYPITP312-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NYPITP312-Bridging-Header.h"; sourceTree = "<group>"; };
 		04DD3E981EAE28D600D3D559 /* NYPITP312Tests-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NYPITP312Tests-Bridging-Header.h"; sourceTree = "<group>"; };
 		04DD3E991EAE28D600D3D559 /* NYPITP312UITests-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NYPITP312UITests-Bridging-Header.h"; sourceTree = "<group>"; };
@@ -206,6 +210,7 @@
 				0457943D1F2B8706003B853C /* BookCollectionViewCell.swift */,
 				04D98FC01F3388750022C3D7 /* DonationCollectionViewCell.swift */,
 				04D98FC61F33AEE10022C3D7 /* UserBookCollectionViewCell.swift */,
+				04D98FC81F34041B0022C3D7 /* DonorBookCollectionViewCell.swift */,
 			);
 			name = Wrappers;
 			sourceTree = "<group>";
@@ -220,6 +225,7 @@
 				042293AF1F2CE9CC00BE2CCD /* Category.swift */,
 				2E10FF881F2FF77900330A78 /* ISBN.swift */,
 				2EEB685F1F314041008BE8A1 /* Posting.swift */,
+				04D98FCA1F341B1E0022C3D7 /* UserDetail.swift */,
 			);
 			name = Entities;
 			sourceTree = "<group>";
@@ -686,6 +692,7 @@
 				2EEB68661F314375008BE8A1 /* CategoryTableViewController.swift in Sources */,
 				2EEB68641F314296008BE8A1 /* ManualAddViewController.swift in Sources */,
 				04D98FC11F3388750022C3D7 /* DonationCollectionViewCell.swift in Sources */,
+				04D98FC91F34041B0022C3D7 /* DonorBookCollectionViewCell.swift in Sources */,
 				2E10FF841F2FF68500330A78 /* ScannerViewController.swift in Sources */,
 				2E10FF871F2FF70B00330A78 /* ISBNDataManager.swift in Sources */,
 				0407346A1F0C8E0000BB6FF7 /* TabViewController.swift in Sources */,
@@ -696,6 +703,7 @@
 				041889F31F0BDCFD00E6ED16 /* String+Encryption.swift in Sources */,
 				041889F71F0BE14D00E6ED16 /* SwiftJSON.swift in Sources */,
 				2EEB68741F314DA7008BE8A1 /* ScanInfoViewController.swift in Sources */,
+				04D98FCB1F341B1E0022C3D7 /* UserDetail.swift in Sources */,
 				042293B01F2CE9CC00BE2CCD /* Category.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
