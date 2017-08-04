@@ -23,66 +23,61 @@ class BrowseViewController: UIViewController, UICollectionViewDataSource, UIColl
         self.parent?.navigationItem.title = "Browse"
         self.parent?.navigationItem.leftBarButtonItem = nil
         self.parent?.navigationItem.rightBarButtonItem = nil
+        
+        if categoryList.count == 0 {
+            DispatchQueue.global(qos: .background).async {
+                HTTP.postJSON(url: "http://13.228.39.122/FP01_654265348176237/1.0/category/list", json: JSON.init(parseJSON: "{\"heading\": \"Category\"}"), onComplete:
+                    {
+                        json, response, error in
+                        if json == nil
+                        {
+                            return
+                        }
+                        
+                        for (_, v) in json! {
+                            let cat: Category = Category()
+                            cat.id = v["id"].string!
+                            cat.heading = v["heading"].string!
+                            cat.name = v["name"].string!
+                            self.categoryList.append(cat)
+                        }
+                        
+                        let par: RootNavViewController = self.parent?.parent as! RootNavViewController
+                        par.categoryList = self.categoryList
+                        
+                        DispatchQueue.main.async {
+                            self.browseCollectionView.reloadData()
+                        }
+                        
+                        for cat in self.categoryList {
+                            HTTP.postJSON(url: "http://13.228.39.122/FP01_654265348176237/1.0/category/list", json: JSON.init(parseJSON: "{\"heading\": \"\(cat.name!)\"}"), onComplete:
+                                {
+                                    json, response, error in
+                                    if json == nil {
+                                        return
+                                    }
+                                    
+                                    // Store into booklist variable
+                                    var tempCatList: [Category] = []
+                                    for (_, v) in json! {
+                                        let bookCat: Category = Category()
+                                        bookCat.id = v["id"].string!
+                                        bookCat.heading = v["heading"].string!
+                                        bookCat.name = v["name"].string!
+                                        tempCatList.append(bookCat)
+                                    }
+                                    self.bookCatList[cat.name!] = tempCatList
+                            })
+                        }
+                })
+            }
+        }
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        DispatchQueue.global(qos: .background).async {
-            HTTP.postJSON(url: "http://13.228.39.122/FP01_654265348176237/1.0/category/list", json: JSON.init(parseJSON: "{\"heading\": \"Category\"}"), onComplete:
-                {
-                    json, response, error in
-                    if json == nil
-                    {
-                        return
-                    }
-                    
-                    for (_, v) in json! {
-                        let cat: Category = Category()
-                        cat.id = v["id"].string!
-                        cat.heading = v["heading"].string!
-                        cat.name = v["name"].string!
-                        self.categoryList.append(cat)
-                    }
-                    
-                    DispatchQueue.main.async {
-                        self.browseCollectionView.reloadData()
-                    }
-                    
-                    for cat in self.categoryList {
-                        HTTP.postJSON(url: "http://13.228.39.122/FP01_654265348176237/1.0/category/list", json: JSON.init(parseJSON: "{\"heading\": \"\(cat.name!)\"}"), onComplete:
-                            {
-                                json, response, error in
-                                if json == nil {
-                                    return
-                                }
-                                
-                                // Store into booklist variable
-                                var tempCatList: [Category] = []
-                                for (_, v) in json! {
-                                    let bookCat: Category = Category()
-                                    bookCat.id = v["id"].string!
-                                    bookCat.heading = v["heading"].string!
-                                    bookCat.name = v["name"].string!
-                                    tempCatList.append(bookCat)
-                                }
-                                self.bookCatList[cat.name!] = tempCatList
-                        })
-                    }
-            })
-        }
         // Do any additional setup after loading the view.
-        let par: RootNavViewController = self.parent?.parent as! RootNavViewController
-        par.categoryList = self.categoryList
-        
-        HTTP.postJSON(url: "http://13.228.39.122/FP01_654265348176237/1.0/posting/add", json: JSON.init(parseJSON: "{\"token\"}"), onComplete:
-            {
-                json, response, error in
-                if json == nil {
-                    return
-                }
-        })
-
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -113,8 +108,10 @@ class BrowseViewController: UIViewController, UICollectionViewDataSource, UIColl
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell: BrowseCollectionViewCell! = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath) as! BrowseCollectionViewCell
         
-        cell.layer.backgroundColor = UIColor.black.cgColor
+        cell.layer.borderColor = UIColor.black.cgColor
+        cell.layer.borderWidth = 1.0
         cell.categoryLabel.text = categoryList[indexPath.row].name
+        cell.categoryImg.image = UIImage(named: categoryList[indexPath.row].name!)
         cell.categoryLabel.textColor = UIColor.white
         
         

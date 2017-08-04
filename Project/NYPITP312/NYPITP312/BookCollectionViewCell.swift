@@ -16,4 +16,5 @@ class BookCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var requestButton: UIButton!
     
     var bookId: String!
+    var book: Book!
 }

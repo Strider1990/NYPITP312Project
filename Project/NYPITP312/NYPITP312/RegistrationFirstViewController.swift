@@ -18,6 +18,7 @@ class RegistrationFirstViewController: UIViewController {
     @IBOutlet weak var mobileTextField: DesignableUITextField!
     @IBOutlet weak var errorLabel: UILabel!
     @IBOutlet weak var nextButton: UIButton!
+    @IBOutlet var tapGesture: UITapGestureRecognizer!
     
     var validEmail = false
     var validName = false
@@ -125,7 +126,7 @@ class RegistrationFirstViewController: UIViewController {
         } else {
             confirmPasswordTextField.layer.borderColor = UIColor.green.cgColor
             validConfirm = true
-            profile?.password = passwordTextField.text?.sha512().uppercased()
+            profile?.password = passwordTextField.text
         }
         confirmPasswordTextField.layer.borderWidth = 1.0
         allValid()
@@ -168,6 +169,11 @@ class RegistrationFirstViewController: UIViewController {
         let secondViewController = segue.destination as! RegistrationSecondViewController
         secondViewController.profile = self.profile
     }
+    
+    @IBAction func dismissKeyboard(_ sender: UITapGestureRecognizer) {
+        self.view.endEditing(true)
+    }
+    
     /*
     // MARK: - Navigation
 

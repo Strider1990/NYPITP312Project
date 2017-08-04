@@ -39,7 +39,7 @@ class LoginViewController: UIViewController, GIDSignInUIDelegate {
     
     @IBAction func validateEmail(_ sender: DesignableUITextField) {
         if validator.emailValidate(sender) {
-            //DispatchQueue.global(qos: .background).async {
+            DispatchQueue.global(qos: .background).async {
                 HTTP.postJSON(url: "http://13.228.39.122/FP01_654265348176237/1.0/user/getnonce", json: JSON.init(parseJSON: "{ \"email\": \"\(self.emailTextField.text!)\" }"), onComplete: {
                     json, response, error in
                     
@@ -51,7 +51,7 @@ class LoginViewController: UIViewController, GIDSignInUIDelegate {
                         self.nonce = json!["nonce"].string!
                     }
                 })
-            //}
+            }
         }
     }
 
@@ -72,8 +72,20 @@ class LoginViewController: UIViewController, GIDSignInUIDelegate {
             
             let pwd = (passwordTextField.text!.sha512().uppercased() + nonce!).sha512().uppercased()
             DispatchQueue.global(qos: .background).async {
+                
+                User.loginUser(withEmail: self.emailTextField.text!, password: self.passwordTextField.text!) { [weak weakSelf = self](status) in
+                    DispatchQueue.main.async {
+                        if status == true {
+                            //weakSelf?.pushTomainView()
+                            print("Successfully logged into Firebase")
+                        }
+                    }
+                }
+
                 HTTP.postJSON(url: "http://13.228.39.122/FP01_654265348176237/1.0/user/login", json: JSON.init(parseJSON: "{ \"type\": \"E\", \"email\": \"\(self.emailTextField.text!)\", \"password\": \"\(pwd)\" }"), onComplete: {
                     json, response, error in
+                    
+                    print(json!)
                     
                     if json == nil {
                         return
@@ -86,6 +98,7 @@ class LoginViewController: UIViewController, GIDSignInUIDelegate {
                         self.login?.token = json!["token"].string!
                         self.login?.userId = json!["userid"].string!
                         self.login?.type = json!["type"].string!
+                        self.login?.email = self.emailTextField.text!
                         
                         let par: RootNavViewController = self.parent as! RootNavViewController
                         par.login = self.login!
@@ -101,20 +114,70 @@ class LoginViewController: UIViewController, GIDSignInUIDelegate {
     }
     
     @IBAction func loginButtonClicked() {
-        FBSDKLoginManager().logIn(withReadPermissions: ["email", "public_profile"], from: self)
+        FBSDKLoginManager().logIn(withReadPermissions: ["email", "public_profile"], from: nil)
         { (result, error) in
             if error != nil {
                 print("FB Login failed:", error!)
                 return
             }
             
-            let socialToken = result?.token.tokenString
-            print(socialToken)
+            if let socialToken = result?.token {
+                print(socialToken.tokenString)
+            } else {
+                print("No token")
+            }
             
+            /*LoginDataManager.socialLogin(socialToken: socialToken!, onComplete: {
+                (token, userId, isLogin) -> Void in
+                
+                LoginGlobalVar.token = token
+                LoginGlobalVar.userId = userId
+                
+                if (isLogin) {
+                    DispatchQueue.main.async() {
                         
-            
+                    }
+                }
+                
+            })*/
+                        
         }
     }
+    
+    @IBAction func forgotPassword(_ sender: UIButton) {
+        if let email = emailTextField.text, !email.isEmpty {
+            DispatchQueue.global(qos: .background).async {
+                HTTP.postJSON(url: "http://13.228.39.122/FP01_654265348176237/1.0/user/forgetpassword", json: JSON.init(parseJSON: "{ \"email\": \"\(email)\" }"), onComplete: {
+                    json, response, error in
+                    
+                    if json == nil {
+                        return
+                    }
+                    
+                    if let _ = json!["success"].string {
+                        let alertController = UIAlertController(title: "BookShare", message:
+                            "A recovery code has been sent to your e-mail.", preferredStyle: UIAlertControllerStyle.alert)
+                        alertController.addAction(UIAlertAction(title: "Dismiss", style: UIAlertActionStyle.default,handler: nil))
+                        
+                        self.present(alertController, animated: true, completion: nil)
+                    } else {
+                        let alertController = UIAlertController(title: "BookShare", message:
+                            "There is no account attached to that e-mail.", preferredStyle: UIAlertControllerStyle.alert)
+                        alertController.addAction(UIAlertAction(title: "Dismiss", style: UIAlertActionStyle.default,handler: nil))
+                        
+                        self.present(alertController, animated: true, completion: nil)
+                    }
+                })
+            }
+        } else {
+            let alertController = UIAlertController(title: "BookShare", message:
+                "Enter your e-mail!", preferredStyle: UIAlertControllerStyle.alert)
+            alertController.addAction(UIAlertAction(title: "Dismiss", style: UIAlertActionStyle.default,handler: nil))
+            
+            self.present(alertController, animated: true, completion: nil)
+        }
+    }
+    
     /*
     // MARK: - Navigation
 

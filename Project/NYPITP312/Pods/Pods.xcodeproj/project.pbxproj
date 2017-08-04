@@ -2558,7 +2558,7 @@
 				4C36972F4BA11E569446DBCDEEAB8CA7 /* SignIn-Module.h */,
 				2B1C75A5B374169382F83C8799E69EFE /* Frameworks */,
 			);
-			name = Core;
+			name = iOS;
 			sourceTree = "<group>";
 		};
 		234F8445D3859744CE27D59840AD22A6 /* SignIn */ = {
@@ -2606,7 +2606,8 @@
 			children = (
 				38E1FAE1678CBEDE6491955BA36A06AE /* Firebase.h */,
 			);
-			name = Core;
+			name = GTMOAuth2;
+			path = GTMOAuth2;
 			sourceTree = "<group>";
 		};
 		351A09261F6728795DA4E11A5C51849D /* Eureka */ = {
@@ -2813,7 +2814,7 @@
 			children = (
 				5786E1B8EEE10DAE91F1DA63A3262C96 /* GGLSignIn.framework */,
 			);
-			name = Frameworks;
+			name = Resources;
 			sourceTree = "<group>";
 		};
 		5D99ACA9B8FC42481C5C850B635DE4F4 /* Resources */ = {
@@ -3144,6 +3145,17 @@
 			);
 			name = GoogleSignIn;
 			path = GoogleSignIn;
+			sourceTree = "<group>";
+		};
+		8B9F8D19119A3962199BBC4E26FB2794 /* DZNEmptyDataSet */ = {
+			isa = PBXGroup;
+			children = (
+				85318FAD21B2EBB05B4A863D2B1B42C3 /* UIScrollView+EmptyDataSet.h */,
+				F70B3203EF1837416E6785B95F6D9F1C /* UIScrollView+EmptyDataSet.m */,
+				6905762071E7722BDCB6291E9C986B1C /* Support Files */,
+			);
+			name = DZNEmptyDataSet;
+			path = DZNEmptyDataSet;
 			sourceTree = "<group>";
 		};
 		8F4860C4B2A7477BAAC1F37EAEAF25BA /* Pods-NYPITP312Tests */ = {
@@ -3729,6 +3741,20 @@
 			);
 			name = FacebookLogin;
 			path = FacebookLogin;
+			sourceTree = "<group>";
+		};
+		F3EC42BCD31DA561BC240FCFCD7E0614 /* Support Files */ = {
+			isa = PBXGroup;
+			children = (
+				51FD8BC50BC5E660837A172765402148 /* GTMSessionFetcher.modulemap */,
+				B1E69B055BE95AA0C72CD8F0CBCB164B /* GTMSessionFetcher.xcconfig */,
+				ABD401CC153CFE5B2CE3AD82AB00F739 /* GTMSessionFetcher-dummy.m */,
+				E8193AD2604E77A80C936485899BBDF8 /* GTMSessionFetcher-prefix.pch */,
+				CBC50F2DD4B71E8F2D26136D64A09567 /* GTMSessionFetcher-umbrella.h */,
+				3150A908E992FFD80D933E851214ED84 /* Info.plist */,
+			);
+			name = "Support Files";
+			path = "../Target Support Files/GTMSessionFetcher";
 			sourceTree = "<group>";
 		};
 		F436CC6CBF3611B1DD9B4D0D17E8CD6A /* Pods-NYPITP312UITests */ = {

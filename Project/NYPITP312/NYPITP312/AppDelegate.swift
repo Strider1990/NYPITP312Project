@@ -9,7 +9,7 @@
 import UIKit
 import Firebase
 import OAuthSwift
-import FBSDKLoginKit
+import FBSDKCoreKit
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate {
@@ -23,13 +23,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate {
             applicationURLString:"https://nypitp312.azurewebsites.net"
         )
         
-        FIRApp.configure()
-        
         var configureError: NSError?
         GGLContext.sharedInstance().configureWithError(&configureError)
         assert(configureError == nil, "Error configuring Google services: \(configureError)")
         
         GIDSignIn.sharedInstance().delegate = self
+        
         FBSDKApplicationDelegate.sharedInstance().application(application, didFinishLaunchingWithOptions: launchOptions)
         
         return true
@@ -64,6 +63,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate {
                     DispatchQueue.main.async {
                         let nav: RootNavViewController = self.window?.rootViewController as! RootNavViewController
                         let login = Login()
+                        login.email = email
                         login.name = json!["name"].string!
                         login.photo = json!["photo"].string!
                         login.token = json!["token"].string!
