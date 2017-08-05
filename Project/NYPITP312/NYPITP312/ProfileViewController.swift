@@ -17,7 +17,6 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
     @IBOutlet weak var bookmarkButton: UIButton!
     @IBOutlet weak var achievementButton: UIButton!
     @IBOutlet weak var transactionButton: UIButton!
-    @IBOutlet weak var chatTable: UITableView!
     
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var alertBottomConstraint: NSLayoutConstraint!
@@ -44,12 +43,16 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
         let logout = UIBarButtonItem(title: "Logout", style: .plain, target: self, action: #selector(ProfileViewController.btnLogout))
         self.parent?.navigationItem.leftBarButtonItem = logout
         
-        do {
-            let data = try Data(contentsOf: URL(string: "http://13.228.39.122/fpsatimgdev/loadimage.aspx?q=users/\(par.login.photo!)_c150")!)
-            print("http://13.228.39.122/fpsatimgdev/loadimage.aspx?q=users/\(par.login.photo!)_c150")
-            self.profilePhoto.image = UIImage(data: data)
-        } catch {
-            print("Error in data \(par.login.photo!)")
+        DispatchQueue.global(qos: .background).async {
+            do {
+                let data = try Data(contentsOf: URL(string: "http://13.228.39.122/fpsatimgdev/loadimage.aspx?q=users/\(self.par.login.photo!)_c150")!)
+                
+                DispatchQueue.main.async {
+                    self.profilePhoto.image = UIImage(data: data)
+                }
+            } catch {
+                print("Error in data \(self.par.login.photo!)")
+            }
         }
     }
     
@@ -123,6 +126,9 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
         if segue.identifier == "segue" {
             let vc = segue.destination as! ChatVC
             vc.currentUser = self.selectedUser
+        } else if segue.identifier == "ProfileEditSegue" {
+            let vc = segue.destination as! ProfileEditViewController
+            
         }
     }
     
@@ -143,17 +149,17 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
     }
     
     //Shows profile extra view
-    func showProfile() {
+    /*func showProfile() {
         let info = ["viewType" : ShowExtraView.profile]
         NotificationCenter.default.post(name: NSNotification.Name(rawValue: "showExtraView"), object: nil, userInfo: info)
         self.inputView?.isHidden = true
-    }
+    }*/
     
     //Shows contacts extra view
-    func showContacts() {
+    /*func showContacts() {
         let info = ["viewType" : ShowExtraView.contacts]
         NotificationCenter.default.post(name: NSNotification.Name(rawValue: "showExtraView"), object: nil, userInfo: info)
-    }
+    }*/
     
     //Shows Chat viewcontroller with given user
     func pushToUserMesssages(notification: NSNotification) {

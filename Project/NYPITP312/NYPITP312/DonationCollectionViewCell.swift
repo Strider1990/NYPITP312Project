@@ -13,4 +13,5 @@ class DonationCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var bookName: UILabel!
     @IBOutlet weak var donateDate: UILabel!
     
+    var book: Book!
 }

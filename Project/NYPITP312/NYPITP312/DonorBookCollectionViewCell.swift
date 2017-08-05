@@ -12,4 +12,6 @@ class DonorBookCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var donorBookImg: UIImageView!
     @IBOutlet weak var donorBookName: UILabel!
     @IBOutlet weak var donorBookDate: UILabel!
+    
+    var book: Book!
 }

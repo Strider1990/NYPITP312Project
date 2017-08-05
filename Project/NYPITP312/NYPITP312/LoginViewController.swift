@@ -38,30 +38,30 @@ class LoginViewController: UIViewController, GIDSignInUIDelegate {
     }
     
     @IBAction func validateEmail(_ sender: DesignableUITextField) {
-        if validator.emailValidate(sender) {
-            DispatchQueue.global(qos: .background).async {
-                HTTP.postJSON(url: "http://13.228.39.122/FP01_654265348176237/1.0/user/getnonce", json: JSON.init(parseJSON: "{ \"email\": \"\(self.emailTextField.text!)\" }"), onComplete: {
-                    json, response, error in
+        DispatchQueue.global(qos: .background).async {
+            HTTP.postJSON(url: "http://13.228.39.122/FP01_654265348176237/1.0/user/getnonce", json: JSON.init(parseJSON: "{ \"email\": \"\(self.emailTextField.text!)\" }"), onComplete: {
+                json, response, error in
+                
+                print(json!)
+                if json == nil {
+                    return
+                }
                     
-                    if json == nil {
-                        return
-                    }
-                    
-                    if json!["nonce"].exists() {
-                        self.nonce = json!["nonce"].string!
-                    }
-                })
-            }
+                if json!["nonce"].exists() {
+                    self.nonce = json!["nonce"].string!
+                }
+            })
         }
     }
 
     @IBAction func signInPressed(_ sender: UIButton) {
-        if nonce == nil {
+        if self.nonce == nil {
             validateEmail(emailTextField)
+            print("Don't have nonce")
         }
         
         if passwordTextField.text != nil && nonce != nil {
-            
+            print("Trying activity")
             let spinner: UIActivityIndicatorView = UIActivityIndicatorView(activityIndicatorStyle: UIActivityIndicatorViewStyle.whiteLarge)
             spinner.frame = self.view.frame
             spinner.backgroundColor = UIColor(red: 0.5, green: 0.5, blue: 0.5, alpha: 0.3)

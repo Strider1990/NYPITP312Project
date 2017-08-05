@@ -79,6 +79,7 @@ class RegistrationFirstViewController: UIViewController {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "dd MMM yyyy"
         dobTextField.text = dateFormatter.string(from: sender.date)
+        validateDob(dobTextField)
     }
     
     @IBAction func validateEmail(_ sender: DesignableUITextField) {

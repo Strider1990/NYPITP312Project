@@ -18,13 +18,18 @@ class ProfileEditViewController: FormViewController, UIImagePickerControllerDele
     var profileImage: UIImage?
     var changed: Bool!
     
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         
         self.profileName.text = par.login.name
         changed = false
         do {
-            let data = try Data(contentsOf: URL(string: "http://13.228.39.122/fpsatimgdev/loadimage.aspx?q=users/\(par.login.photo!)_c150")!)
+            let data = try Data(contentsOf: URL(string: "http://13.228.39.122/fpsatimgdev/loadimage.aspx?q=users/\(par.login.userId!)_c150")!)
+            if data != nil {
+                self.profilePhoto.setBackgroundImage(UIImage(data: data), for: .normal)
+            } else {
+                self.profilePhoto.setBackgroundImage(UIImage(named: "profile"), for: .normal)
+            }
             print("http://13.228.39.122/fpsatimgdev/loadimage.aspx?q=users/\(par.login.userId!)_c150")
         } catch {
             print("Error in data \(par.login.photo!)")
@@ -37,26 +42,46 @@ class ProfileEditViewController: FormViewController, UIImagePickerControllerDele
         super.viewDidLoad()
 
         par = self.parent as! RootNavViewController
+        self.navigationItem.backBarButtonItem = nil
         
-        form +++ Section()
-            <<< PickerInputRow<String>() {
-                $0.title = "Preferred Location"
-                $0.options = ["Yio Chu Kang MRT", "Ang Mo Kio MRT"]
-            }
-            <<< SwitchRow() {
-                row in
-                row.title = "Contact by Mobile"
-            }
-            <<< SwitchRow() {
-                row in
-                row.title = "Contact by E-mail"
-            }
-            <<< ButtonRow() {
-                row in
-                row.title = "Change Password"
-                }.onCellSelection({ cell, row in
-                    self.performSegue(withIdentifier: "changePasswordSegue", sender: self)
-                })
+        //TODO: Retrieve user info and set stuff
+        DispatchQueue.global(qos: .background).async {
+            HTTP.postJSON(url: "http://13.228.39.122/FP01_654265348176237/1.0/user/get", json: JSON.init(parseJSON: "{\"token\": \"\(self.par.login.token!)\",\"userid\": \"\(self.par.login.userId!)\"}"), onComplete:
+                {
+                    json, response, error in
+                    
+                    print(json!)
+                    
+                    if json == nil
+                    {
+                        return
+                    }
+                    
+                    DispatchQueue.main.async {
+                        self.form +++ Section()
+                            <<< PickerInputRow<String>() {
+                                $0.title = "Preferred Location"
+                                $0.options = ["Yio Chu Kang MRT", "Ang Mo Kio MRT"]
+                            }
+                            <<< SwitchRow() {
+                                row in
+                                row.title = "Contact by Mobile"
+                            }
+                            <<< SwitchRow() {
+                                row in
+                                row.title = "Contact by E-mail"
+                            }
+                            <<< ButtonRow() {
+                                row in
+                                row.title = "Change Password"
+                                }.onCellSelection({ cell, row in
+                                    self.performSegue(withIdentifier: "changePasswordSegue", sender: self)
+                                })
+
+                    }
+            })
+        }
+        
     }
 
     override func didReceiveMemoryWarning() {
@@ -64,8 +89,8 @@ class ProfileEditViewController: FormViewController, UIImagePickerControllerDele
         // Dispose of any resources that can be recreated.
     }
     
-    func btnDone() {
-        
+    @IBAction func btnSave() {
+        self.navigationController?.popViewController(animated: true)
     }
 
     @IBAction func photoChange(_ sender: UIButton) {
@@ -95,6 +120,7 @@ class ProfileEditViewController: FormViewController, UIImagePickerControllerDele
         }
         let cancelAction = UIAlertAction(title: "Cancel", style: .cancel) { (alert : UIAlertAction!) in
             //TODO: Destroy optionMenu
+            optionMenu.dismiss(animated: true)
             
         }
         
@@ -106,6 +132,7 @@ class ProfileEditViewController: FormViewController, UIImagePickerControllerDele
     
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
         // User cancelled
+        picker.dismiss(animated: true)
     }
     
     internal func imagePickerController(

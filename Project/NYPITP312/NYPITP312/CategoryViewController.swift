@@ -15,12 +15,15 @@ class CategoryViewController: UICollectionViewController {
     var categories: [String: [Category]] = [:]
     var bookList: [Book] = []
     @IBOutlet var bookCollectionView: UICollectionView!
+    var selectedUser: User!
 
     override func viewDidLoad() {
         super.viewDidLoad()
         var key: String
         key = Array(categories.keys)[0]
         bookList = []
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(self.pushToUserMesssages(notification:)), name: NSNotification.Name(rawValue: "showUserMessages"), object: nil)
         
         self.navigationItem.title = key
         
@@ -110,6 +113,7 @@ class CategoryViewController: UICollectionViewController {
             cell.bookImg.image = UIImage(data: data)
         }
         //cell.categoryLabel.textColor = UIColor.white
+        cell.book = currBook
         
         return cell
     }
@@ -121,6 +125,16 @@ class CategoryViewController: UICollectionViewController {
             let indexPath = self.bookCollectionView.indexPath(for: cell)
             bookView.book = self.bookList[(indexPath?.row)!]
             
+        } else if segue.identifier == "chatSegue" {
+            let vc = segue.destination as! ChatVC
+            vc.currentUser = self.selectedUser
+        }
+    }
+    
+    func pushToUserMesssages(notification: NSNotification) {
+        if let user = notification.userInfo?["user"] as? User {
+            self.selectedUser = user
+            self.performSegue(withIdentifier: "chatSegue", sender: self)
         }
     }
     /*

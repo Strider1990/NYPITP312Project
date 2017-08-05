@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import FirebaseAuth
 
 class BookCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var bookImg: UIImageView!
@@ -17,4 +18,13 @@ class BookCollectionViewCell: UICollectionViewCell {
     
     var bookId: String!
     var book: Book!
+    
+    @IBAction func requestBtn(_ sender: UIButton) {
+        User.getSpecificUser(exceptID: (FIRAuth.auth()?.currentUser?.uid)!, azureId: book.donor_id!, completion: {
+            user in
+            
+            let userInfo = ["user": user]
+            NotificationCenter.default.post(name: NSNotification.Name(rawValue: "showUserMessages"), object: nil, userInfo: userInfo)
+        })
+    }
 }

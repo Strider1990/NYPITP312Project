@@ -120,6 +120,7 @@ class UserViewController: UIViewController, UICollectionViewDataSource, UICollec
         cell.donatedBookName.text = self.bookList[indexPath.row].book_name
         cell.donatedBookDate.text = self.bookList[indexPath.row].postdts
         cell.donatedImage.image = UIImage(data: self.bookList[indexPath.row].data!)
+        cell.book = self.bookList[indexPath.row]
         
         return cell
     }
