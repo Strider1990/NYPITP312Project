@@ -781,3 +781,4 @@ class ScanConfirmViewController: UIViewController, SendCategoryDelegate, SendBoo
      */
     
 }
+
