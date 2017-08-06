@@ -23,10 +23,11 @@ class LocationViewController: FormViewController {
     
     // var a : GooglePlace
     var placesClient: GMSPlacesClient!
-    var userPlaceId : String!
+    var userPlaceId : String = ""
     var userGeoLocation : CLLocationCoordinate2D!
-    var locationName : String!
+    var locationName : String = ""
     var pLoc : String = ""
+    var success : Bool = false
     
     
     override func viewDidLoad() {
@@ -91,7 +92,7 @@ class LocationViewController: FormViewController {
         case .prediction(prediction: let pred):
             //   return pred.attributedFullText.string
             print(pred.placeID!)
-            userPlaceId = pred.placeID
+            userPlaceId = pred.placeID!
             //   pred.types["geocode"]
             
         }
@@ -112,11 +113,30 @@ class LocationViewController: FormViewController {
             self.locationName = place.name
             print("Place name \(place.name)")
             
-              self.delegate?.sendLocation(location: self.userPlaceId, locName: self.locationName)
-            
+            if self.locationName.characters.count > 0 {
+                print(self.userPlaceId)
+                print(self.locationName)
+           
+                    self.delegate?.sendLocation(location: self.userPlaceId, locName: self.locationName)
+                    print("nyan")
+                    _ =  self.navigationController?.popViewController(animated: true)
+             
+            }
+           
+
             
         })
-      
+        
+ 
+        
+     
+    
+        
+        
+//        print(userPlaceId)
+//        print(locationName)
+//      
+//          self.delegate?.sendLocation(location: self.userPlaceId, locName: self.locationName)
         
         
     }

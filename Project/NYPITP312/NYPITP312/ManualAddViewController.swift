@@ -64,6 +64,7 @@ class ManualAddViewController: UIViewController, SendCategoryDelegate, SendBookD
     var pedit : String = ""
     var pdesc : String = ""
     var pLocation : String = ""
+    var pLocationName : String = ""
     
     
     var success : Bool = false;
@@ -208,8 +209,12 @@ class ManualAddViewController: UIViewController, SendCategoryDelegate, SendBookD
     
     
     func sendLocation(location: String, locName: String) {
-        print(locName)
+       
+    
+             print(locName)
         locationLbl.text = locName
+            pLocationName = locName
+    
         pLocation = location
         PostingDataManager.userLocationDataExist = true
     }
@@ -530,7 +535,7 @@ class ManualAddViewController: UIViewController, SendCategoryDelegate, SendBookD
                     
                     print("CATEGORY ID \(catid)")
                     print("kitty cat")
-                    PostingDataManager.createPostingData(token: self.userToken , cateid: catid, name: self.pname, isbn: self.pisbn, desc: self.pdesc, author: self.pauthor, publisher: self.ppub, edition: self.pedit, photos: self.filePath , loc: self.pLocation, tags: "", onComplete: {
+                    PostingDataManager.createPostingData(token: self.userToken , cateid: catid, name: self.pname, isbn: self.pisbn, desc: self.pdesc, author: self.pauthor, publisher: self.ppub, edition: self.pedit, photos: self.filePath , loc: self.pLocationName, tags: "", onComplete: {
                         DispatchQueue.main.async {
                             self.navigationController?.popToRootViewController(animated: true)
                             //
