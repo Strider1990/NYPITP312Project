@@ -22,9 +22,10 @@ import Alamofire
 var firstTimeForCateArray : Bool = false
 var firstTimeForLevelArray : Bool = false
 
-class ScanConfirmViewController: UIViewController, SendCategoryDelegate, SendBook2Delegate, SendLevelDelegate, iCarouselDataSource, iCarouselDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+class ScanConfirmViewController: UIViewController, SendCategoryDelegate, SendBook2Delegate, SendLevelDelegate, iCarouselDataSource, iCarouselDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, SendLocationDelegate {
     
     
+    @IBOutlet weak var locationLbl: UILabel!
     
     @IBOutlet weak var courselevelLbl: UILabel!
     
@@ -52,6 +53,8 @@ class ScanConfirmViewController: UIViewController, SendCategoryDelegate, SendBoo
     var pauthor : String = ""
     var pedit : String = ""
     var pdesc : String = ""
+    var pLocation : String = ""
+    var pLocationName : String = ""
     
     var success : Bool = false;
     
@@ -516,6 +519,18 @@ class ScanConfirmViewController: UIViewController, SendCategoryDelegate, SendBoo
         _ picker: UIImagePickerController) {
         picker.dismiss(animated: true)
     }
+    
+    func sendLocation(location: String, locName: String) {
+        
+        
+        print(locName)
+        locationLbl.text = locName
+        pLocationName = locName
+        
+        pLocation = location
+        PostingDataManager.userLocationDataExist = true
+    }
+
     
     func sendData(text: String) {
         categoryLbl.text = text
