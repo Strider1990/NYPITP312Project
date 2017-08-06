@@ -1,8 +1,8 @@
 //
-//  BookCollectionViewCell.swift
+//  BookmarkCollectionViewCell.swift
 //  NYPITP312
 //
-//  Created by Alex Ooi on 28/7/17.
+//  Created by Alex Ooi on 6/8/17.
 //  Copyright © 2017 NYP. All rights reserved.
 //
 
@@ -10,7 +10,7 @@ import UIKit
 import FirebaseAuth
 import FirebaseDatabase
 
-class BookCollectionViewCell: UICollectionViewCell {
+class BookmarkCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var bookImg: UIImageView!
     @IBOutlet weak var bookName: UILabel!
     @IBOutlet weak var bookDate: UILabel!
@@ -61,4 +61,5 @@ class BookCollectionViewCell: UICollectionViewCell {
             }
         }
     }
+
 }

@@ -63,13 +63,13 @@ class BookViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
-    override func shouldPerformSegue(withIdentifier identifier: String, sender: Any?) -> Bool {
+    /*override func shouldPerformSegue(withIdentifier identifier: String, sender: Any?) -> Bool {
         if par.login.token == nil {
             performSegue(withIdentifier: "LoginSegue", sender: self)
             return false
         }
         return true
-    }
+    }*/
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "UserSegue" {

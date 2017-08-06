@@ -15,6 +15,7 @@ class UserViewController: UIViewController, UICollectionViewDataSource, UICollec
     var name: String?
     var userDetail: UserDetail!
     var selectedUser: User!
+    var bookmarkList: [String] = []
     
     var spinner: UIActivityIndicatorView!
     
@@ -24,6 +25,13 @@ class UserViewController: UIViewController, UICollectionViewDataSource, UICollec
     @IBOutlet weak var donatedCollectionView: UICollectionView!
     var par: RootNavViewController!
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        bookmarkList = UserDefaults.standard.stringArray(forKey: "bookmarks") ?? [String]()
+        self.donatedCollectionView.reloadData()
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -31,16 +39,19 @@ class UserViewController: UIViewController, UICollectionViewDataSource, UICollec
         self.userPhoto.layer.cornerRadius = self.userPhoto.frame.width / 2
         self.navigationItem.title = self.name!
         
+        NotificationCenter.default.addObserver(self, selector: #selector(self.pushToUserMesssages(notification:)), name: NSNotification.Name(rawValue: "showUserMessages"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(self.showSpinner), name: NSNotification.Name(rawValue: "showSpinner"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(self.bookmarkToggle(notification:)), name: NSNotification.Name(rawValue: "bookmarkToggle"), object: nil)
+        
         DispatchQueue.global(qos: .background).async {
-            HTTP.postJSON(url: "http://13.228.39.122/FP01_654265348176237/1.0/user/get", json: JSON.init(parseJSON: "{\"id\": \"\(self.id!)\", \"token\": \"\(self.par.login.token!)\"}"), onComplete: {
+            HTTP.postJSON(url: "http://13.228.39.122/FP01_654265348176237/1.0/user/get", json: JSON.init(parseJSON: "{\"id\": \"\(self.id!)\" }"), onComplete: {
+                //, \"token\": \"\(self.par.login.token!)\"
                 json, response, error in
                 
                 if json == nil
                 {
                     return
                 }
-                
-                print(json!)
                 
                 do {
                     if let photoStr = json!["id"].string {
@@ -123,10 +134,16 @@ class UserViewController: UIViewController, UICollectionViewDataSource, UICollec
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell: UserBookCollectionViewCell! = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath) as! UserBookCollectionViewCell
         
-        cell.donatedBookName.text = self.bookList[indexPath.row].book_name
-        cell.donatedBookDate.text = self.bookList[indexPath.row].postdts
-        cell.donatedImage.image = UIImage(data: self.bookList[indexPath.row].data!)
+        let currBook = self.bookList[indexPath.row]
+        cell.donatedBookName.text = currBook.book_name
+        cell.donatedBookDate.text = currBook.postdts
+        cell.donatedImage.image = UIImage(data: currBook.data!)
         cell.book = self.bookList[indexPath.row]
+        if bookmarkList.contains(currBook.id!) {
+            cell.favouriteBtn.setImage(UIImage(named: "favourite"), for: .normal)
+        } else {
+            cell.favouriteBtn.setImage(UIImage(named: "favourite-outline"), for: .normal)
+        }
         
         return cell
     }
@@ -146,7 +163,7 @@ class UserViewController: UIViewController, UICollectionViewDataSource, UICollec
         if let user = notification.userInfo?["user"] as? User {
             self.selectedUser = user
             spinner.stopAnimating()
-            self.performSegue(withIdentifier: "chatSegue", sender: self)
+            //self.performSegue(withIdentifier: "chatSegue", sender: self)
         }
     }
     
@@ -156,6 +173,20 @@ class UserViewController: UIViewController, UICollectionViewDataSource, UICollec
             vc.currentUser = self.selectedUser
         }
     }
+    
+    func bookmarkToggle(notification: NSNotification) {
+        for v in notification.userInfo! {
+            if (v.value as! Bool) {
+                bookmarkList.append(v.key as! String)
+            } else {
+                if bookmarkList.contains(v.key as! String) {
+                    bookmarkList.remove(at: bookmarkList.index(of: v.key as! String)!)
+                }
+            }
+        }
+        self.donatedCollectionView.reloadData()
+    }
+
     /*
     // MARK: - Navigation
 

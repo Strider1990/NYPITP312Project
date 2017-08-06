@@ -86,7 +86,7 @@ class LoginViewController: UIViewController, GIDSignInUIDelegate {
                     
                     if !json!["error"].exists() {
                         self.login = Login()
-                        self.login?.name = json!["name"].string!
+                        self.login?.name = json!["name"].string ?? "Mark Ooi"
                         // TODO FIX THIS
                         self.login?.photo = json!["userid"].string!
                         self.login?.token = json!["token"].string!
@@ -108,7 +108,7 @@ class LoginViewController: UIViewController, GIDSignInUIDelegate {
                                                 for bookmark in bookmarks {
                                                     par.bookmarks.append(bookmark.key)
                                                 }
-                                                print(par.bookmarks)
+                                                UserDefaults.standard.set(par.bookmarks, forKey: "bookmarks")
                                             }
                                         }
                                         DispatchQueue.main.async {

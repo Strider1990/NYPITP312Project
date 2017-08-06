@@ -82,7 +82,9 @@ class RegistrationSecondViewController: UIViewController, UIImagePickerControlle
     @IBAction func validateSignUp(_ sender: UIButton) {
         if (emailSwitch.isOn || smsSwitch.isOn) && imagePicked {
             // Validate photo has been uploaded
-            self.profile?.profileImg = "filepath"
+            //self.profile?.profileImg = "filepath"
+            self.profile?.contactEmail = emailSwitch.isOn
+            self.profile?.contactMobile = smsSwitch.isOn
             
             let spinner: UIActivityIndicatorView = UIActivityIndicatorView(activityIndicatorStyle: UIActivityIndicatorViewStyle.whiteLarge)
             spinner.frame = self.view.frame
@@ -93,7 +95,7 @@ class RegistrationSecondViewController: UIViewController, UIImagePickerControlle
             spinner.startAnimating()
             
             DispatchQueue.global(qos: .background).async {
-                HTTP.postJSON(url: "http://13.228.39.122/FP01_654265348176237/1.0/user/add", json: JSON.init(parseJSON: "{ \"type\": \"E\", \"name\": \"\(self.profile!.name!)\", \"email\": \"\(self.profile!.email!)\", \"password\": \"\(self.profile!.password!.sha512().uppercased())\", \"phone\": \"\(self.profile!.mobile!)\", \"showemail\": \"\(self.profile!.contactEmail!.description)\", \"showphone\": \"\(self.profile!.contactMobile!.description)\" }"), onComplete:
+                HTTP.postJSON(url: "http://13.228.39.122/FP01_654265348176237/1.0/user/add", json: JSON.init(parseJSON: "{ \"type\": \"E\", \"name\": \"\(self.profile!.name!)\", \"email\": \"\(self.profile!.email!)\", \"password\": \"\(self.profile!.password!.sha512().uppercased())\", \"phone\": \"\(self.profile!.mobile!)\", \"showemail\": \"\(self.profile!.contactEmail!.description)\", \"showephone\": \"\(self.profile!.contactMobile!.description)\" }"), onComplete:
                 {
                     json, response, error in
                     

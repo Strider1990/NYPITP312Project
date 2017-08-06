@@ -37,6 +37,10 @@ class RegistrationFirstViewController: UIViewController {
         self.profile = Profile()
         self.nextButton.layer.cornerRadius = nextButton.frame.size.height / 2
         
+        /*let pickerView = UIPickerView()
+        pickerView.delegate = self
+        dobTextField.inputView = pickerView*/
+        
         allValid()
         // Do any additional setup after loading the view.
     }
