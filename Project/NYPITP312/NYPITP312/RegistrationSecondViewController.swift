@@ -70,7 +70,7 @@ class RegistrationSecondViewController: UIViewController, UIImagePickerControlle
         }
         let cancelAction = UIAlertAction(title: "Cancel", style: .cancel) { (alert : UIAlertAction!) in
             //TODO: Destroy optionMenu
-            
+            optionMenu.dismiss(animated: true, completion: nil)
         }
         
         optionMenu.addAction(takePhoto)
@@ -93,13 +93,7 @@ class RegistrationSecondViewController: UIViewController, UIImagePickerControlle
             spinner.startAnimating()
             
             DispatchQueue.global(qos: .background).async {
-                User.registerUser(withName: self.profile!.name!, email: self.profile!.email!, password: self.profile!.password!, profilePic: self.profileImage!) { [weak weakSelf = self] (status) in
-                    if status == true {
-                        print("Successfully registered to Firebase")
-                    }
-                }
-                
-                HTTP.postJSON(url: "http://13.228.39.122/FP01_654265348176237/1.0/user/add", json: JSON.init(parseJSON: "{ \"type\": \"E\", \"name\": \"\(self.profile!.name!)\", \"photo\": \"\(self.profile!.profileImg!)\", \"email\": \"\(self.profile!.email!)\", \"password\": \"\(self.profile!.password!.sha512().uppercased())\", \"phone\": \"\(self.profile!.mobile!)\", \"showemail\": \"\(self.profile!.contactEmail!.description)\", \"showphone\": \"\(self.profile!.contactMobile!.description)\" }"), onComplete:
+                HTTP.postJSON(url: "http://13.228.39.122/FP01_654265348176237/1.0/user/add", json: JSON.init(parseJSON: "{ \"type\": \"E\", \"name\": \"\(self.profile!.name!)\", \"email\": \"\(self.profile!.email!)\", \"password\": \"\(self.profile!.password!.sha512().uppercased())\", \"phone\": \"\(self.profile!.mobile!)\", \"showemail\": \"\(self.profile!.contactEmail!.description)\", \"showphone\": \"\(self.profile!.contactMobile!.description)\" }"), onComplete:
                 {
                     json, response, error in
                     
@@ -120,55 +114,75 @@ class RegistrationSecondViewController: UIViewController, UIImagePickerControlle
                         newLogin.email = self.profile?.email
                         
                         par.login = newLogin
-                    }
-                 
-                    let parameters = [
-                        "token": par.login.token!
-                    ]
-                    //Post to add photo
-                    
-                    Alamofire.upload(multipartFormData: { (multipartFormData) in
-                        multipartFormData.append(UIImageJPEGRepresentation(self.profileImage!, 1)!, withName: "file", fileName: "file.jpeg", mimeType: "image/jpeg")
-                        for (key, value) in parameters {
-                            multipartFormData.append(value.data(using: String.Encoding.utf8)!, withName: key)
-                        }
-                    }, to:"http://13.228.39.122/FP01_654265348176237/1.0/photos/addu")
-                    { (result) in
-                        switch result {
-                        case .success(let upload, _, _):
-                            upload.uploadProgress(closure: { (Progress) in
-                                print("Upload Progress: \(Progress.fractionCompleted)")
-                            })
-                     
-                    upload.responseJSON {
-                        response in
-                    //self.delegate?.showSuccessAlert()
-                        print(response.request)  // original URL request
-                        print(response.response) // URL response
-                        print(response.data)     // server data
-                        print(response.result)   // result of response serialization
-                    //                        self.showSuccesAlert()
-                    //self.removeImage("frame", fileExtension: "txt")
-                        if let JSON = response.result.value {
-                            print("JSON: \(JSON)")
-                        }
                         
-                        if let data = response.result.value as? [String: Any]{
-                            print("File PATH : ")
-                            print(data["filepath"]!)
-                            par.login.photo = data["filepath"] as! String
-                            DispatchQueue.main.async {
-                                spinner.stopAnimating()
-                                self.navigationController?.popToRootViewController(animated: true)
+                        User.registerUser(withName: self.profile!.name!, email: self.profile!.email!, password: self.profile!.password!, profilePic: self.profileImage!, azureId: json!["id"].string!) { [weak weakSelf = self] (status) in
+                            if status == true {
+                                print("Successfully registered to Firebase")
                             }
                         }
-                    }
-                     
-                    case .failure(let encodingError):
-                     //self.delegate?.showFailAlert()
-                        print(encodingError)
-                    }
+                        
+                        let parameters = [
+                            "token": par.login.token!
+                        ]
+                        //Post to add photo
+                        
+                        Alamofire.upload(multipartFormData: { (multipartFormData) in
+                            multipartFormData.append(UIImageJPEGRepresentation(self.profileImage!, 1)!, withName: "file", fileName: "file.jpeg", mimeType: "image/jpeg")
+                            for (key, value) in parameters {
+                                multipartFormData.append(value.data(using: String.Encoding.utf8)!, withName: key)
+                            }
+                        }, to:"http://13.228.39.122/FP01_654265348176237/1.0/photos/addu")
+                        { (result) in
+                            switch result {
+                            case .success(let upload, _, _):
+                                upload.uploadProgress(closure: { (Progress) in
+                                    print("Upload Progress: \(Progress.fractionCompleted)")
+                                })
+                                
+                                upload.responseJSON {
+                                    response in
+                                    //self.delegate?.showSuccessAlert()
+                                    print(response.request)  // original URL request
+                                    print(response.response) // URL response
+                                    print(response.data)     // server data
+                                    print(response.result)   // result of response serialization
+                                    //                        self.showSuccesAlert()
+                                    //self.removeImage("frame", fileExtension: "txt")
+                                    if let JSON = response.result.value {
+                                        print("JSON: \(JSON)")
+                                    }
+                                    
+                                    if let data = response.result.value as? [String: Any]{
+                                        print("File PATH : ")
+                                        print(data["filepath"]!)
+                                        par.login.photo = data["filepath"] as! String
+                                        DispatchQueue.main.async {
+                                            spinner.stopAnimating()
+                                            self.navigationController?.popToRootViewController(animated: true)
+                                        }
+                                    }
+                                }
+                                
+                            case .failure(let encodingError):
+                                //self.delegate?.showFailAlert()
+                                print(encodingError)
+                            }
+                        }
                     
+                    } else {
+                        let optionMenu = UIAlertController(title: nil, message: json!["msg"].string!, preferredStyle: .actionSheet)
+                        optionMenu.popoverPresentationController?.sourceView = self.view
+
+                        let cancelAction = UIAlertAction(title: "OK", style: .cancel) { (alert : UIAlertAction!) in
+                            //TODO: Destroy optionMenu
+                            optionMenu.dismiss(animated: true, completion: nil)
+                        }
+                        optionMenu.addAction(cancelAction)
+                        
+                        DispatchQueue.main.async {
+                            spinner.stopAnimating()
+                            self.present(optionMenu, animated: true, completion: nil)
+                        }
                     }
                 })
             }
@@ -177,6 +191,7 @@ class RegistrationSecondViewController: UIViewController, UIImagePickerControlle
     
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
         // User cancelled
+        picker.dismiss(animated: true)
     }
     
     internal func imagePickerController(

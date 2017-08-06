@@ -34,25 +34,6 @@ class RegistrationFirstViewController: UIViewController {
 
         self.fieldValidator = FieldValidators()
         
-        if self.fieldValidator.emailValidate(emailTextField) {
-            validEmail = true
-        }
-        if self.fieldValidator.nameValidate(nameTextField) {
-            validName = true
-        }
-        if self.fieldValidator.passwordValidate(passwordTextField) {
-            validPass = true
-        }
-        if self.fieldValidator.confirmValidate(confirmPasswordTextField, pass: passwordTextField) {
-            validConfirm = true
-        }
-        if self.fieldValidator.dobValidate(dobTextField) {
-            validDob = true
-        }
-        if self.fieldValidator.mobileValidate(mobileTextField) {
-            validMobile = true
-        }
-        
         self.profile = Profile()
         self.nextButton.layer.cornerRadius = nextButton.frame.size.height / 2
         
@@ -79,6 +60,7 @@ class RegistrationFirstViewController: UIViewController {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "dd MMM yyyy"
         dobTextField.text = dateFormatter.string(from: sender.date)
+        validateDob(dobTextField)
     }
     
     @IBAction func validateEmail(_ sender: DesignableUITextField) {
@@ -160,8 +142,10 @@ class RegistrationFirstViewController: UIViewController {
     func allValid() {
         if !nextButton.isEnabled && validEmail && validMobile && validDob && validName && validConfirm && validPass {
             nextButton.isEnabled = true
+            nextButton.alpha = 1.0
         } else if nextButton.isEnabled {
             nextButton.isEnabled = false
+            nextButton.alpha = 0.7
         }
     }
     

@@ -45,10 +45,13 @@ class ChatVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UITe
         self.tableView.contentInset.bottom = self.barHeight
         self.tableView.scrollIndicatorInsets.bottom = self.barHeight
         self.navigationItem.title = self.currentUser?.name
-        self.navigationItem.setHidesBackButton(true, animated: false)
-        let icon = UIImage.init(named: "back")?.withRenderingMode(.alwaysOriginal)
-        let backButton = UIBarButtonItem.init(image: icon!, style: .plain, target: self, action: #selector(self.dismissSelf))
-        self.navigationItem.leftBarButtonItem = backButton
+        let icon = UIImage(named: "appointments-tab")
+        let apptButton = UIBarButtonItem(image: icon, style: .plain, target: self, action: #selector(self.apptBtn))
+        self.navigationItem.rightBarButtonItem = apptButton
+        //self.navigationItem.setHidesBackButton(true, animated: false)
+        //let icon = UIImage.init(named: "back")?.withRenderingMode(.alwaysOriginal)
+        //let backButton = UIBarButtonItem.init(image: icon!, style: .plain, target: self, action: #selector(self.dismissSelf))
+        //self.navigationItem.leftBarButtonItem = backButton
         self.locationManager.delegate = self
     }
     
@@ -286,6 +289,10 @@ class ChatVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UITe
         }
     }
 
+    func apptBtn() {
+        
+    }
+    
     //MARK: ViewController lifecycle
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
