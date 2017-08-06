@@ -5,3 +5,6 @@
 #import "MicrosoftAzureMobile/MicrosoftAzureMobile.h"
 #import <CommonCrypto/CommonCrypto.h>
 #import <Google/SignIn.h>
+
+#import <googleapis/CloudSpeech.pbobjc.h>
+#import <googleapis/CloudSpeech.pbrpc.h>

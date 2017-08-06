@@ -24,6 +24,8 @@ class PostingDataManager: NSObject {
     static var userCategoryDataExist : Bool = false
     static var userCourselevelDataExist : Bool = false
     static var userPictureDataExist : Bool = false
+    static var userLocationDataExist : Bool = false
+    
     
     class func createPostingData(token: String,cateid: [String],name: String,isbn: String, desc: String,
                                  author: String, publisher: String, edition: String,
@@ -47,7 +49,7 @@ class PostingDataManager: NSObject {
                         "publisher" : publisher,
                         "edition" : edition,
                         "photos": photos,
-                        "preferredloc" : "Bedok MRT",
+                        "preferredloc" : loc,
                         "tags" : "English"
                         
                         ]), onComplete: {
@@ -72,21 +74,8 @@ class PostingDataManager: NSObject {
                                     
                                 }
                                 
-                                /*       DispatchQueue.main.async {
-                                 self.svc.detectLabel.text = "Book Name: \(item.name!) Book Publisher: \(item.publisher) Book Edition: \(item.edition) Book ISBN: \(item.id)"
-                                 
-                                 //     success = true;
-                                 
-                                 
-                                 if success {
-                                 
-                                 let scanConfirmVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "scanConfirmVC") as! ScanConfirmViewController
-                                 self.svc.navigationController?.pushViewController(scanConfirmVC, animated: true)
-                                 
-                                 
-                                 }
-                                 
-                                 } */
+                            
+                            
                             } else{
                                 print("failed api request")
                                 return
