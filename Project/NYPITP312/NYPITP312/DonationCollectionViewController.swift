@@ -68,7 +68,7 @@ class DonationCollectionViewController: UICollectionViewController {
         // self.clearsSelectionOnViewWillAppear = false
 
         // Register cell classes
-        self.collectionView!.register(UICollectionViewCell.self, forCellWithReuseIdentifier: reuseIdentifier)
+        //self.collectionView!.register(DonorBookCollectionViewCell.self, forCellWithReuseIdentifier: reuseIdentifier)
 
         // Do any additional setup after loading the view.
     }
@@ -105,11 +105,22 @@ class DonationCollectionViewController: UICollectionViewController {
         let cell: DonorBookCollectionViewCell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath) as! DonorBookCollectionViewCell
     
         // Configure the cell
-        cell.donorBookName.text = self.bookList[indexPath.row].book_name
-        cell.donorBookDate.text = self.bookList[indexPath.row].postdts
+        cell.donorBookName.text = self.bookList[indexPath.row].book_name!
+        cell.donorBookDate.text = self.bookList[indexPath.row].postdts!
         cell.donorBookImg.image = UIImage(data: self.bookList[indexPath.row].data!)
         
+        cell.book = self.bookList[indexPath.row]
+        
         return cell
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "bookSegue" {
+            let bookView = segue.destination as! BookViewController
+            let cell = sender as! BookCollectionViewCell
+            let indexPath = self.collectionView!.indexPath(for: cell)
+            bookView.book = self.bookList[(indexPath?.row)!]
+        }
     }
 
     // MARK: UICollectionViewDelegate

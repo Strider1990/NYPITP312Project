@@ -18,11 +18,16 @@ class UserBookCollectionViewCell: UICollectionViewCell {
     var book: Book!
     
     @IBAction func requestBtn(_ sender: UIButton) {
-        User.getSpecificUser(exceptID: (FIRAuth.auth()?.currentUser?.uid)!, azureId: book.donor_id!, completion: {
-            user in
-            
-            let userInfo = ["user": user]
-            NotificationCenter.default.post(name: NSNotification.Name(rawValue: "showUserMessages"), object: nil, userInfo: userInfo)
-        })
+        NotificationCenter.default.post(name: NSNotification.Name(rawValue: "showSpinner"), object: nil)
+        DispatchQueue.global(qos: .background).async {
+            User.getSpecificUser(exceptID: (FIRAuth.auth()?.currentUser?.uid)!, azureId: self.book.donor_id!, completion: {
+                user in
+                
+                let userInfo = ["user": user]
+                DispatchQueue.main.async {
+                    NotificationCenter.default.post(name: NSNotification.Name(rawValue: "showUserMessages"), object: nil, userInfo: userInfo)
+                }
+            })
+        }
     }
 }

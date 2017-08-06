@@ -36,6 +36,8 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
+        self.fetchData()
+        
         self.parent?.navigationItem.title = par.login.name
         
         edit = UIBarButtonItem(barButtonSystemItem: .edit, target: self, action: #selector(ProfileViewController.btnEdit))
@@ -59,8 +61,6 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
-        
-        self.fetchData()
         
         //self.fetchUsers()
         //self.fetchUserInfo()
@@ -133,15 +133,17 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
     }
     
     func fetchData() {
-        Conversation.showConversations { (conversations) in
-            self.items = conversations
-            self.items.sort{ $0.lastMessage.timestamp > $1.lastMessage.timestamp }
-            DispatchQueue.main.async {
-                self.tableView.reloadData()
-                for conversation in self.items {
-                    if conversation.lastMessage.isRead == false {
-                        self.playSound()
-                        break
+        DispatchQueue.global(qos: .background).async {
+            Conversation.showConversations { (conversations) in
+                self.items = conversations
+                self.items.sort{ $0.lastMessage.timestamp > $1.lastMessage.timestamp }
+                DispatchQueue.main.async {
+                    self.tableView.reloadData()
+                    for conversation in self.items {
+                        if conversation.lastMessage.isRead == false {
+                            self.playSound()
+                            break
+                        }
                     }
                 }
             }

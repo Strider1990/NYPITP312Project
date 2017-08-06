@@ -8,6 +8,8 @@
 
 import UIKit
 import FBSDKLoginKit
+import FirebaseDatabase
+import FirebaseAuth
 
 class LoginViewController: UIViewController, GIDSignInUIDelegate {
     @IBOutlet weak var emailTextField: DesignableUITextField!
@@ -73,15 +75,6 @@ class LoginViewController: UIViewController, GIDSignInUIDelegate {
             let pwd = (passwordTextField.text!.sha512().uppercased() + nonce!).sha512().uppercased()
             DispatchQueue.global(qos: .background).async {
                 
-                User.loginUser(withEmail: self.emailTextField.text!, password: self.passwordTextField.text!) { [weak weakSelf = self](status) in
-                    DispatchQueue.main.async {
-                        if status == true {
-                            //weakSelf?.pushTomainView()
-                            print("Successfully logged into Firebase")
-                        }
-                    }
-                }
-
                 HTTP.postJSON(url: "http://13.228.39.122/FP01_654265348176237/1.0/user/login", json: JSON.init(parseJSON: "{ \"type\": \"E\", \"email\": \"\(self.emailTextField.text!)\", \"password\": \"\(pwd)\" }"), onComplete: {
                     json, response, error in
                     
@@ -103,11 +96,42 @@ class LoginViewController: UIViewController, GIDSignInUIDelegate {
                         
                         let par: RootNavViewController = self.parent as! RootNavViewController
                         par.login = self.login!
-                    }
-                    
-                    DispatchQueue.main.async {
-                        spinner.stopAnimating()
-                        self.navigationController?.popToRootViewController(animated: true)
+                        
+                        User.loginUser(withEmail: self.emailTextField.text!, password: self.passwordTextField.text!) { [weak weakSelf = self](status) in
+                                if status == true {
+                                    print("Successfully logged into Firebase")
+                                    FIRDatabase.database().reference().child("bookmarks").child((FIRAuth.auth()?.currentUser?.uid)!).observeSingleEvent(of: .value, with: {
+                                        (snapshot) in
+                                        if snapshot.exists() {
+                                            if snapshot.value != nil {
+                                                let bookmarks = snapshot.value as! [String: Bool]
+                                                for bookmark in bookmarks {
+                                                    par.bookmarks.append(bookmark.key)
+                                                }
+                                                print(par.bookmarks)
+                                            }
+                                        }
+                                        DispatchQueue.main.async {
+                                            spinner.stopAnimating()
+                                            self.navigationController?.popToRootViewController(animated: true)
+                                        }
+                                    })
+                                }
+                            }
+                    } else {
+                        let optionMenu = UIAlertController(title: nil, message: "You entered the wrong password.", preferredStyle: .actionSheet)
+                        optionMenu.popoverPresentationController?.sourceView = self.view
+                        
+                        let cancelAction = UIAlertAction(title: "OK", style: .cancel) { (alert : UIAlertAction!) in
+                            //TODO: Destroy optionMenu
+                            optionMenu.dismiss(animated: true, completion: nil)
+                        }
+                        optionMenu.addAction(cancelAction)
+                        
+                        DispatchQueue.main.async {
+                            spinner.stopAnimating()
+                            self.present(optionMenu, animated: true, completion: nil)
+                        }
                     }
                 })
             }
@@ -155,18 +179,21 @@ class LoginViewController: UIViewController, GIDSignInUIDelegate {
                         return
                     }
                     
-                    if let _ = json!["success"].string {
-                        let alertController = UIAlertController(title: "BookShare", message:
-                            "A recovery code has been sent to your e-mail.", preferredStyle: UIAlertControllerStyle.alert)
-                        alertController.addAction(UIAlertAction(title: "Dismiss", style: UIAlertActionStyle.default,handler: nil))
-                        
-                        self.present(alertController, animated: true, completion: nil)
-                    } else {
-                        let alertController = UIAlertController(title: "BookShare", message:
-                            "There is no account attached to that e-mail.", preferredStyle: UIAlertControllerStyle.alert)
-                        alertController.addAction(UIAlertAction(title: "Dismiss", style: UIAlertActionStyle.default,handler: nil))
-                        
-                        self.present(alertController, animated: true, completion: nil)
+                    print(json!)
+                    DispatchQueue.main.async {
+                        if let _ = json!["success"].string {
+                            let alertController = UIAlertController(title: "BookShare", message:
+                                "A recovery code has been sent to your e-mail.", preferredStyle: UIAlertControllerStyle.alert)
+                            alertController.addAction(UIAlertAction(title: "Dismiss", style: UIAlertActionStyle.default,handler: nil))
+                            
+                            self.present(alertController, animated: true, completion: nil)
+                        } else {
+                            let alertController = UIAlertController(title: "BookShare", message:
+                                "There is no account attached to that e-mail.", preferredStyle: UIAlertControllerStyle.alert)
+                            alertController.addAction(UIAlertAction(title: "Dismiss", style: UIAlertActionStyle.default,handler: nil))
+                            
+                            self.present(alertController, animated: true, completion: nil)
+                        }
                     }
                 })
             }

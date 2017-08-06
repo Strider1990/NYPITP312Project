@@ -16,14 +16,20 @@ class CategoryViewController: UICollectionViewController {
     var bookList: [Book] = []
     @IBOutlet var bookCollectionView: UICollectionView!
     var selectedUser: User!
+    var bookmarkList: [String] = []
+    
+    var spinner: UIActivityIndicatorView!
 
     override func viewDidLoad() {
         super.viewDidLoad()
         var key: String
         key = Array(categories.keys)[0]
         bookList = []
+        bookmarkList = UserDefaults.standard.stringArray(forKey: "bookmarks") ?? [String]()
         
         NotificationCenter.default.addObserver(self, selector: #selector(self.pushToUserMesssages(notification:)), name: NSNotification.Name(rawValue: "showUserMessages"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(self.showSpinner), name: NSNotification.Name(rawValue: "showSpinner"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(self.bookmarkToggle(notification:)), name: NSNotification.Name(rawValue: "bookmarkToggle"), object: nil)
         
         self.navigationItem.title = key
         
@@ -114,6 +120,9 @@ class CategoryViewController: UICollectionViewController {
         }
         //cell.categoryLabel.textColor = UIColor.white
         cell.book = currBook
+        if bookmarkList.contains(currBook.id!) {
+            cell.favouriteButton.setImage(UIImage(named: "favourite"), for: .normal)
+        }
         
         return cell
     }
@@ -131,11 +140,35 @@ class CategoryViewController: UICollectionViewController {
         }
     }
     
+    func showSpinner() {
+        spinner = UIActivityIndicatorView(activityIndicatorStyle: UIActivityIndicatorViewStyle.whiteLarge)
+        spinner.frame = self.view.frame
+        spinner.backgroundColor = UIColor(red: 0.5, green: 0.5, blue: 0.5, alpha: 0.3)
+        spinner.alpha = 1.0
+        self.view.addSubview(spinner)
+        spinner.center = CGPoint(x: self.view.frame.width / 2, y: self.view.frame.height / 2)
+        spinner.startAnimating()
+    }
+    
     func pushToUserMesssages(notification: NSNotification) {
         if let user = notification.userInfo?["user"] as? User {
             self.selectedUser = user
+            spinner.stopAnimating()
             self.performSegue(withIdentifier: "chatSegue", sender: self)
         }
+    }
+    
+    func bookmarkToggle(notification: NSNotification) {
+        for v in notification.userInfo! {
+            if (v.value as! Bool) {
+                bookmarkList.append(v.key as! String)
+            } else {
+                if bookmarkList.contains(v.key as! String) {
+                    bookmarkList.remove(at: bookmarkList.index(of: v.key as! String)!)
+                }
+            }
+        }
+        self.bookCollectionView.reloadData()
     }
     /*
     // MARK: - Navigation

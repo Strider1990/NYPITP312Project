@@ -11,6 +11,7 @@ import UIKit
 class RootNavViewController: UINavigationController {
     var login = Login()
     var categoryList: [Category] = []
+    var bookmarks: [String] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()

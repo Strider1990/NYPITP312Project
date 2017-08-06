@@ -14,6 +14,9 @@ class UserViewController: UIViewController, UICollectionViewDataSource, UICollec
     var id: String?
     var name: String?
     var userDetail: UserDetail!
+    var selectedUser: User!
+    
+    var spinner: UIActivityIndicatorView!
     
     @IBOutlet weak var userPhoto: UIImageView!
     
@@ -28,31 +31,34 @@ class UserViewController: UIViewController, UICollectionViewDataSource, UICollec
         self.userPhoto.layer.cornerRadius = self.userPhoto.frame.width / 2
         self.navigationItem.title = self.name!
         
-        if userDetail == nil {
-            DispatchQueue.global(qos: .background).async {
-                HTTP.postJSON(url: "http://13.228.39.122/FP01_654265348176237/1.0/user/get", json: JSON.init(parseJSON: "{\"id\": \"\(self.id!)\", \"token\": \"\(self.par.login.token!)\"}"), onComplete: {
-                    json, response, error in
-                    
-                    if json == nil
-                    {
-                        return
-                    }
-                    
-                    DispatchQueue.main.async {
-                        self.par?.navigationItem.title = json!["name"].string ?? "No name"
-                        do {
-                            if let photoStr = json!["photo"].string {
-                                let data = try Data(contentsOf: URL(string: "http://13.228.39.122/fpsatimgdev/loadimage.aspx?q=users/\(photoStr)_c150")!)
-                                self.userPhoto.image = UIImage(data: data)
-                            } else {
-                                self.userPhoto.image = UIImage(named: "profile")
-                            }
-                        } catch {
-                            print("Error in data \(json!["photo"].string!)")
+        DispatchQueue.global(qos: .background).async {
+            HTTP.postJSON(url: "http://13.228.39.122/FP01_654265348176237/1.0/user/get", json: JSON.init(parseJSON: "{\"id\": \"\(self.id!)\", \"token\": \"\(self.par.login.token!)\"}"), onComplete: {
+                json, response, error in
+                
+                if json == nil
+                {
+                    return
+                }
+                
+                print(json!)
+                
+                do {
+                    if let photoStr = json!["id"].string {
+                        let data = try Data(contentsOf: URL(string: "http://13.228.39.122/fpsatimgdev/loadimage.aspx?q=users/\(photoStr)_c150")!)
+                        DispatchQueue.main.async {
+                            self.userPhoto.image = UIImage(data: data)
+                            self.par?.navigationItem.title = json!["name"].string ?? "No name"
+                        }
+                    } else {
+                        DispatchQueue.main.async {
+                            self.userPhoto.image = UIImage(named: "profile")
+                            self.par?.navigationItem.title = json!["name"].string ?? "No name"
                         }
                     }
-                })
-            }
+                } catch {
+                        print("Error in data \(json!["photo"].string!)")
+                }
+            })
         }
         
         DispatchQueue.global(qos: .background).async {
@@ -123,6 +129,32 @@ class UserViewController: UIViewController, UICollectionViewDataSource, UICollec
         cell.book = self.bookList[indexPath.row]
         
         return cell
+    }
+    
+    
+    func showSpinner() {
+        spinner = UIActivityIndicatorView(activityIndicatorStyle: UIActivityIndicatorViewStyle.whiteLarge)
+        spinner.frame = self.view.frame
+        spinner.backgroundColor = UIColor(red: 0.5, green: 0.5, blue: 0.5, alpha: 0.3)
+        spinner.alpha = 1.0
+        self.view.addSubview(spinner)
+        spinner.center = CGPoint(x: self.view.frame.width / 2, y: self.view.frame.height / 2)
+        spinner.startAnimating()
+    }
+    
+    func pushToUserMesssages(notification: NSNotification) {
+        if let user = notification.userInfo?["user"] as? User {
+            self.selectedUser = user
+            spinner.stopAnimating()
+            self.performSegue(withIdentifier: "chatSegue", sender: self)
+        }
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "chatSegue" {
+            let vc = segue.destination as! ChatVC
+            vc.currentUser = self.selectedUser
+        }
     }
     /*
     // MARK: - Navigation

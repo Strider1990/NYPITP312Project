@@ -22,27 +22,26 @@ class BookViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        if let token = par.login.token, userDetail == nil {
-            let detail: UserDetail = UserDetail()
-            DispatchQueue.global(qos: .background).async {
-                HTTP.postJSON(url: "http://13.228.39.122/FP01_654265348176237/1.0/user/get", json: JSON.init(parseJSON: "{\"id\": \"\((self.book?.donor_id)!)\", \"token\": \"\(token)\"}"), onComplete: {
-                    json, response, error in
-                    
-                    if json == nil
-                    {
-                        return
-                    }
-                    
-                    detail.id = json!["id"].string!
-                    detail.name = json!["name"].string!
-                    detail.photo = json!["photo"].string!
-                    do {
-                        detail.photoData = try Data(contentsOf: URL(string: "http://13.228.39.122/fpsatimgdev/loadimage.aspx?q=users/\(detail.photo!)_c150")!)
-                    } catch {
-                        print("Unable to load user detail photo data")
-                    }
-                })
-            }
+        let detail: UserDetail = UserDetail()
+        DispatchQueue.global(qos: .background).async {
+            HTTP.postJSON(url: "http://13.228.39.122/FP01_654265348176237/1.0/user/get", json: JSON.init(parseJSON: "{\"id\": \"\((self.book?.donor_id)!)\"}"), onComplete: {
+                json, response, error in
+                
+                if json == nil
+                {
+                    return
+                }
+                
+                detail.id = json!["id"].string!
+                detail.name = json!["name"].string!
+                detail.photo = json!["photo"].string!
+                do {
+                    detail.photoData = try Data(contentsOf: URL(string: "http://13.228.39.122/fpsatimgdev/loadimage.aspx?q=users/\(detail.photo!)_c150")!)
+                } catch {
+                    print("Unable to load user detail photo data")
+                }
+                self.userDetail = detail
+            })
         }
     }
     
