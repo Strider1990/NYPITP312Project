@@ -20,11 +20,6 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
     
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var alertBottomConstraint: NSLayoutConstraint!
-    lazy var leftButton: UIBarButtonItem = {
-        let image = UIImage.init(named: "default profile")?.withRenderingMode(.alwaysOriginal)
-        let button  = UIBarButtonItem.init(image: image, style: .plain, target: self, action: #selector(ConversationsVC.showProfile))
-        return button
-    }()
     
     var itemsUser = [User]()
     var items = [Conversation]()
@@ -115,6 +110,7 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
                         self.par.login = Login()
                         let tabBarController: TabViewController = self.parent as! TabViewController
                         tabBarController.selectedIndex = 0
+                        UserDefaults.standard.removeObject(forKey: "bookmarks")
                     }
             })
         }

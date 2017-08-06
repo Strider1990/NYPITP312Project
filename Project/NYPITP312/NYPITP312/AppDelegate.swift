@@ -15,21 +15,19 @@ import FBSDKCoreKit
 class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate {
 
     var window: UIWindow?
-    var client : MSClient?
-
+    
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
-        self.client = MSClient(
-            applicationURLString:"https://nypitp312.azurewebsites.net"
-        )
+        FIRApp.configure()
+        
+        FBSDKApplicationDelegate.sharedInstance().application(application, didFinishLaunchingWithOptions: launchOptions)
         
         var configureError: NSError?
         GGLContext.sharedInstance().configureWithError(&configureError)
         assert(configureError == nil, "Error configuring Google services: \(configureError)")
         
+        GIDSignIn.sharedInstance().clientID = FIRApp.defaultApp()?.options.clientID
         GIDSignIn.sharedInstance().delegate = self
-        
-        FBSDKApplicationDelegate.sharedInstance().application(application, didFinishLaunchingWithOptions: launchOptions)
         
         return true
     }
@@ -52,6 +50,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate {
             let familyName = user.profile.familyName
             let email = user.profile.email
             
+            let credential = FIRGoogleAuthProvider.credential(withIDToken: idToken!, accessToken: accessToken!)
+            
             DispatchQueue.global(qos: .background).async {
                 HTTP.postJSON(url: "http://13.228.39.122/FP01_654265348176237/1.0/user/login", json: JSON.init(parseJSON: "{ \"type\": \"G\", \"token\": \"\(accessToken!)\" }"), onComplete: {
                     json, response, error in
@@ -60,18 +60,67 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate {
                         return
                     }
 
-                    DispatchQueue.main.async {
-                        let nav: RootNavViewController = self.window?.rootViewController as! RootNavViewController
-                        let login = Login()
-                        login.email = email
-                        login.name = json!["name"].string!
-                        login.photo = json!["photo"].string!
-                        login.token = json!["token"].string!
-                        login.userId = json!["userid"].string!
-                        login.type = json!["type"].string!
-                        nav.login = login
-                        nav.popToRootViewController(animated: true)
+                    let nav: RootNavViewController = self.window?.rootViewController as! RootNavViewController
+                    let login = Login()
+                    login.email = email
+                    login.name = json!["name"].string!
+                    login.photo = json!["photo"].string!
+                    login.token = json!["token"].string!
+                    login.userId = json!["userid"].string!
+                    login.type = json!["type"].string!
+                    nav.login = login
+                    
+                    do {
+                        let data = try Data(contentsOf: URL(string: "http://13.228.39.122/fpsatimgdev/loadimage.aspx?q=users/\(login.photo!)_c300")!)
+                        let profilePic = UIImage(data: data)!
+                        
+                        FIRAuth.auth()?.signIn(with: credential, completion: {
+                            (user, error) in
+                            if error == nil {
+                                let userInfo = ["email": email]
+                                UserDefaults.standard.set(userInfo, forKey: "userInformation")
+                                print("Successfully logged into Firebase")
+                                
+                                let storageRef = FIRStorage.storage().reference().child("usersProfilePics").child(user!.uid)
+                                let imageData = UIImageJPEGRepresentation(profilePic, 0.1)
+                                storageRef.put(imageData!, metadata: nil, completion: { (metadata, err) in
+                                    if err == nil {
+                                        let path = metadata?.downloadURL()?.absoluteString
+                                        let values = ["name": login.name, "email": email, "profilePicLink": path!, "azureId": login.userId]
+                                        FIRDatabase.database().reference().child("users").child(user!.uid).child("credentials").updateChildValues(values, withCompletionBlock: { (errr, _) in
+                                            if errr == nil {
+                                                let userInfo = ["email" : email]
+                                                UserDefaults.standard.set(userInfo, forKey: "userInformation")
+                                                //completion(true)
+                                            }
+                                        })
+                                    }
+                                })
+                                
+                                FIRDatabase.database().reference().child("bookmarks").child((FIRAuth.auth()?.currentUser?.uid)!).observeSingleEvent(of: .value, with: {
+                                    (snapshot) in
+                                    if snapshot.exists() {
+                                        if snapshot.value != nil {
+                                            let bookmarks = snapshot.value as! [String: Bool]
+                                            var bookmarkList: [String] = []
+                                            for bookmark in bookmarks {
+                                                bookmarkList.append(bookmark.key)
+                                            }
+                                            UserDefaults.standard.set(bookmarkList, forKey: "bookmarks")
+                                        }
+                                        DispatchQueue.main.async {
+                                            nav.popToRootViewController(animated: true)
+                                        }
+                                    }
+                                })
+                            } else {
+                                print("Failed to log in to firebase with google account")
+                            }
+                        })
+                    } catch {
+                        print("Couldn't get the photo")
                     }
+                    
                 })
             }
             
@@ -151,7 +200,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate {
     func applicationWillResignActive(_ application: UIApplication) {
         // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
         // Use this method to pause ongoing tasks, disable timers, and invalidate graphics rendering callbacks. Games should use this method to pause the game.
-        FBSDKAppEvents.activateApp()
     }
 
     func applicationDidEnterBackground(_ application: UIApplication) {
@@ -170,6 +218,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate {
 
     func applicationWillTerminate(_ application: UIApplication) {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
+        User.logOutUser { (status) in
+            if status == true {
+                //self.dismiss(animated: true, completion: nil)
+                print("Successfully logged out of Firebase")
+            }
+        }
     }
 
 }

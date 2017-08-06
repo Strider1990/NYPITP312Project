@@ -17,11 +17,13 @@ class CategoryViewController: UICollectionViewController {
     @IBOutlet var bookCollectionView: UICollectionView!
     var selectedUser: User!
     var bookmarkList: [String] = []
+    var nav: RootNavViewController!
     
     var spinner: UIActivityIndicatorView!
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        nav = self.parent as! RootNavViewController
         var key: String
         key = Array(categories.keys)[0]
         bookList = []
@@ -30,6 +32,7 @@ class CategoryViewController: UICollectionViewController {
         NotificationCenter.default.addObserver(self, selector: #selector(self.pushToUserMesssages(notification:)), name: NSNotification.Name(rawValue: "showUserMessages"), object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(self.showSpinner), name: NSNotification.Name(rawValue: "showSpinner"), object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(self.bookmarkToggle(notification:)), name: NSNotification.Name(rawValue: "bookmarkToggle"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(self.loginNeeded), name: NSNotification.Name(rawValue: "loginNeeded"), object: nil)
         
         self.navigationItem.title = key
         
@@ -122,11 +125,13 @@ class CategoryViewController: UICollectionViewController {
         cell.book = currBook
         if bookmarkList.contains(currBook.id!) {
             cell.favouriteButton.setImage(UIImage(named: "favourite"), for: .normal)
+        } else {
+            cell.favouriteButton.setImage(UIImage(named: "favourite-outline"), for: .normal)
         }
         
         return cell
     }
-
+    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "bookSegue" {
             let bookView = segue.destination as! BookViewController
@@ -138,6 +143,10 @@ class CategoryViewController: UICollectionViewController {
             let vc = segue.destination as! ChatVC
             vc.currentUser = self.selectedUser
         }
+    }
+    
+    func loginNeeded() {
+        performSegue(withIdentifier: "LoginSegue", sender: self)
     }
     
     func showSpinner() {

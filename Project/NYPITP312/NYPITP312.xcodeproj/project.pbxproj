@@ -24,7 +24,6 @@
 		042293AE1F2CE7CD00BE2CCD /* Book.swift in Sources */ = {isa = PBXBuildFile; fileRef = 042293AD1F2CE7CD00BE2CCD /* Book.swift */; };
 		042293B01F2CE9CC00BE2CCD /* Category.swift in Sources */ = {isa = PBXBuildFile; fileRef = 042293AF1F2CE9CC00BE2CCD /* Category.swift */; };
 		0425F4D81F31BE3C00748DC2 /* ProfileEditViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0425F4D71F31BE3C00748DC2 /* ProfileEditViewController.swift */; };
-		0425F4DA1F31E95000748DC2 /* ChangePasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0425F4D91F31E95000748DC2 /* ChangePasswordViewController.swift */; };
 		0457943E1F2B8706003B853C /* BookCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0457943D1F2B8706003B853C /* BookCollectionViewCell.swift */; };
 		046890641F30660C00104A80 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 046890631F30660C00104A80 /* ProfileViewController.swift */; };
 		0476FE071EADDB8A00CEF7EF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0476FE061EADDB8A00CEF7EF /* AppDelegate.swift */; };
@@ -36,6 +35,10 @@
 		0476FE271EADDB8A00CEF7EF /* NYPITP312UITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0476FE261EADDB8A00CEF7EF /* NYPITP312UITests.swift */; };
 		04822B7E1ED2681000723903 /* RootNavViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04822B7D1ED2681000723903 /* RootNavViewController.swift */; };
 		04822BBE1ED4292F00723903 /* DesignableUITextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04822BBD1ED4292F00723903 /* DesignableUITextField.swift */; };
+		048CF98D1F36FAFE00A9874A /* BookmarkCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 048CF98C1F36FAFE00A9874A /* BookmarkCollectionViewController.swift */; };
+		048CF98F1F37039E00A9874A /* BookmarkCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 048CF98E1F37039E00A9874A /* BookmarkCollectionViewCell.swift */; };
+		048CF9911F37051A00A9874A /* PreferredLocationDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 048CF9901F37051A00A9874A /* PreferredLocationDataManager.swift */; };
+		048CF9931F374C0C00A9874A /* UserInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 048CF9921F374C0C00A9874A /* UserInfo.swift */; };
 		04D98FBF1F3387310022C3D7 /* DonationCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04D98FBE1F3387310022C3D7 /* DonationCollectionViewController.swift */; };
 		04D98FC11F3388750022C3D7 /* DonationCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04D98FC01F3388750022C3D7 /* DonationCollectionViewCell.swift */; };
 		04D98FC31F338DCC0022C3D7 /* UserViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04D98FC21F338DCC0022C3D7 /* UserViewController.swift */; };
@@ -115,7 +118,6 @@
 		042293AD1F2CE7CD00BE2CCD /* Book.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Book.swift; sourceTree = "<group>"; };
 		042293AF1F2CE9CC00BE2CCD /* Category.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Category.swift; sourceTree = "<group>"; };
 		0425F4D71F31BE3C00748DC2 /* ProfileEditViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileEditViewController.swift; sourceTree = "<group>"; };
-		0425F4D91F31E95000748DC2 /* ChangePasswordViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChangePasswordViewController.swift; sourceTree = "<group>"; };
 		0457943D1F2B8706003B853C /* BookCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BookCollectionViewCell.swift; sourceTree = "<group>"; };
 		046890621F3032BD00104A80 /* NYPITP312.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = NYPITP312.entitlements; sourceTree = "<group>"; };
 		046890631F30660C00104A80 /* ProfileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
@@ -134,6 +136,10 @@
 		0476FE281EADDB8A00CEF7EF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		04822B7D1ED2681000723903 /* RootNavViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RootNavViewController.swift; sourceTree = "<group>"; };
 		04822BBD1ED4292F00723903 /* DesignableUITextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DesignableUITextField.swift; sourceTree = "<group>"; };
+		048CF98C1F36FAFE00A9874A /* BookmarkCollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BookmarkCollectionViewController.swift; sourceTree = "<group>"; };
+		048CF98E1F37039E00A9874A /* BookmarkCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BookmarkCollectionViewCell.swift; sourceTree = "<group>"; };
+		048CF9901F37051A00A9874A /* PreferredLocationDataManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PreferredLocationDataManager.swift; sourceTree = "<group>"; };
+		048CF9921F374C0C00A9874A /* UserInfo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserInfo.swift; sourceTree = "<group>"; };
 		04BD9D639996A54F59308BBC /* Pods-NYPITP312Tests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NYPITP312Tests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-NYPITP312Tests/Pods-NYPITP312Tests.debug.xcconfig"; sourceTree = "<group>"; };
 		04D98FBE1F3387310022C3D7 /* DonationCollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DonationCollectionViewController.swift; sourceTree = "<group>"; };
 		04D98FC01F3388750022C3D7 /* DonationCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DonationCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -228,6 +234,7 @@
 				04D98FC01F3388750022C3D7 /* DonationCollectionViewCell.swift */,
 				04D98FC61F33AEE10022C3D7 /* UserBookCollectionViewCell.swift */,
 				04D98FC81F34041B0022C3D7 /* DonorBookCollectionViewCell.swift */,
+				048CF98E1F37039E00A9874A /* BookmarkCollectionViewCell.swift */,
 			);
 			name = Wrappers;
 			sourceTree = "<group>";
@@ -246,6 +253,7 @@
 				2E10FF881F2FF77900330A78 /* ISBN.swift */,
 				2EEB685F1F314041008BE8A1 /* Posting.swift */,
 				04D98FCA1F341B1E0022C3D7 /* UserDetail.swift */,
+				048CF9921F374C0C00A9874A /* UserInfo.swift */,
 			);
 			name = Entities;
 			sourceTree = "<group>";
@@ -349,13 +357,13 @@
 				042293AB1F2CE54D00BE2CCD /* CategoryViewController.swift */,
 				046890631F30660C00104A80 /* ProfileViewController.swift */,
 				0425F4D71F31BE3C00748DC2 /* ProfileEditViewController.swift */,
-				0425F4D91F31E95000748DC2 /* ChangePasswordViewController.swift */,
 				04D98FBE1F3387310022C3D7 /* DonationCollectionViewController.swift */,
 				04D98FC21F338DCC0022C3D7 /* UserViewController.swift */,
 				04D98FC41F339BD20022C3D7 /* BookViewController.swift */,
 				04D98FCC1F34428C0022C3D7 /* ChatVC.swift */,
 				04D98FCD1F34428C0022C3D7 /* ConversationsVC.swift */,
 				04D98FCE1F34428C0022C3D7 /* VCCells.swift */,
+				048CF98C1F36FAFE00A9874A /* BookmarkCollectionViewController.swift */,
 			);
 			name = ViewControllers;
 			sourceTree = "<group>";
@@ -366,6 +374,7 @@
 				2E10FF861F2FF70B00330A78 /* ISBNDataManager.swift */,
 				2EEB68611F3140D0008BE8A1 /* PostingDataManager.swift */,
 				2EEB686B1F314888008BE8A1 /* CategoryDataManager.swift */,
+				048CF9901F37051A00A9874A /* PreferredLocationDataManager.swift */,
 			);
 			name = DataManagers;
 			sourceTree = "<group>";
@@ -685,18 +694,20 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				048CF9911F37051A00A9874A /* PreferredLocationDataManager.swift in Sources */,
 				04D98FD91F3442CD0022C3D7 /* User.swift in Sources */,
 				04D98FC71F33AEE10022C3D7 /* UserBookCollectionViewCell.swift in Sources */,
 				042293AC1F2CE54D00BE2CCD /* CategoryViewController.swift in Sources */,
 				040734621F0C446000BB6FF7 /* LoginViewController.swift in Sources */,
 				04D98FD81F3442CD0022C3D7 /* Message.swift in Sources */,
 				04D98FC31F338DCC0022C3D7 /* UserViewController.swift in Sources */,
+				048CF98D1F36FAFE00A9874A /* BookmarkCollectionViewController.swift in Sources */,
 				04D98FC51F339BD20022C3D7 /* BookViewController.swift in Sources */,
 				04D98FBF1F3387310022C3D7 /* DonationCollectionViewController.swift in Sources */,
 				0425F4D81F31BE3C00748DC2 /* ProfileEditViewController.swift in Sources */,
 				2EEB68621F3140D0008BE8A1 /* PostingDataManager.swift in Sources */,
+				048CF9931F374C0C00A9874A /* UserInfo.swift in Sources */,
 				2E10FF891F2FF77900330A78 /* ISBN.swift in Sources */,
-				0425F4DA1F31E95000748DC2 /* ChangePasswordViewController.swift in Sources */,
 				042293AE1F2CE7CD00BE2CCD /* Book.swift in Sources */,
 				0476FE091EADDB8A00CEF7EF /* ViewController.swift in Sources */,
 				041889EA1F0A7D7D00E6ED16 /* RegistrationFirstViewController.swift in Sources */,
@@ -716,6 +727,7 @@
 				041889F11F0BDA2400E6ED16 /* Profile.swift in Sources */,
 				046890641F30660C00104A80 /* ProfileViewController.swift in Sources */,
 				0407346C1F0C8FE200BB6FF7 /* BrowseCollectionViewCell.swift in Sources */,
+				048CF98F1F37039E00A9874A /* BookmarkCollectionViewCell.swift in Sources */,
 				2EEB68681F314438008BE8A1 /* LevelTableViewController.swift in Sources */,
 				2EEB686A1F3144EF008BE8A1 /* BookInfoAddViewController.swift in Sources */,
 				2EEB68661F314375008BE8A1 /* CategoryTableViewController.swift in Sources */,

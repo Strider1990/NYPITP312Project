@@ -16,6 +16,10 @@ class RootNavViewController: UINavigationController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        if login.userId == nil {
+            UserDefaults.standard.removeObject(forKey: "bookmarks")
+        }
+        
         navigationBar.tintColor = UIColor.white
         // Do any additional setup after loading the view.
     }
