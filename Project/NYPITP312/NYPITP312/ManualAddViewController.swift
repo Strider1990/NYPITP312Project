@@ -541,6 +541,7 @@ class ManualAddViewController: UIViewController, SendCategoryDelegate, SendBookD
                             //
                             //                let tabBarController: TabViewController = self.parent as! TabViewController
                             //                tabBarController.selectedIndex = 0
+                            self.tabBarController?.selectedIndex = 0
                         }
                         
                     })
@@ -560,6 +561,10 @@ class ManualAddViewController: UIViewController, SendCategoryDelegate, SendBookD
             
             // show the alert
             self.present(alert, animated: true, completion: nil)
+            
+//                            let tabBarController: TabViewController = self.parent as! TabViewController
+//                            tabBarController.selectedIndex = 0
+            
             
         }
         

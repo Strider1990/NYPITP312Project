@@ -681,14 +681,15 @@ class ScanConfirmViewController: UIViewController, SendCategoryDelegate, SendBoo
                     print("kitty cat")
                     print(PostingDataManager.userToken)
                     PostingDataManager.createPostingData(token: PostingDataManager.userToken!, cateid: catid, name: self.pname, isbn: self.pisbn, desc: self.pdesc, author: self.pauthor, publisher: self.ppub, edition: self.pedit, photos: self.filePath , loc: self.pLocationName, tags: "", onComplete: {
-                        
+                        DispatchQueue.main.async {
+                        //    self.navigationController?.popToRootViewController(animated: true)
+                              self.tabBarController?.selectedIndex = 0
+                        }
                     })
                 }
                 
             })
-            DispatchQueue.main.async {
-                self.navigationController?.popToRootViewController(animated: true)
-            }
+           
         } else {
             // create the alert
             let alert = UIAlertController(title: "Post", message: "Please enter the condition of the book and preferred location", preferredStyle: UIAlertControllerStyle.alert)

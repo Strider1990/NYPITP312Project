@@ -413,7 +413,8 @@ class ScannerViewController: ViewController, AVCaptureMetadataOutputObjectsDeleg
                 
                 AudioServicesPlayAlertSound(SystemSoundID(kSystemSoundID_Vibrate))
                 
-                detectLabel.text = metadataObj.stringValue
+            //    detectLabel.text = metadataObj.stringValue
+                 detectLabel.text = "Barcode detected, please wait while we process"
                 
                 // captureSession?.stopRunning()
                 
