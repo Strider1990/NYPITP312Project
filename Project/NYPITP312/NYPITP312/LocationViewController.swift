@@ -26,6 +26,7 @@ class LocationViewController: FormViewController {
     var userPlaceId : String!
     var userGeoLocation : CLLocationCoordinate2D!
     var locationName : String!
+    var pLoc : String = ""
     
     
     override func viewDidLoad() {
@@ -33,8 +34,7 @@ class LocationViewController: FormViewController {
         placesClient = GMSPlacesClient.shared()
         
         self.form = Form()
-            +++ Section("Default row")
-            <<< GooglePlacesAccessoryRow("nyan")
+            
             +++ Section("Select preferred location meet up")
             <<< GooglePlacesTableRow("nyan2"){ row in
                 row.onNetworkingError = { error in
@@ -44,43 +44,13 @@ class LocationViewController: FormViewController {
                 row.placeFilter?.type = .address
                 
                 
-            }
-            
-            
-            
-            //                .cellUpdate{ cell, row in
-            //                    if row.wasChanged{
-            //                    row.displayValueFor = {(a: (GooglePlace?)) in
-            //                        var s = a as! GMSAutocompletePrediction
-            //                        s.placeID
-            //                        s.types[1]
-            //
-            //                        print(s.types[1])
-            //                        print(s.placeID!)
-            //
-            //                        return s.placeID!
-            //                    }
-            //                    }
-            //
-            //            }
-            
-            
-            
-            +++ Section()
-            <<< LabelRow(){ row in
-                row.title = "Print values to console"
-                }.cellSetup { cell, row in
-                    cell.textLabel?.textAlignment = .center
-                }.onCellSelection { cell, row in
-                    for (tag, value) in row.section?.form?.values() ?? [:] {
-                        if let val = value {
-                            print("row \(tag) = \(val)")
-                        } else {
-                            print("row \(tag) = nil")
-                        }
-                    }
-                    print("------------------------------")
+                
         }
+        
+        
+        
+        
+        
         
         // Do any additional setup after loading the view.
     }
@@ -140,16 +110,37 @@ class LocationViewController: FormViewController {
             print("Place attributions \(place.coordinate)")
             self.userGeoLocation = place.coordinate
             self.locationName = place.name
+            print("Place name \(place.name)")
             
-            self.delegate?.sendLocation(location: self.userPlaceId, locName: self.locationName)
+            
+            
             
         })
-          _ = navigationController?.popViewController(animated: true)
+        self.delegate?.sendLocation(location: self.userPlaceId, locName: self.locationName)
+        
         
     }
     
+    /*
+     // MARK: - Navigation
+     
+     // In a storyboard-based application, you will often want to do a little preparation before navigation
+     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+     // Get the new view controller using segue.destinationViewController.
+     // Pass the selected object to the new view controller.
+     }
+     */
     
 }
 
 
-       
+//                row.displayValueFor = {(a: (GooglePlace?)) in
+//                var s = a as! GMSAutocompletePrediction
+//                    s.placeID
+//                    s.types[1]
+//
+//                    print(s.types[1])
+//                     print(s.placeID!)
+//
+//                  return s.placeID!
+//                }
