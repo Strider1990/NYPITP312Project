@@ -633,6 +633,11 @@ class ScanConfirmViewController: UIViewController, SendCategoryDelegate, SendBoo
             vc.delegate = self
             CategoryDataManager.firstTimeLevel = firstTimeForLevelArray
             vc.level = allLevelObjectArr
+        }else if segue.identifier == "scanLocationSegue" {
+            let vc = segue.destination as! LocationViewController
+            vc.delegate = self
+            vc.pLoc = pLocation
+            
         }
         
         
@@ -642,7 +647,7 @@ class ScanConfirmViewController: UIViewController, SendCategoryDelegate, SendBoo
     @IBAction func postPressed(_ sender: UIButton) {
         var counter = 0
         success = false
-        if PostingDataManager.userBookDataExist == true {
+        if PostingDataManager.userBookDataExist == true && PostingDataManager.userLocationDataExist == true {
             callPhotoApi(onComplete: {
                 
                 
@@ -675,7 +680,7 @@ class ScanConfirmViewController: UIViewController, SendCategoryDelegate, SendBoo
                     print("CATEGORY ID \(catid)")
                     print("kitty cat")
                     print(PostingDataManager.userToken)
-                    PostingDataManager.createPostingData(token: PostingDataManager.userToken!, cateid: catid, name: self.pname, isbn: self.pisbn, desc: self.pdesc, author: self.pauthor, publisher: self.ppub, edition: self.pedit, photos: self.filePath , loc: "", tags: "", onComplete: {
+                    PostingDataManager.createPostingData(token: PostingDataManager.userToken!, cateid: catid, name: self.pname, isbn: self.pisbn, desc: self.pdesc, author: self.pauthor, publisher: self.ppub, edition: self.pedit, photos: self.filePath , loc: self.pLocationName, tags: "", onComplete: {
                         
                     })
                 }
@@ -686,7 +691,7 @@ class ScanConfirmViewController: UIViewController, SendCategoryDelegate, SendBoo
             }
         } else {
             // create the alert
-            let alert = UIAlertController(title: "Post", message: "Please enter the condition of the book", preferredStyle: UIAlertControllerStyle.alert)
+            let alert = UIAlertController(title: "Post", message: "Please enter the condition of the book and preferred location", preferredStyle: UIAlertControllerStyle.alert)
             
             // add an action (button)
             alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.default, handler: nil))
