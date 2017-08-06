@@ -10,6 +10,7 @@ import UIKit
 import Firebase
 import OAuthSwift
 import FBSDKCoreKit
+import GooglePlaces
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate {
@@ -22,6 +23,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate {
         self.client = MSClient(
             applicationURLString:"https://nypitp312.azurewebsites.net"
         )
+        
+        let apiKey = "AIzaSyCdtwVO87DsLUPkbKrNWo1QizcGo8TpL_4"
+        GMSPlacesClient.provideAPIKey(apiKey)
+        
         
         var configureError: NSError?
         GGLContext.sharedInstance().configureWithError(&configureError)

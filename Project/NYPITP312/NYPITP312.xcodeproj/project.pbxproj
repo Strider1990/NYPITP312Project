@@ -76,6 +76,7 @@
 		2EEB68701F314B29008BE8A1 /* CustomButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EEB686F1F314B29008BE8A1 /* CustomButton.swift */; };
 		2EEB68721F314D74008BE8A1 /* ScanConfirmViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EEB68711F314D74008BE8A1 /* ScanConfirmViewController.swift */; };
 		2EEB68741F314DA7008BE8A1 /* ScanInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EEB68731F314DA7008BE8A1 /* ScanInfoViewController.swift */; };
+		2EF4EA071F37440F00762D4F /* LocationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EF4EA061F37440F00762D4F /* LocationViewController.swift */; };
 		4015E7B8543FBE161609E384 /* Pods_NYPITP312.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DA04224FB43BD25438257DAB /* Pods_NYPITP312.framework */; };
 		5092329FDCD30B8AA0EB5CC3 /* Pods_NYPITP312UITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5D46F7C116642D5749F84479 /* Pods_NYPITP312UITests.framework */; };
 /* End PBXBuildFile section */
@@ -172,6 +173,7 @@
 		2EEB686F1F314B29008BE8A1 /* CustomButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomButton.swift; sourceTree = "<group>"; };
 		2EEB68711F314D74008BE8A1 /* ScanConfirmViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScanConfirmViewController.swift; sourceTree = "<group>"; };
 		2EEB68731F314DA7008BE8A1 /* ScanInfoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScanInfoViewController.swift; sourceTree = "<group>"; };
+		2EF4EA061F37440F00762D4F /* LocationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationViewController.swift; sourceTree = "<group>"; };
 		45428F8D26CD40CF0371BD68 /* Pods-NYPITP312Tests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NYPITP312Tests.release.xcconfig"; path = "Pods/Target Support Files/Pods-NYPITP312Tests/Pods-NYPITP312Tests.release.xcconfig"; sourceTree = "<group>"; };
 		47E2CDB3923086D95346E7C7 /* Pods-NYPITP312.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NYPITP312.release.xcconfig"; path = "Pods/Target Support Files/Pods-NYPITP312/Pods-NYPITP312.release.xcconfig"; sourceTree = "<group>"; };
 		5D46F7C116642D5749F84479 /* Pods_NYPITP312UITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_NYPITP312UITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -356,6 +358,7 @@
 				04D98FCC1F34428C0022C3D7 /* ChatVC.swift */,
 				04D98FCD1F34428C0022C3D7 /* ConversationsVC.swift */,
 				04D98FCE1F34428C0022C3D7 /* VCCells.swift */,
+				2EF4EA061F37440F00762D4F /* LocationViewController.swift */,
 			);
 			name = ViewControllers;
 			sourceTree = "<group>";
@@ -468,7 +471,7 @@
 				TargetAttributes = {
 					0476FE021EADDB8A00CEF7EF = {
 						CreatedOnToolsVersion = 8.3.2;
-						DevelopmentTeam = MP7WY8W5VT;
+						DevelopmentTeam = EG8VHZPD3L;
 						LastSwiftMigration = 0830;
 						ProvisioningStyle = Automatic;
 						SystemCapabilities = {
@@ -693,6 +696,7 @@
 				04D98FC31F338DCC0022C3D7 /* UserViewController.swift in Sources */,
 				04D98FC51F339BD20022C3D7 /* BookViewController.swift in Sources */,
 				04D98FBF1F3387310022C3D7 /* DonationCollectionViewController.swift in Sources */,
+				2EF4EA071F37440F00762D4F /* LocationViewController.swift in Sources */,
 				0425F4D81F31BE3C00748DC2 /* ProfileEditViewController.swift in Sources */,
 				2EEB68621F3140D0008BE8A1 /* PostingDataManager.swift in Sources */,
 				2E10FF891F2FF77900330A78 /* ISBN.swift in Sources */,
@@ -895,7 +899,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = NYPITP312/NYPITP312.entitlements;
-				DEVELOPMENT_TEAM = MP7WY8W5VT;
+				DEVELOPMENT_TEAM = EG8VHZPD3L;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
@@ -905,7 +909,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				ONLY_ACTIVE_ARCH = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = com.alexooi.NYPITP312;
+				PRODUCT_BUNDLE_IDENTIFIER = com.ngwanying.NYPITP312;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "NYPITP312/NYPITP312-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -920,7 +924,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = NYPITP312/NYPITP312.entitlements;
-				DEVELOPMENT_TEAM = MP7WY8W5VT;
+				DEVELOPMENT_TEAM = EG8VHZPD3L;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
@@ -930,7 +934,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				ONLY_ACTIVE_ARCH = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = com.alexooi.NYPITP312;
+				PRODUCT_BUNDLE_IDENTIFIER = com.ngwanying.NYPITP312;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "NYPITP312/NYPITP312-Bridging-Header.h";
 				SWIFT_VERSION = 3.0;
