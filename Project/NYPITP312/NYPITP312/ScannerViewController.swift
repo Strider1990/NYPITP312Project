@@ -17,6 +17,8 @@
 import UIKit
 import AVFoundation
 import AudioToolbox
+//import VHBoomMenuButton
+
 
 
 var bookName : String!
@@ -31,12 +33,14 @@ var bookCateId : [String]!
 
 
 
-class ScannerViewController: UIViewController,AVCaptureMetadataOutputObjectsDelegate{
+class ScannerViewController: ViewController, AVCaptureMetadataOutputObjectsDelegate{
     /* override var preferredStatusBarStyle: UIStatusBarStyle {
      return .lightContent
      }*/
     
+    //  @IBOutlet weak var speechBtn: BoomMenuButton!
     // var userToken : String = ""
+    
     
     func setSegmentHidden(isHidden: Bool){
         
@@ -93,6 +97,7 @@ class ScannerViewController: UIViewController,AVCaptureMetadataOutputObjectsDele
                               AVMetadataObjectTypeQRCode]
     
     
+    
     override func viewWillAppear(_ animated: Bool) {
         
         print("a")
@@ -103,6 +108,31 @@ class ScannerViewController: UIViewController,AVCaptureMetadataOutputObjectsDele
         qrCodeFrameView?.frame = CGRect.zero
         detectLabel.text = "Try Manual Add if no barcode found."
         
+        //
+        //        let bmb1: BoomMenuButton = BoomMenuButton.init(frame: CGRect.init(x: 0, y: 0, width: 44, height: 44))
+        //        bmb1.boomDelegate = self
+        //        bmb1.buttonEnum = .textOutsideCircle
+        //        bmb1.piecePlaceEnum = .dot_1
+        //        bmb1.buttonPlaceEnum = .sc_1
+        //        bmb1.hasBackground = false
+        //        bmb1.pieceCornerRadius = 0
+        //        bmb1.duration = 1
+        //        for _ in 0..<bmb1.piecePlaceEnum.pieceNumber() {
+        //            let builder = TextOutsideCircleButtonBuilder.init()
+        //            builder.normalImageName = "mic"
+        //            builder.normalText = "Speech Add"
+        //            builder.pieceColor = UIColor.white
+        //            builder.highlightedColor = UIColor.purple
+        //            bmb1.addBuilder(builder)
+        //
+        //        }
+        var image = UIImage(named: "mic.png")
+        image = image?.withRenderingMode(UIImageRenderingMode.alwaysOriginal)
+        
+        self.parent?.navigationItem.rightBarButtonItem = UIBarButtonItem(image: image, style: UIBarButtonItemStyle.plain, target: self, action: #selector(ScannerViewController.btnMic))
+        
+        
+        
         self.parent?.navigationItem.title = "Donate"
         /*if donateSegment.selectedSegmentIndex == 0 {
          
@@ -110,6 +140,7 @@ class ScannerViewController: UIViewController,AVCaptureMetadataOutputObjectsDele
          //doneNavBtn.tintColor = UIColor.clear
          
          }*/
+        
     }
     
     
@@ -121,6 +152,24 @@ class ScannerViewController: UIViewController,AVCaptureMetadataOutputObjectsDele
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        
+        
+        //
+        //          speechBtn.boomDelegate = self
+        //        speechBtn.buttonEnum = .textInsideCircle
+        //        speechBtn.piecePlaceEnum = .dot_1
+        //         speechBtn.buttonPlaceEnum = .vertical
+        //        speechBtn.buttonPlaceAlignmentEnum = .bottomRight
+        //        speechBtn.buttonTopMargin = 20
+        //        for _ in 0..<speechBtn.piecePlaceEnum.pieceNumber() {
+        //            let builder = TextInsideCircleButtonBuilder.init()
+        //            builder.normalImageName = "mic"
+        //            builder.normalText = "Speech Add"
+        //            builder.pieceColor = UIColor.white
+        //            builder.highlightedColor = UIColor.purple
+        //            speechBtn.addBuilder(builder)
+        //        }
         
         
         let par: RootNavViewController = self.parent?.parent as! RootNavViewController
@@ -277,6 +326,7 @@ class ScannerViewController: UIViewController,AVCaptureMetadataOutputObjectsDele
             //Move the message label and top bar to the front
             view.bringSubview(toFront: detectLabel)
             view.bringSubview(toFront: navView)
+            
             
             //Initialise barcode frame to highlight the barcode
             qrCodeFrameView = UIView()
@@ -460,6 +510,11 @@ class ScannerViewController: UIViewController,AVCaptureMetadataOutputObjectsDele
          } */
     }
     
+    func btnMic() {
+        let speechVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "speechVC") as! SpeechViewController
+        self.navigationController?.pushViewController(speechVC, animated: true)
+    }
+    
     
     /*
      // MARK: - Navigation
@@ -470,5 +525,6 @@ class ScannerViewController: UIViewController,AVCaptureMetadataOutputObjectsDele
      // Pass the selected object to the new view controller.
      }
      */
+    
     
 }
