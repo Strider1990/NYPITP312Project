@@ -507,7 +507,7 @@ class ManualAddViewController: UIViewController, SendCategoryDelegate, SendBookD
         print(PostingDataManager.userCategoryDataExist)
         print(PostingDataManager.userCourselevelDataExist)
         print(PostingDataManager.userBookDataExist)
-        if PostingDataManager.userCategoryDataExist == true && PostingDataManager.userCourselevelDataExist == true && PostingDataManager.userBookDataExist == true {
+        if PostingDataManager.userCategoryDataExist == true && PostingDataManager.userCourselevelDataExist == true && PostingDataManager.userBookDataExist == true && PostingDataManager.userLocationDataExist {
             callPhotoApi(onComplete: {
                 
                 

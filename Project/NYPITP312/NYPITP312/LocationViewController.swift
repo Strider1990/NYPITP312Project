@@ -36,7 +36,7 @@ class LocationViewController: FormViewController {
         
         self.form = Form()
             
-            +++ Section("Select preferred location meet up")
+            +++ Section("Enter preferred location meet up")
             <<< GooglePlacesTableRow("nyan2"){ row in
                 row.onNetworkingError = { error in
                     print(error)
