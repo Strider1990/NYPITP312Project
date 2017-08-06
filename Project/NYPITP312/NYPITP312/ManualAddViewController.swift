@@ -27,10 +27,13 @@ var categoryArray = [Objects]()
 
 // var firstTime : BooleanLiteralType = true
 
-class ManualAddViewController: UIViewController, SendCategoryDelegate, SendBookDelegate, SendLevelDelegate, iCarouselDataSource, iCarouselDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate{
+class ManualAddViewController: UIViewController, SendCategoryDelegate, SendBookDelegate, SendLevelDelegate, iCarouselDataSource, iCarouselDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, SendLocationDelegate{
+    
+    
     @IBOutlet weak var courselevelBtn: UIButton!
     @IBOutlet weak var categoryBtn: UIButton!
     
+    @IBOutlet weak var locationLbl: UILabel!
     @IBOutlet weak var bookBtn: UIButton!
     
     @IBOutlet var postBtn: UIButton!
@@ -60,6 +63,8 @@ class ManualAddViewController: UIViewController, SendCategoryDelegate, SendBookD
     var pauthor : String = ""
     var pedit : String = ""
     var pdesc : String = ""
+    var pLocation : String = ""
+    
     
     var success : Bool = false;
     
@@ -162,8 +167,12 @@ class ManualAddViewController: UIViewController, SendCategoryDelegate, SendBookD
             CategoryDataManager.firstTimeLevel = firstTimeeLevel
             vc.level = allLevelObjectArr
             
+        } else if segue.identifier == "locationSegue" {
+            let vc = segue.destination as! LocationViewController
+            vc.delegate = self
+            vc.pLoc = pLocation
+            
         }
-        
         
     }
     
@@ -195,6 +204,14 @@ class ManualAddViewController: UIViewController, SendCategoryDelegate, SendBookD
     }
     func populateDataLevel(firstTime: Bool) {
         firstTimeeLevel = firstTime
+    }
+    
+    
+    func sendLocation(location: String!, locName: String!) {
+        print(locName)
+        locationLbl.text = locName
+        pLocation = location
+        PostingDataManager.userLocationDataExist = true
     }
     
     func sendData(data: Posting) {
@@ -487,21 +504,7 @@ class ManualAddViewController: UIViewController, SendCategoryDelegate, SendBookD
         print(PostingDataManager.userBookDataExist)
         if PostingDataManager.userCategoryDataExist == true && PostingDataManager.userCourselevelDataExist == true && PostingDataManager.userBookDataExist == true {
             callPhotoApi(onComplete: {
-                //            print("success")
-                //            print("level id nyaaan \(self.tempLevelid)")
-                //            print(" cate id nyannnn \(self.tempCateid)")
-                //            print("FILEPATH ARR COUNT ^~^ : \(self.filePath.count)")
-                //
-                //            for var i in 0 ..< self.filePath.count {
-                //                print(self.filePath[i]!)
-                //                print("huealien")
-                //            }
-                //            var catid : [String] = [self.tempCateid!,self.tempLevelid!]
-                //
-                //            print("CATEGORY ID \(catid)")
-                //            PostingDataManager.createPostingData(token: "", cateid: catid, name: self.pname, isbn: self.pisbn, desc: self.pdesc, author: self.pauthor, publisher: self.ppub, edition: self.pedit, photos: self.filePath as! [String], loc: "", tags: "", onComplete: {
-                //
-                //            })
+                
                 
                 print("success")
                 print("level id nyaaan \(self.tempLevelid)")
@@ -527,7 +530,13 @@ class ManualAddViewController: UIViewController, SendCategoryDelegate, SendBookD
                     
                     print("CATEGORY ID \(catid)")
                     print("kitty cat")
-                    PostingDataManager.createPostingData(token: self.userToken , cateid: catid, name: self.pname, isbn: self.pisbn, desc: self.pdesc, author: self.pauthor, publisher: self.ppub, edition: self.pedit, photos: self.filePath , loc: "", tags: "", onComplete: {
+                    PostingDataManager.createPostingData(token: self.userToken , cateid: catid, name: self.pname, isbn: self.pisbn, desc: self.pdesc, author: self.pauthor, publisher: self.ppub, edition: self.pedit, photos: self.filePath , loc: self.pLocation, tags: "", onComplete: {
+                        DispatchQueue.main.async {
+                            self.navigationController?.popToRootViewController(animated: true)
+                            //
+                            //                let tabBarController: TabViewController = self.parent as! TabViewController
+                            //                tabBarController.selectedIndex = 0
+                        }
                         
                     })
                     
@@ -535,12 +544,7 @@ class ManualAddViewController: UIViewController, SendCategoryDelegate, SendBookD
                 
                 
             })
-            DispatchQueue.main.async {
-             //   self.navigationController?.popToRootViewController(animated: true)
-                
-             //   let tabBarController: TabViewController = self.parent as! TabViewController
-             //   tabBarController.selectedIndex = 0
-            }
+            
             
         } else {
             // create the alert
@@ -638,473 +642,4 @@ extension SCLAlertView {
     }
 }
 
-
-//   http://13.228.39.122/fpsatimgdev/loadimage.aspx?q=postings/0_a3eacd46902a4f6384dc165fb770ead2_r300
-
-//    @IBAction func imageTapped(_ sender: UITapGestureRecognizer) {
-//
-//        print("Nyan")
-//        let alert = UIAlertController(title: "Alert", message: "Message", preferredStyle: UIAlertControllerStyle.alert)
-//        alert.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.default, handler: nil))
-//        self.present(alert, animated: true, completion: nil)
-//    }
-
-/*
- @IBAction func buttonPressed(_ sender: UIButton) {
- 
- if sender == categoryBtn {
- let categoryVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "categoryVC") as! UITableViewController
- self.navigationController?.pushViewController(categoryVC, animated: true)
- 
- } else if sender == bookBtn {
- let bookInfoAddVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "bookInfoAddVC") as! BookInfoAddViewController
- self.navigationController?.pushViewController(bookInfoAddVC, animated: true)
- 
- let bookInfoAddVC = BookInfoAddViewController()
- bookInfoAddVC.asd = "Taylor Swift"
- navigationController?.pushViewController(bookInfoAddVC, animated: true)
- 
- } else if sender == courselevelBtn {
- let courseLevelVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "courseLevelVC") as! UITableViewController
- self.navigationController?.pushViewController(courseLevelVC, animated: true)
- }
- 
- } */
-//
-//    @IBAction func imageTapped(_ sender: UITapGestureRecognizer) {
-//        let alert = UIAlertController(title: "Alert", message: "Message", preferredStyle: UIAlertControllerStyle.alert)
-//        alert.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.default, handler: nil))
-//        self.present(alert, animated: true, completion: nil)
-//
-//    }
-
-
-
-//        form +++ Section("Details")
-//            <<< PushRow<String>() {
-//                $0.title = "Category"
-//                $0.selectorTitle = "Pick a category"
-//                $0.options = ["One","Two","Three"]
-//                $0.value = "Two"    // initially selected
-//            }
-//            <<< PushRow<String>() {
-//                $0.title = "ActionSheetRow"
-//                $0.selectorTitle = "Pick a number"
-//                $0.options = ["One","Two","Three"]
-//                $0.value = "Two"    // initially selected
-//            }
-//            <<< PushRow<String>() {
-//                $0.title = "ActionSheetRow"
-//                $0.selectorTitle = "Pick a number"
-//                $0.options = ["One","Two","Three"]
-//                $0.value = "Two"    // initially selected
-//            }
-//            +++ Section("Sharing")
-//            <<< DateRow(){
-//                $0.title = "Date Row"
-//                $0.value = Date(timeIntervalSinceReferenceDate: 0)
-//            }
-//            <<< PushRow<String>() {
-//                $0.title = "ActionSheetRow"
-//                $0.selectorTitle = "Pick a category"
-//                $0.options = textbook
-//            //    tableView.reloadData()
-//              //  $0.value = self.textbook[0]    // initially selected
-//                  }
-//                .cellUpdate { cell, row in
-//                    row.options = self.textbook
-//        }
-
-/*   let urlCategory = "http://13.228.39.122/FP01_654265348176237/1.0/category/list"
- 
- HTTP.postJSON(url: urlCategory,
- json: JSON.init([
- "heading" : "Textbook",
- "limit" : "50"
- ]), onComplete: {
- json, response, error in
- 
- if json != nil {
- print(json!)
- 
- print(json![0]["id"])
- print(json![0]["displayorder"])
- print(json![0]["heading"])
- print(json![0]["name"])
- 
- 
- print("size of the array:  \(json!.count)")
- 
- for var i in 0 ..< json!.count{
- self.textbook.append(json![i]["name"].string!)
- }
- 
- HTTP.postJSON(url: urlCategory,
- json: JSON.init([
- "heading" : "Storybook",
- "limit" : "50"
- ]), onComplete: {
- json, response, error in
- 
- if json != nil {
- print(json!)
- 
- print(json![0]["id"])
- print(json![0]["displayorder"])
- print(json![0]["heading"])
- print(json![0]["name"])
- 
- 
- print("size of the array:  \(json!.count)")
- 
- for var i in 0 ..< json!.count{
- self.storybook.append(json![i]["name"].string!)
- }
- 
- 
- HTTP.postJSON(url: urlCategory,
- json: JSON.init([
- "heading" : "Others",
- "limit" : "50"
- ]), onComplete: {
- json, response, error in
- 
- if json != nil {
- print(json!)
- 
- print(json![0]["id"])
- print(json![0]["displayorder"])
- print(json![0]["heading"])
- print(json![0]["name"])
- 
- 
- print("size of the array:  \(json!.count)")
- 
- for var i in 0 ..< json!.count{
- self.others.append(json![i]["name"].string!)
- }
- 
- self.names = [
- "Textbooks": self.textbook,
- "Storybooks": self.storybook,
- "Others" : self.others
- ]
- 
- print(self.textbook.count)
- print(self.storybook.count)
- print(self.others.count)
- for (key, value) in self.names {
- print("\(key) -> \(value)")
- self.objectArray.append(Objects(sectionName: key, sectionObjects: value))
- }
- 
- DispatchQueue.main.async {
- 
- self.tableView.reloadData()
- }
- } else{
- print("failed api request")
- return
- }
- 
- 
- })
- 
- } else{
- print("failed api request")
- return
- }
- })
- 
- 
- 
- } else{
- print("failed api request")
- return
- }
- 
- 
- }) */
-
-
-
-//        Alamofire.upload(multipartFormData: { (multipartFormData) in
-//
-//            multipartFormData.append(fileData, withName: "file_pack", fileName: "file_pack", mimeType: "text/plain")
-//
-//
-//            for (key, value) in self.parameters {
-//                multipartFormData.append(value.data(using: String.Encoding.utf8)!, withName: key)
-//            }
-//        }, with: URL, encodingCompletion: { (result) in
-//
-//            switch result {
-//            case .success(let upload, _, _):
-//
-//                upload.responseJSON { response in
-//                    self.delegate?.showSuccessAlert()
-//                    print(response.request)  // original URL request
-//                    print(response.response) // URL response
-//                    print(response.data)     // server data
-//                    print(response.result)   // result of response serialization
-//                    //                        self.showSuccesAlert()
-//                    self.removeImage("frame", fileExtension: "txt")
-//                    if let JSON = response.result.value {
-//                        print("JSON: \(JSON)")
-//                    }
-//                }
-//
-//            case .failure(let encodingError):
-//                self.delegate?.showFailAlert()
-//                print(encodingError)
-//            }
-//
-//        })
-
-
-// ======================================
-
-/*       func uploadImageAndData(){
- //parameters
- 
- let token = "#123456"
- //  let file =
- 
- 
- var parameters = [String:String]()
- parameters = ["token":token]
- 
- let URL = "http://yourserviceurl/"
- for var i in 0..<pictures.count {
- //Use image name from bundle to create NSData
- let image : UIImage = pictures[i]!
- //      let image = UIImage(named: "image.png")
- 
- Alamofire.upload(.POST, URL, multipartFormData: {
- multipartFormData in
- if  let imageData = UIImageJPEGRepresentation(image, 0.6) {
- multipartFormData.appendBodyPart(data: imageData, name: "image", fileName: "file.png", mimeType: "image/png")
- }
- for (key, value) in parameters {
- multipartFormData.appendBodyPart(data: value.dataUsingEncoding(NSUTF8StringEncoding)!, name: key)
- }
- }, encodingCompletion: {
- encodingResult in
- 
- switch encodingResult {
- case .Success(let upload, _, _):
- print("s")
- upload.responseJSON { response in
- print(response.request)  // original URL request
- print(response.response) // URL response
- print(response.data)     // server data
- print(response.result)   // result of response serialization
- 
- if let JSON = response.result.value {
- print("JSON: \(JSON)")
- }
- }
- 
- case .Failure(let encodingError):
- print(encodingError)
- }
- })
- }
- }
- */
-// ===== INITIAL PHOTO UPLOAD WEB API PLACED HERE =======
-/*
- let parameters = [
- "token": "#123456"
- ]
- for var i in 0..<pictures.count {
- //Use image name from bundle to create NSData
- let image : UIImage = pictures[i]!
- 
- 
- Alamofire.upload(multipartFormData: { (multipartFormData) in
- multipartFormData.append(UIImageJPEGRepresentation(image, 0.5)!, withName: "file", fileName: "file.png", mimeType: "image/png")
- for (key, value) in parameters {
- multipartFormData.append(value.data(using: String.Encoding.utf8)!, withName: key)
- }
- }, to:"http://13.228.39.122/FP01_654265348176237/1.0/photos/addp")
- { (result) in
- switch result {
- case .success(let upload, _, _):
- 
- upload.uploadProgress(closure: { (Progress) in
- print("Upload Progress: \(Progress.fractionCompleted)")
- })
- 
- upload.responseJSON { response in
- //self.delegate?.showSuccessAlert()
- print(response.request)  // original URL request
- print(response.response) // URL response
- print(response.data)     // server data
- print(response.result)   // result of response serialization
- //                        self.showSuccesAlert()
- //self.removeImage("frame", fileExtension: "txt")
- if let JSON = response.result.value {
- print("JSON: \(JSON)")
- 
- }
- if let data = response.result.value as? [String: Any]{
- print("File PATH : ")
- print(data["filepath"]!)
- self.filePath[i] = data["filePath"] as? String
- }
- }
- 
- case .failure(let encodingError):
- //self.delegate?.showFailAlert()
- print(encodingError)
- }
- 
- }
- } */
-
-//==== URL
-
-
-
-/*
- let urlCategory = "http://13.228.39.122/FP01_654265348176237/1.0/photos/addp"
- 
- for var i in 0..<pictures.count {
- //Use image name from bundle to create NSData
- let image : UIImage = pictures[i]!
- //Now use image to create into NSData format
- let imageData:NSData = UIImagePNGRepresentation(image)! as NSData
- 
- let strBase64 = imageData.base64EncodedString(options: .lineLength64Characters)
- print(strBase64)
- 
- 
- 
- HTTP.postJSON(url: urlCategory,
- json: JSON.init([
- "token" : "#123456",
- "file" : strBase64
- ]), onComplete: {
- json, response, error in
- 
- if json != nil {
- print(json!)
- 
- print(json![0]["success"])
- print(json![0]["filepath"])
- 
- 
- 
- print("size of the array:  \(json!.count)")
- 
- for var i in 0 ..< json!.count{
- self.filePath.append(json![i]["filePath"].string!)
- }
- 
- DispatchQueue.main.async {
- 
- 
- }
- } else{
- print("failed api request")
- return
- }
- 
- 
- })
- 
- 
- }
- 
- */
-/*
- 
- print("level id nyaaan \(self.tempLevelid)")
- print(" cate id nyannnn \(self.tempCateid)")
- */
-//  postItem?.cateid = ["4","3"]
-//     postItem?.cateid = [tempCateid!, tempLevelid!]
-//        if postItem != nil {
-//        //    postItem!.cateid = ["4","3"]
-//            print(postItem!.cateid!)
-//        }
-
-/*   print("FILEPATH ARR COUNT ^~^ : \(filePath.count)")
- 
- for var i in 0 ..< filePath.count {
- print(filePath[i]!)
- } */
-
-// var arr = ["1"]
-/*
- var catid : [String] = [tempCateid!,tempLevelid!]
- 
- print("CATEGORY ID \(catid)") */
-
-
-//        let pname = String(describing: postItem?.name!)
-//        let pisbn = postItem?.isbn
-//             var ppub = postItem?.publisher
-//             var pauthor = postItem?.author
-//             var pedit = postItem?.edition
-//             var pdesc = postItem?.desc
-//
-/*
- PostingDataManager.createPostingData(token: "", cateid: catid, name: pname, isbn: pisbn, desc: pdesc, author: pauthor, publisher: ppub, edition: pedit, photos: filePath as! [String], loc: "", tags: "", onComplete: {
- 
- }) */
-
-/*  let urlPost = "http://13.228.39.122/FP01_654265348176237/1.0/posting/add"
- 
- print("P FAMILY \(catid)")
- print("P FAMILY \(pname)")
- print("P FAMILY \(pisbn)")
- print("P FAMILY \(pdesc)")
- print("P FAMILY \(pauthor)")
- print("P FAMILY \(ppub)")
- print("P FAMILY \(pedit)")
- 
- 
- 
- HTTP.postJSON(url: urlPost,
- json: JSON.init([
- "token" : "#123456",
- "cateid" : catid,
- "name" : pname,
- "isbn" : pisbn,
- "desc" : pdesc,
- "author" :pauthor,
- "publisher" : ppub,
- "edition" : pedit,
- "photos": arr,
- "preferredloc" : "Yio Chu Kang MRT",
- "tags" : "English"
- ]), onComplete: {
- json, response, error in
- 
- if json != nil {
- print(json!)
- 
- print(json!["success"].string!)
- print(json!["id"].string!)
- 
- 
- 
- print("size of the array:  \(json!.count)")
- 
- 
- 
- DispatchQueue.main.async {
- 
- 
- }
- } else{
- print("failed api request")
- return
- }
- 
- 
- })
- */
 
