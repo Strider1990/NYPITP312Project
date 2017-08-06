@@ -12,7 +12,7 @@ import GooglePlaces
 import GooglePlacesRow
 
 protocol SendLocationDelegate {
-    func sendLocation(location: String! , locName: String!)
+    func sendLocation(location: String , locName: String)
 }
 
 
@@ -112,11 +112,11 @@ class LocationViewController: FormViewController {
             self.locationName = place.name
             print("Place name \(place.name)")
             
-            
+              self.delegate?.sendLocation(location: self.userPlaceId, locName: self.locationName)
             
             
         })
-        self.delegate?.sendLocation(location: self.userPlaceId, locName: self.locationName)
+      
         
         
     }

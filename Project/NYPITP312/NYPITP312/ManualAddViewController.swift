@@ -207,7 +207,7 @@ class ManualAddViewController: UIViewController, SendCategoryDelegate, SendBookD
     }
     
     
-    func sendLocation(location: String!, locName: String!) {
+    func sendLocation(location: String, locName: String) {
         print(locName)
         locationLbl.text = locName
         pLocation = location
