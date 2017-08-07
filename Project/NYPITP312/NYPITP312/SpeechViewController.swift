@@ -40,12 +40,13 @@ class SpeechViewController : UIViewController, AudioControllerDelegate {
     var audioData: NSMutableData!
     let synth = AVSpeechSynthesizer()
     var myUtterance = AVSpeechUtterance(string: "")
+    var bookName : String = ""
     
     override func viewDidLoad() {
         super.viewDidLoad()
         AudioController.sharedInstance.delegate = self
         
-        myUtterance = AVSpeechUtterance(string: "Hello , you are currently in the donate tab. First, please read out the book name that you would like to donate.")
+        myUtterance = AVSpeechUtterance(string: "Hi, you are currently in the donate tab, click on the mic and tell me the book name you are donating")
         myUtterance.pitchMultiplier = 1
         myUtterance.rate = 0.5
         synth.speak(myUtterance)
@@ -98,8 +99,17 @@ class SpeechViewController : UIViewController, AudioControllerDelegate {
                             }
                         }
                         strongSelf.textView.text = response.description
+                     
                         if finished {
                             strongSelf.stopAudio(strongSelf)
+                            print(response.resultsArray_Count)
+                            strongSelf.bookName = response.resultsArray.description
+                            print(strongSelf.bookName)
+                            for object in response.resultsArray {
+                                if let object = object as? StreamingRecognizeResponse {
+                                    print(object.resultsArray[0])
+                                }
+                            }
                         }
                     }
             })
